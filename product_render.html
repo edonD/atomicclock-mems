@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSAC-1 | nanotech</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #000000;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  canvas { display: block; }
+  .control-panel {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 10;
+    width: min(320px, calc(100vw - 36px));
+    padding: 14px;
+    border: 1px solid rgba(124, 169, 255, 0.25);
+    border-radius: 16px;
+    background: rgba(6, 10, 20, 0.82);
+    backdrop-filter: blur(10px);
+    color: #e8f1ff;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38);
+  }
+  .control-panel h2 {
+    margin-bottom: 10px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #b7d8ff;
+  }
+  .control-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 12px;
+  }
+  .control-field {
+    display: grid;
+    gap: 6px;
+  }
+  .control-field.wide {
+    grid-column: 1 / -1;
+  }
+  .control-field label {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #95a9c9;
+  }
+  .control-field input[type="color"] {
+    width: 100%;
+    height: 38px;
+    border: 1px solid rgba(164, 198, 255, 0.18);
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .control-field input[type="text"] {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid rgba(164, 198, 255, 0.18);
+    border-radius: 10px;
+    background: rgba(10, 16, 29, 0.9);
+    color: #eaf3ff;
+    outline: none;
+  }
+  .control-field input[type="range"] {
+    width: 100%;
+    accent-color: #5fbfff;
+  }
+  .control-field output {
+    font-size: 11px;
+    color: #cce1ff;
+    text-align: right;
+  }
+  .control-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .panel-divider {
+    height: 1px;
+    margin: 12px 0;
+    background: linear-gradient(90deg, rgba(95, 191, 255, 0), rgba(95, 191, 255, 0.42), rgba(95, 191, 255, 0));
+  }
+  .export-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .export-actions button {
+    height: 40px;
+    border: 1px solid rgba(138, 189, 255, 0.22);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(27, 42, 74, 0.95), rgba(11, 18, 33, 0.95));
+    color: #eaf3ff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .export-actions button:hover {
+    border-color: rgba(126, 205, 255, 0.44);
+    background: linear-gradient(180deg, rgba(35, 56, 96, 0.98), rgba(13, 23, 42, 0.98));
+  }
+</style>
+</head>
+<body>
+
+<div class="control-panel">
+  <h2>Live Controls</h2>
+  <div class="control-grid">
+    <div class="control-field wide">
+      <label for="companyName">Company Name</label>
+      <input id="companyName" type="text" value="nanotech" maxlength="24" spellcheck="false">
+    </div>
+    <div class="control-field">
+      <label for="primaryColor">Atomic Text</label>
+      <input id="primaryColor" type="color" value="#1e79ba">
+    </div>
+    <div class="control-field">
+      <label for="secondaryColor">Clock Text</label>
+      <input id="secondaryColor" type="color" value="#28adc9">
+    </div>
+    <div class="control-field">
+      <label for="brandColor">Brand Text</label>
+      <input id="brandColor" type="color" value="#29b4d3">
+    </div>
+    <div class="control-field">
+      <label for="borderColor">Top Border</label>
+      <input id="borderColor" type="color" value="#66dbff">
+    </div>
+  </div>
+  <div class="panel-divider"></div>
+  <div class="control-grid">
+    <div class="control-field wide">
+      <div class="control-row">
+        <label for="keyLightX">Key Light X</label>
+        <output id="keyLightXValue">-3.5</output>
+      </div>
+      <input id="keyLightX" type="range" min="-8" max="8" step="0.1" value="-3.5">
+    </div>
+    <div class="control-field wide">
+      <div class="control-row">
+        <label for="keyLightY">Key Light Y</label>
+        <output id="keyLightYValue">5.8</output>
+      </div>
+      <input id="keyLightY" type="range" min="0" max="10" step="0.1" value="5.8">
+    </div>
+    <div class="control-field wide">
+      <div class="control-row">
+        <label for="keyLightZ">Key Light Z</label>
+        <output id="keyLightZValue">2.8</output>
+      </div>
+      <input id="keyLightZ" type="range" min="-8" max="8" step="0.1" value="2.8">
+    </div>
+    <div class="control-field wide">
+      <div class="control-row">
+        <label for="fillLightX">Fill Light X</label>
+        <output id="fillLightXValue">5.8</output>
+      </div>
+      <input id="fillLightX" type="range" min="-8" max="8" step="0.1" value="5.8">
+    </div>
+    <div class="control-field wide">
+      <div class="control-row">
+        <label for="fillLightY">Fill Light Y</label>
+        <output id="fillLightYValue">2.4</output>
+      </div>
+      <input id="fillLightY" type="range" min="0" max="10" step="0.1" value="2.4">
+    </div>
+    <div class="control-field wide">
+      <div class="control-row">
+        <label for="fillLightZ">Fill Light Z</label>
+        <output id="fillLightZValue">-0.2</output>
+      </div>
+      <input id="fillLightZ" type="range" min="-8" max="8" step="0.1" value="-0.2">
+    </div>
+  </div>
+  <div class="export-actions">
+    <button id="exportBackground" type="button">Export BG</button>
+    <button id="exportTransparent" type="button">Export Transparent</button>
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+const renderer = new THREE.WebGLRenderer({
+  antialias: true,
+  alpha: true,
+  preserveDrawingBuffer: true
+});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.12;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.setClearColor(0x000000, 0);
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+
+function roundedRectPath(ctx, x, y, w, h, r) {
+  const rr = Math.min(r, w * 0.5, h * 0.5);
+  ctx.beginPath();
+  ctx.moveTo(x + rr, y);
+  ctx.lineTo(x + w - rr, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + rr);
+  ctx.lineTo(x + w, y + h - rr);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - rr, y + h);
+  ctx.lineTo(x + rr, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - rr);
+  ctx.lineTo(x, y + rr);
+  ctx.quadraticCurveTo(x, y, x + rr, y);
+  ctx.closePath();
+}
+
+function buildBackdropTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 2;
+  canvas.height = 512;
+  const g = canvas.getContext('2d');
+
+  g.fillStyle = '#000000';
+  g.fillRect(0, 0, canvas.width, canvas.height);
+
+  return new THREE.CanvasTexture(canvas);
+}
+
+scene.background = buildBackdropTexture();
+
+function paintStripLight(ctx, x, width, alpha, tint) {
+  const strip = ctx.createLinearGradient(x, 0, x + width, 0);
+  strip.addColorStop(0.00, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
+  strip.addColorStop(0.25, `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha * 0.5})`);
+  strip.addColorStop(0.55, `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha})`);
+  strip.addColorStop(0.80, `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha * 0.28})`);
+  strip.addColorStop(1.00, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
+  ctx.fillStyle = strip;
+  ctx.fillRect(x, 0, width, 256);
+}
+
+function makeBrushedMetalMaps(size = 1024) {
+  const albedo = document.createElement('canvas');
+  const rough = document.createElement('canvas');
+  const normal = document.createElement('canvas');
+  albedo.width = rough.width = normal.width = size;
+  albedo.height = rough.height = normal.height = size;
+
+  const ga = albedo.getContext('2d');
+  const gr = rough.getContext('2d');
+  const gn = normal.getContext('2d');
+
+  ga.fillStyle = '#d4dce3';
+  ga.fillRect(0, 0, size, size);
+  gr.fillStyle = 'rgb(96,96,96)';
+  gr.fillRect(0, 0, size, size);
+  gn.fillStyle = 'rgb(128,128,255)';
+  gn.fillRect(0, 0, size, size);
+
+  for (let y = 0; y < size; y += 2) {
+    const bright = 196 + Math.random() * 28;
+    const alpha = 0.035 + Math.random() * 0.05;
+    ga.fillStyle = `rgba(${bright},${bright + 4},${bright + 8},${alpha})`;
+    ga.fillRect(0, y, size, 1);
+
+    const roughValue = 72 + Math.random() * 48;
+    gr.fillStyle = `rgba(${roughValue},${roughValue},${roughValue},${0.22 + Math.random() * 0.16})`;
+    gr.fillRect(0, y, size, 1);
+
+    const nx = 126 + Math.floor(Math.random() * 5);
+    gn.fillStyle = `rgba(${nx},128,255,0.28)`;
+    gn.fillRect(0, y, size, 1);
+  }
+
+  for (let i = 0; i < 1300; i += 1) {
+    const x = Math.random() * size;
+    const y = Math.random() * size;
+    const w = 20 + Math.random() * 100;
+
+    ga.fillStyle = `rgba(255,255,255,${Math.random() * 0.014})`;
+    ga.fillRect(x, y, w, 1);
+
+    gr.fillStyle = `rgba(40,40,40,${Math.random() * 0.022})`;
+    gr.fillRect(x, y, w, 1);
+  }
+
+  const albedoTexture = new THREE.CanvasTexture(albedo);
+  albedoTexture.wrapS = albedoTexture.wrapT = THREE.RepeatWrapping;
+  albedoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  albedoTexture.colorSpace = THREE.SRGBColorSpace;
+
+  const roughTexture = new THREE.CanvasTexture(rough);
+  roughTexture.wrapS = roughTexture.wrapT = THREE.RepeatWrapping;
+  roughTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+  const normalTexture = new THREE.CanvasTexture(normal);
+  normalTexture.wrapS = normalTexture.wrapT = THREE.RepeatWrapping;
+  normalTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+  return {
+    albedoTexture,
+    roughTexture,
+    normalTexture
+  };
+}
+
+{
+  const canvas = document.createElement('canvas');
+  canvas.width = 768;
+  canvas.height = 256;
+  const g = canvas.getContext('2d');
+
+  g.fillStyle = '#5d646d';
+  g.fillRect(0, 0, canvas.width, canvas.height);
+
+  const dome = g.createLinearGradient(0, 0, 0, 160);
+  dome.addColorStop(0.00, '#e7edf4');
+  dome.addColorStop(0.40, '#aeb7c1');
+  dome.addColorStop(1.00, '#636b74');
+  g.fillStyle = dome;
+  g.fillRect(0, 0, canvas.width, 160);
+
+  const floorFade = g.createLinearGradient(0, 156, 0, canvas.height);
+  floorFade.addColorStop(0.00, '#20252c');
+  floorFade.addColorStop(1.00, '#020305');
+  g.fillStyle = floorFade;
+  g.fillRect(0, 156, canvas.width, canvas.height - 156);
+
+  paintStripLight(g, 72, 86, 0.92, [255, 255, 255]);
+  paintStripLight(g, 258, 44, 0.52, [216, 231, 255]);
+  paintStripLight(g, 545, 78, 0.72, [255, 255, 255]);
+
+  const warmKey = g.createRadialGradient(166, 46, 0, 166, 46, 170);
+  warmKey.addColorStop(0, 'rgba(255,251,246,0.95)');
+  warmKey.addColorStop(1, 'rgba(255,251,246,0)');
+  g.fillStyle = warmKey;
+  g.fillRect(0, 0, canvas.width, canvas.height);
+
+  const coolFill = g.createRadialGradient(618, 102, 0, 618, 102, 158);
+  coolFill.addColorStop(0, 'rgba(168,197,255,0.58)');
+  coolFill.addColorStop(1, 'rgba(168,197,255,0)');
+  g.fillStyle = coolFill;
+  g.fillRect(0, 0, canvas.width, canvas.height);
+
+  const envTexture = new THREE.CanvasTexture(canvas);
+  envTexture.mapping = THREE.EquirectangularReflectionMapping;
+  envTexture.colorSpace = THREE.SRGBColorSpace;
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  pmrem.compileEquirectangularShader();
+  scene.environment = pmrem.fromEquirectangular(envTexture).texture;
+  envTexture.dispose();
+  pmrem.dispose();
+}
+
+const camera = new THREE.PerspectiveCamera(28, window.innerWidth / window.innerHeight, 0.01, 100);
+camera.position.set(2.45, 1.58, 3.25);
+camera.lookAt(0, 0.24, 0);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.target.set(0, 0.22, 0);
+controls.minDistance = 1.25;
+controls.maxDistance = 8;
+controls.maxPolarAngle = Math.PI * 0.58;
+
+const hemi = new THREE.HemisphereLight(0xdbe8ff, 0x05070b, 1.9);
+scene.add(hemi);
+
+const key = new THREE.DirectionalLight(0xfffaf3, 3.9);
+key.position.set(-3.5, 5.8, 2.8);
+key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+key.shadow.camera.near = 0.5;
+key.shadow.camera.far = 16;
+key.shadow.camera.left = -2.2;
+key.shadow.camera.right = 2.2;
+key.shadow.camera.top = 2.0;
+key.shadow.camera.bottom = -2.0;
+key.shadow.bias = -0.00025;
+key.shadow.normalBias = 0.02;
+scene.add(key);
+
+const fill = new THREE.DirectionalLight(0xbfd6ff, 1.9);
+fill.position.set(5.8, 2.4, -0.2);
+scene.add(fill);
+
+const rim = new THREE.DirectionalLight(0xf7fbff, 1.65);
+rim.position.set(-0.8, 3.4, -5.2);
+scene.add(rim);
+
+const front = new THREE.DirectionalLight(0xf8f8ff, 1.1);
+front.position.set(0.5, 1.8, 6.0);
+scene.add(front);
+
+function hexToRgb(hex) {
+  const clean = hex.replace('#', '');
+  const expanded = clean.length === 3 ? clean.split('').map((c) => c + c).join('') : clean;
+  const value = Number.parseInt(expanded, 16);
+  return {
+    r: (value >> 16) & 255,
+    g: (value >> 8) & 255,
+    b: value & 255
+  };
+}
+
+function rgbaFromHex(hex, alpha) {
+  const { r, g, b } = hexToRgb(hex);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function mixHex(hexA, hexB, amount) {
+  const a = hexToRgb(hexA);
+  const b = hexToRgb(hexB);
+  const mix = (start, end) => Math.round(start + (end - start) * amount);
+  return `rgb(${mix(a.r, b.r)},${mix(a.g, b.g)},${mix(a.b, b.b)})`;
+}
+
+const ui = {
+  companyName: document.getElementById('companyName'),
+  primaryColor: document.getElementById('primaryColor'),
+  secondaryColor: document.getElementById('secondaryColor'),
+  brandColor: document.getElementById('brandColor'),
+  borderColor: document.getElementById('borderColor'),
+  exportBackground: document.getElementById('exportBackground'),
+  exportTransparent: document.getElementById('exportTransparent'),
+  keyLightX: document.getElementById('keyLightX'),
+  keyLightY: document.getElementById('keyLightY'),
+  keyLightZ: document.getElementById('keyLightZ'),
+  fillLightX: document.getElementById('fillLightX'),
+  fillLightY: document.getElementById('fillLightY'),
+  fillLightZ: document.getElementById('fillLightZ'),
+  keyLightXValue: document.getElementById('keyLightXValue'),
+  keyLightYValue: document.getElementById('keyLightYValue'),
+  keyLightZValue: document.getElementById('keyLightZValue'),
+  fillLightXValue: document.getElementById('fillLightXValue'),
+  fillLightYValue: document.getElementById('fillLightYValue'),
+  fillLightZValue: document.getElementById('fillLightZValue')
+};
+
+const designState = {
+  companyName: ui.companyName.value,
+  primaryColor: ui.primaryColor.value,
+  secondaryColor: ui.secondaryColor.value,
+  brandColor: ui.brandColor.value,
+  borderColor: ui.borderColor.value
+};
+
+const lightState = {
+  keyX: Number.parseFloat(ui.keyLightX.value),
+  keyY: Number.parseFloat(ui.keyLightY.value),
+  keyZ: Number.parseFloat(ui.keyLightZ.value),
+  fillX: Number.parseFloat(ui.fillLightX.value),
+  fillY: Number.parseFloat(ui.fillLightY.value),
+  fillZ: Number.parseFloat(ui.fillLightZ.value)
+};
+
+function buildEngravingMaps(theme = designState) {
+  const width = 1600;
+  const height = 1200;
+
+  const colorCanvas = document.createElement('canvas');
+  const heightCanvas = document.createElement('canvas');
+  const roughCanvas = document.createElement('canvas');
+  const overlayCanvas = document.createElement('canvas');
+  const alphaCanvas = document.createElement('canvas');
+  colorCanvas.width = heightCanvas.width = roughCanvas.width = overlayCanvas.width = alphaCanvas.width = width;
+  colorCanvas.height = heightCanvas.height = roughCanvas.height = overlayCanvas.height = alphaCanvas.height = height;
+
+  const color = colorCanvas.getContext('2d');
+  const heightCtx = heightCanvas.getContext('2d');
+  const rough = roughCanvas.getContext('2d');
+  const overlay = overlayCanvas.getContext('2d');
+  const alpha = alphaCanvas.getContext('2d');
+
+  const baseGrad = color.createLinearGradient(0, 0, width, height);
+  baseGrad.addColorStop(0.00, '#dfe8ef');
+  baseGrad.addColorStop(0.34, '#cfd9e2');
+  baseGrad.addColorStop(0.67, '#bcc8d3');
+  baseGrad.addColorStop(1.00, '#e2ebf2');
+  color.fillStyle = baseGrad;
+  color.fillRect(0, 0, width, height);
+
+  for (let y = 0; y < height; y += 2) {
+    const alpha = 0.014 + Math.random() * 0.018;
+    color.fillStyle = `rgba(255,255,255,${alpha})`;
+    color.fillRect(0, y, width, 1);
+  }
+
+  for (let y = 1; y < height; y += 4) {
+    const alpha = 0.010 + Math.random() * 0.014;
+    color.fillStyle = `rgba(70,82,98,${alpha})`;
+    color.fillRect(0, y, width, 1);
+  }
+
+  const sheen = color.createLinearGradient(0, 0, width, 0);
+  sheen.addColorStop(0.00, 'rgba(255,255,255,0)');
+  sheen.addColorStop(0.22, 'rgba(255,255,255,0.08)');
+  sheen.addColorStop(0.40, 'rgba(255,255,255,0.16)');
+  sheen.addColorStop(0.58, 'rgba(255,255,255,0.04)');
+  sheen.addColorStop(1.00, 'rgba(255,255,255,0)');
+  color.fillStyle = sheen;
+  color.fillRect(0, 0, width, height);
+
+  const coolSweep = color.createRadialGradient(width * 0.78, height * 0.22, 0, width * 0.78, height * 0.22, width * 0.35);
+  coolSweep.addColorStop(0, 'rgba(118,214,255,0.22)');
+  coolSweep.addColorStop(1, 'rgba(150,180,225,0)');
+  color.fillStyle = coolSweep;
+  color.fillRect(0, 0, width, height);
+
+  const aurora = color.createLinearGradient(width * 0.18, 0, width * 0.74, height);
+  aurora.addColorStop(0.00, 'rgba(95,190,255,0)');
+  aurora.addColorStop(0.36, 'rgba(95,190,255,0.06)');
+  aurora.addColorStop(0.62, 'rgba(116,255,228,0.09)');
+  aurora.addColorStop(1.00, 'rgba(116,255,228,0)');
+  color.fillStyle = aurora;
+  color.fillRect(0, 0, width, height);
+
+  color.save();
+  color.fillStyle = 'rgba(172,186,200,0.72)';
+  roundedRectPath(color, 118, 100, width - 236, height - 200, 50);
+  color.fill();
+  color.restore();
+
+  heightCtx.fillStyle = '#ffffff';
+  heightCtx.fillRect(0, 0, width, height);
+
+  rough.fillStyle = '#666666';
+  rough.fillRect(0, 0, width, height);
+
+  alpha.fillStyle = '#000000';
+  alpha.fillRect(0, 0, width, height);
+  alpha.save();
+  alpha.fillStyle = '#ffffff';
+  roundedRectPath(alpha, 104, 86, width - 208, height - 172, 58);
+  alpha.fill();
+  alpha.restore();
+
+  const accentPrimary = theme.primaryColor;
+  const accentSecondary = theme.secondaryColor;
+  const accentMuted = mixHex('#446478', theme.secondaryColor, 0.32);
+  const brandColor = theme.brandColor;
+  const borderColor = theme.borderColor;
+  const companyName = (theme.companyName || 'nanotech').trim() || 'nanotech';
+
+  function strokeGroove(x, y, w, h, radius, lineWidth) {
+    heightCtx.save();
+    heightCtx.strokeStyle = '#060606';
+    heightCtx.lineWidth = lineWidth;
+    heightCtx.filter = 'blur(2px)';
+    roundedRectPath(heightCtx, x, y, w, h, radius);
+    heightCtx.stroke();
+    heightCtx.restore();
+
+    heightCtx.save();
+    heightCtx.strokeStyle = '#101010';
+    heightCtx.lineWidth = lineWidth * 0.55;
+    roundedRectPath(heightCtx, x, y, w, h, radius);
+    heightCtx.stroke();
+    heightCtx.restore();
+
+    color.save();
+    color.strokeStyle = 'rgba(51,114,156,0.42)';
+    color.lineWidth = lineWidth * 0.6;
+    roundedRectPath(color, x, y, w, h, radius);
+    color.stroke();
+    color.translate(0, -2);
+    color.strokeStyle = 'rgba(190,247,255,0.22)';
+    roundedRectPath(color, x, y, w, h, radius);
+    color.stroke();
+    color.restore();
+
+    rough.save();
+    rough.strokeStyle = '#d4d4d4';
+    rough.lineWidth = lineWidth * 0.55;
+    roundedRectPath(rough, x, y, w, h, radius);
+    rough.stroke();
+    rough.restore();
+  }
+
+  function drawEngravedText(text, x, y, options = {}) {
+    const {
+      font = '600 64px "Segoe UI", Arial, sans-serif',
+      align = 'left',
+      colorFill = accentMuted,
+      roughFill = '#dbdbdb',
+      blur = 1.6,
+      lineWidth = 1
+    } = options;
+
+    heightCtx.save();
+    heightCtx.font = font;
+    heightCtx.textAlign = align;
+    heightCtx.textBaseline = 'alphabetic';
+    heightCtx.lineWidth = lineWidth;
+    heightCtx.fillStyle = '#0f0f10';
+    heightCtx.filter = `blur(${blur}px)`;
+    heightCtx.fillText(text, x, y);
+    heightCtx.restore();
+
+    heightCtx.save();
+    heightCtx.font = font;
+    heightCtx.textAlign = align;
+    heightCtx.textBaseline = 'alphabetic';
+    heightCtx.fillStyle = '#020202';
+    heightCtx.fillText(text, x, y);
+    heightCtx.restore();
+
+    color.save();
+    color.font = font;
+    color.textAlign = align;
+    color.textBaseline = 'alphabetic';
+    color.fillStyle = colorFill;
+    color.fillText(text, x, y);
+    color.translate(0, -2);
+    color.globalCompositeOperation = 'screen';
+    color.fillStyle = 'rgba(255,255,255,0.08)';
+    color.fillText(text, x, y);
+    color.restore();
+
+    rough.save();
+    rough.font = font;
+    rough.textAlign = align;
+    rough.textBaseline = 'alphabetic';
+    rough.fillStyle = roughFill;
+    rough.fillText(text, x, y);
+    rough.restore();
+  }
+
+  function drawOverlayText(text, x, y, options = {}) {
+    const {
+      font = '600 64px "Segoe UI", Arial, sans-serif',
+      align = 'left',
+      fill = accentPrimary,
+      stroke = 'rgba(210,245,255,0.72)',
+      lineWidth = 2.2
+    } = options;
+
+    overlay.save();
+    overlay.font = font;
+    overlay.textAlign = align;
+    overlay.textBaseline = 'alphabetic';
+    overlay.fillStyle = fill;
+    overlay.strokeStyle = stroke;
+    overlay.lineWidth = lineWidth;
+    overlay.lineJoin = 'round';
+    overlay.fillText(text, x, y);
+    overlay.strokeText(text, x, y);
+    overlay.restore();
+  }
+
+  function drawOverlayBorder(x, y, w, h, r, options = {}) {
+    const {
+      lineWidth = 4,
+      glowBlur = 16
+    } = options;
+
+    const grad = overlay.createLinearGradient(x, y, x + w, y + h);
+    grad.addColorStop(0.00, rgbaFromHex(borderColor, 0.88));
+    grad.addColorStop(0.32, rgbaFromHex(theme.secondaryColor, 0.76));
+    grad.addColorStop(0.70, rgbaFromHex(theme.primaryColor, 0.82));
+    grad.addColorStop(1.00, rgbaFromHex(borderColor, 0.84));
+
+    overlay.save();
+    overlay.strokeStyle = grad;
+    overlay.lineWidth = lineWidth;
+    overlay.lineJoin = 'round';
+    overlay.shadowColor = rgbaFromHex(borderColor, 0.42);
+    overlay.shadowBlur = glowBlur;
+    roundedRectPath(overlay, x, y, w, h, r);
+    overlay.stroke();
+    overlay.restore();
+  }
+
+  function drawAtomModel(ctx, x, y, options = {}) {
+    const {
+      scale = 1,
+      orbitWidth = 12,
+      nucleusRadius = 24,
+      electronRadius = 9
+    } = options;
+
+    const orbitRx = 150 * scale;
+    const orbitRy = 56 * scale;
+    const electronAngles = [
+      { rotation: 0, theta: 0.18 },
+      { rotation: Math.PI / 3, theta: Math.PI - 0.58 },
+      { rotation: -Math.PI / 3, theta: Math.PI + 0.42 }
+    ];
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.lineWidth = orbitWidth * scale;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    for (const rotation of [0, Math.PI / 3, -Math.PI / 3]) {
+      ctx.save();
+      ctx.rotate(rotation);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, orbitRx, orbitRy, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    for (const electron of electronAngles) {
+      ctx.save();
+      ctx.rotate(electron.rotation);
+      ctx.beginPath();
+      ctx.arc(
+        Math.cos(electron.theta) * orbitRx,
+        Math.sin(electron.theta) * orbitRy,
+        electronRadius * scale,
+        0,
+        Math.PI * 2
+      );
+      ctx.fill();
+      ctx.restore();
+    }
+
+    ctx.beginPath();
+    ctx.arc(0, 0, nucleusRadius * scale, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function engraveAtomModel(x, y, options = {}) {
+    const {
+      scale = 1
+    } = options;
+
+    heightCtx.save();
+    heightCtx.strokeStyle = '#0b1016';
+    heightCtx.fillStyle = '#0b1016';
+    heightCtx.filter = 'blur(2.5px)';
+    drawAtomModel(heightCtx, x, y, {
+      scale,
+      orbitWidth: 15,
+      nucleusRadius: 25,
+      electronRadius: 10
+    });
+    heightCtx.restore();
+
+    heightCtx.save();
+    heightCtx.strokeStyle = '#020406';
+    heightCtx.fillStyle = '#020406';
+    drawAtomModel(heightCtx, x, y, {
+      scale,
+      orbitWidth: 12,
+      nucleusRadius: 22,
+      electronRadius: 9
+    });
+    heightCtx.restore();
+
+    color.save();
+    color.strokeStyle = accentPrimary;
+    color.fillStyle = accentSecondary;
+    drawAtomModel(color, x, y, {
+      scale,
+      orbitWidth: 11,
+      nucleusRadius: 21,
+      electronRadius: 8
+    });
+    color.translate(0, -2);
+    color.globalCompositeOperation = 'screen';
+    color.strokeStyle = 'rgba(188,245,255,0.15)';
+    color.fillStyle = 'rgba(188,245,255,0.15)';
+    drawAtomModel(color, x, y, {
+      scale,
+      orbitWidth: 9,
+      nucleusRadius: 18,
+      electronRadius: 7
+    });
+    color.restore();
+
+    rough.save();
+    rough.strokeStyle = '#d9d9d9';
+    rough.fillStyle = '#d3d3d3';
+    drawAtomModel(rough, x, y, {
+      scale,
+      orbitWidth: 10,
+      nucleusRadius: 20,
+      electronRadius: 8
+    });
+    rough.restore();
+  }
+
+  function drawOverlayAtomModel(x, y, options = {}) {
+    const {
+      scale = 1
+    } = options;
+
+    overlay.save();
+    overlay.strokeStyle = accentPrimary;
+    overlay.fillStyle = accentSecondary;
+    drawAtomModel(overlay, x, y, {
+      scale,
+      orbitWidth: 10,
+      nucleusRadius: 19,
+      electronRadius: 8
+    });
+    overlay.restore();
+
+    overlay.save();
+    overlay.strokeStyle = 'rgba(215,248,255,0.64)';
+    overlay.fillStyle = 'rgba(215,248,255,0.72)';
+    drawAtomModel(overlay, x, y, {
+      scale,
+      orbitWidth: 5,
+      nucleusRadius: 10,
+      electronRadius: 4
+    });
+    overlay.restore();
+  }
+
+  strokeGroove(104, 86, width - 208, height - 172, 58, 12);
+  strokeGroove(156, 158, width - 312, height - 316, 44, 6);
+
+  color.save();
+  color.strokeStyle = rgbaFromHex(borderColor, 0.28);
+  color.lineWidth = 5;
+  color.beginPath();
+  color.moveTo(width - 232, 232);
+  color.lineTo(width - 232, 968);
+  color.stroke();
+  color.fillStyle = rgbaFromHex(theme.primaryColor, 0.36);
+  color.fillRect(width - 248, 222, 26, 24);
+  color.fillStyle = rgbaFromHex(borderColor, 0.28);
+  color.fillRect(width - 262, 230, 14, 8);
+  color.restore();
+
+  drawEngravedText(companyName, 178, 250, {
+    font: '600 82px "Segoe UI", Arial, sans-serif',
+    colorFill: accentSecondary,
+    roughFill: '#cccccc',
+    blur: 1.4
+  });
+
+  engraveAtomModel(width * 0.5, 448, { scale: 1.08 });
+
+  drawEngravedText('ATOMIC', width * 0.5, 760, {
+    font: '700 170px "Segoe UI", Arial, sans-serif',
+    align: 'center',
+    colorFill: accentPrimary,
+    roughFill: '#e0e0e0',
+    blur: 2.1
+  });
+
+  drawEngravedText('CLOCK', width * 0.5, 905, {
+    font: '700 170px "Segoe UI", Arial, sans-serif',
+    align: 'center',
+    colorFill: accentSecondary,
+    roughFill: '#dfdfdf',
+    blur: 2.1
+  });
+
+  drawEngravedText('RUBIDIUM MEMS FREQUENCY REFERENCE', width * 0.5, 1038, {
+    font: '600 40px "Segoe UI", Arial, sans-serif',
+    align: 'center',
+    colorFill: '#5a86a0',
+    roughFill: '#d4d4d4',
+    blur: 1.4
+  });
+
+  drawOverlayText(companyName, 178, 250, {
+    font: '600 82px "Segoe UI", Arial, sans-serif',
+    fill: brandColor,
+    stroke: 'rgba(220,250,255,0.50)',
+    lineWidth: 1.6
+  });
+
+  drawOverlayBorder(104, 86, width - 208, height - 172, 58, {
+    lineWidth: 5,
+    glowBlur: 20
+  });
+  drawOverlayBorder(156, 158, width - 312, height - 316, 44, {
+    lineWidth: 2.4,
+    glowBlur: 10
+  });
+
+  drawOverlayAtomModel(width * 0.5, 448, { scale: 1.08 });
+
+  drawOverlayText('ATOMIC', width * 0.5, 760, {
+    font: '700 170px "Segoe UI", Arial, sans-serif',
+    align: 'center',
+    fill: theme.primaryColor,
+    stroke: 'rgba(224,249,255,0.84)',
+    lineWidth: 3
+  });
+
+  drawOverlayText('CLOCK', width * 0.5, 905, {
+    font: '700 170px "Segoe UI", Arial, sans-serif',
+    align: 'center',
+    fill: theme.secondaryColor,
+    stroke: 'rgba(226,250,255,0.82)',
+    lineWidth: 3
+  });
+
+  drawOverlayText('RUBIDIUM MEMS FREQUENCY REFERENCE', width * 0.5, 1038, {
+    font: '600 40px "Segoe UI", Arial, sans-serif',
+    align: 'center',
+    fill: mixHex(theme.primaryColor, theme.secondaryColor, 0.48),
+    stroke: 'rgba(220,246,255,0.52)',
+    lineWidth: 1.4
+  });
+
+  color.save();
+  color.fillStyle = 'rgba(126,232,255,0.52)';
+  color.beginPath();
+  color.arc(width - 214, 232, 22, 0, Math.PI * 2);
+  color.fill();
+  color.fillRect(width - 252, 226, 76, 12);
+  color.fillStyle = 'rgba(255,255,255,0.12)';
+  color.fillRect(width - 252, 222, 76, 3);
+  color.restore();
+
+  const colorTexture = new THREE.CanvasTexture(colorCanvas);
+  colorTexture.colorSpace = THREE.SRGBColorSpace;
+  colorTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+  const heightTexture = new THREE.CanvasTexture(heightCanvas);
+  heightTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+  const roughTexture = new THREE.CanvasTexture(roughCanvas);
+  roughTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+  const overlayTexture = new THREE.CanvasTexture(overlayCanvas);
+  overlayTexture.colorSpace = THREE.SRGBColorSpace;
+  overlayTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+  const alphaTexture = new THREE.CanvasTexture(alphaCanvas);
+  alphaTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+  return {
+    colorTexture,
+    heightTexture,
+    roughTexture,
+    overlayTexture,
+    alphaTexture
+  };
+}
+
+const packageGroup = new THREE.Group();
+packageGroup.position.y = 0.012;
+packageGroup.rotation.x = -0.035;
+packageGroup.rotation.y = -0.58;
+packageGroup.rotation.z = 0.014;
+scene.add(packageGroup);
+
+const CHIP_W = 1.04;
+const CHIP_H = 0.23;
+const CHIP_D = 0.92;
+
+const { albedoTexture, roughTexture, normalTexture } = makeBrushedMetalMaps(1024);
+albedoTexture.repeat.set(1.0, 5.5);
+roughTexture.repeat.set(1.0, 5.5);
+normalTexture.repeat.set(1.0, 5.5);
+
+const packageMetal = new THREE.MeshPhysicalMaterial({
+  map: albedoTexture,
+  roughnessMap: roughTexture,
+  normalMap: normalTexture,
+  normalScale: new THREE.Vector2(0.22, 0.22),
+  color: new THREE.Color(0.88, 0.92, 0.96),
+  metalness: 1.0,
+  roughness: 0.28,
+  envMapIntensity: 1.55,
+  clearcoat: 0.03,
+  clearcoatRoughness: 0.22
+});
+
+const body = new THREE.Mesh(
+  new RoundedBoxGeometry(CHIP_W, CHIP_H, CHIP_D, 12, 0.075),
+  packageMetal
+);
+body.position.y = CHIP_H * 0.5;
+body.castShadow = true;
+body.receiveShadow = true;
+packageGroup.add(body);
+
+let engraveMaps = buildEngravingMaps(designState);
+const plateDepth = 0.0065;
+const plate = new THREE.Mesh(
+  new THREE.PlaneGeometry(CHIP_W * 0.80, CHIP_D * 0.74, 260, 220),
+  new THREE.MeshPhysicalMaterial({
+    map: engraveMaps.colorTexture,
+    displacementMap: engraveMaps.heightTexture,
+    roughnessMap: engraveMaps.roughTexture,
+    alphaMap: engraveMaps.alphaTexture,
+    displacementScale: plateDepth,
+    displacementBias: -plateDepth,
+    color: new THREE.Color(0.84, 0.90, 0.96),
+    metalness: 0.72,
+    roughness: 0.50,
+    envMapIntensity: 0.42,
+    clearcoat: 0.02,
+    clearcoatRoughness: 0.20,
+    polygonOffset: true,
+    polygonOffsetFactor: -2,
+    polygonOffsetUnits: -2,
+    transparent: true,
+    alphaTest: 0.5
+  })
+);
+plate.rotation.x = -Math.PI / 2;
+plate.position.y = CHIP_H + 0.0008;
+plate.castShadow = true;
+plate.receiveShadow = true;
+packageGroup.add(plate);
+
+const fillOverlay = new THREE.Mesh(
+  new THREE.PlaneGeometry(CHIP_W * 0.80, CHIP_D * 0.74),
+  new THREE.MeshBasicMaterial({
+    map: engraveMaps.overlayTexture,
+    transparent: true,
+    opacity: 0.96,
+    depthWrite: false,
+    toneMapped: false
+  })
+);
+fillOverlay.rotation.x = -Math.PI / 2;
+fillOverlay.position.y = plate.position.y + 0.0016;
+packageGroup.add(fillOverlay);
+
+function disposeTextureSet(textureSet) {
+  for (const texture of Object.values(textureSet)) {
+    texture.dispose();
+  }
+}
+
+function rebuildEngravingMaps() {
+  const nextMaps = buildEngravingMaps(designState);
+
+  plate.material.map = nextMaps.colorTexture;
+  plate.material.displacementMap = nextMaps.heightTexture;
+  plate.material.roughnessMap = nextMaps.roughTexture;
+  plate.material.alphaMap = nextMaps.alphaTexture;
+  plate.material.needsUpdate = true;
+
+  fillOverlay.material.map = nextMaps.overlayTexture;
+  fillOverlay.material.needsUpdate = true;
+
+  disposeTextureSet(engraveMaps);
+  engraveMaps = nextMaps;
+}
+
+function updateLightOutputs() {
+  ui.keyLightXValue.textContent = lightState.keyX.toFixed(1);
+  ui.keyLightYValue.textContent = lightState.keyY.toFixed(1);
+  ui.keyLightZValue.textContent = lightState.keyZ.toFixed(1);
+  ui.fillLightXValue.textContent = lightState.fillX.toFixed(1);
+  ui.fillLightYValue.textContent = lightState.fillY.toFixed(1);
+  ui.fillLightZValue.textContent = lightState.fillZ.toFixed(1);
+}
+
+function applyLightState() {
+  key.position.set(lightState.keyX, lightState.keyY, lightState.keyZ);
+  fill.position.set(lightState.fillX, lightState.fillY, lightState.fillZ);
+  updateLightOutputs();
+}
+
+function bindColorControl(input, stateKey) {
+  input.addEventListener('input', () => {
+    designState[stateKey] = input.value;
+    rebuildEngravingMaps();
+  });
+}
+
+function bindTextControl(input, stateKey) {
+  input.addEventListener('input', () => {
+    designState[stateKey] = input.value;
+    document.title = `${(designState.companyName || 'Atomic Clock').trim() || 'Atomic Clock'} | Atomic Clock`;
+    rebuildEngravingMaps();
+  });
+}
+
+function bindSliderControl(input, stateKey) {
+  input.addEventListener('input', () => {
+    lightState[stateKey] = Number.parseFloat(input.value);
+    applyLightState();
+  });
+}
+
+function downloadCanvas(filename) {
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = renderer.domElement.toDataURL('image/png');
+  link.click();
+}
+
+function exportImage({ transparent = false } = {}) {
+  const previousBackground = scene.background;
+  const previousFloorVisible = floor.visible;
+  const previousFloorGlowVisible = floorGlow.visible;
+  const previousAutoSpin = autoSpin;
+  const previousPanelVisibility = document.querySelector('.control-panel').style.visibility;
+
+  autoSpin = false;
+  document.querySelector('.control-panel').style.visibility = 'hidden';
+
+  if (transparent) {
+    scene.background = null;
+    floor.visible = false;
+    floorGlow.visible = false;
+  }
+
+  controls.update();
+  renderer.render(scene, camera);
+  downloadCanvas(transparent ? 'atomic-clock-transparent.png' : 'atomic-clock-background.png');
+
+  scene.background = previousBackground;
+  floor.visible = previousFloorVisible;
+  floorGlow.visible = previousFloorGlowVisible;
+  document.querySelector('.control-panel').style.visibility = previousPanelVisibility;
+  autoSpin = previousAutoSpin;
+  renderer.render(scene, camera);
+}
+
+const contactMaterial = new THREE.MeshPhysicalMaterial({
+  color: 0xc9a24d,
+  metalness: 1.0,
+  roughness: 0.18,
+  envMapIntensity: 1.9,
+  clearcoat: 0.08,
+  clearcoatRoughness: 0.18
+});
+
+const padGeometry = new THREE.BoxGeometry(0.10, 0.016, 0.08);
+const padY = 0.010;
+const padXs = [-0.36, -0.18, 0, 0.18, 0.36];
+const padZs = [-0.26, 0.26];
+for (const z of padZs) {
+  for (const x of padXs) {
+    const pad = new THREE.Mesh(padGeometry, contactMaterial);
+    pad.position.set(x, padY, z);
+    pad.castShadow = true;
+    pad.receiveShadow = true;
+    packageGroup.add(pad);
+  }
+}
+
+const floor = new THREE.Mesh(
+  new THREE.PlaneGeometry(18, 18),
+  new THREE.MeshStandardMaterial({
+    color: 0x000000,
+    roughness: 0.96,
+    metalness: 0.04
+  })
+);
+floor.rotation.x = -Math.PI / 2;
+floor.receiveShadow = true;
+scene.add(floor);
+
+const floorGlow = new THREE.Mesh(
+  new THREE.PlaneGeometry(3.6, 3.6),
+  new THREE.MeshStandardMaterial({
+    color: 0x000000,
+    transparent: true,
+    opacity: 0.14,
+    roughness: 0.40,
+    metalness: 0.10
+  })
+);
+floorGlow.rotation.x = -Math.PI / 2;
+floorGlow.position.y = 0.0008;
+scene.add(floorGlow);
+
+const vignette = document.createElement('div');
+vignette.style.cssText = `
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 24%, rgba(0, 0, 0, 0.38) 100%);
+`;
+document.body.appendChild(vignette);
+
+bindColorControl(ui.primaryColor, 'primaryColor');
+bindColorControl(ui.secondaryColor, 'secondaryColor');
+bindColorControl(ui.brandColor, 'brandColor');
+bindColorControl(ui.borderColor, 'borderColor');
+bindTextControl(ui.companyName, 'companyName');
+
+bindSliderControl(ui.keyLightX, 'keyX');
+bindSliderControl(ui.keyLightY, 'keyY');
+bindSliderControl(ui.keyLightZ, 'keyZ');
+bindSliderControl(ui.fillLightX, 'fillX');
+bindSliderControl(ui.fillLightY, 'fillY');
+bindSliderControl(ui.fillLightZ, 'fillZ');
+document.title = `${(designState.companyName || 'Atomic Clock').trim() || 'Atomic Clock'} | Atomic Clock`;
+ui.exportBackground.addEventListener('click', () => exportImage({ transparent: false }));
+ui.exportTransparent.addEventListener('click', () => exportImage({ transparent: true }));
+applyLightState();
+
+let autoSpin = true;
+let lastInteract = 0;
+controls.addEventListener('start', () => {
+  autoSpin = false;
+  lastInteract = Date.now();
+});
+controls.addEventListener('end', () => {
+  lastInteract = Date.now();
+});
+
+const clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  const t = clock.getElapsedTime();
+  if (!autoSpin && Date.now() - lastInteract > 3200) {
+    autoSpin = true;
+  }
+
+  if (autoSpin) {
+    packageGroup.rotation.y = -0.62 + Math.sin(t * 0.22) * 0.085;
+    packageGroup.rotation.z = 0.018 + Math.sin(t * 0.31) * 0.005;
+  }
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+animate();
+</script>
+
+</body>
+</html>
