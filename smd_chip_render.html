@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSAC-1 SOIC-16 | nanotech</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background: #000;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+      canvas {
+        display: block;
+      }
+      .cp {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        z-index: 10;
+        width: min(310px, calc(100vw-36px));
+        padding: 14px;
+        border: 1px solid rgba(124, 169, 255, 0.25);
+        border-radius: 16px;
+        background: rgba(6, 10, 20, 0.82);
+        backdrop-filter: blur(10px);
+        color: #e8f1ff;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38);
+      }
+      .cp h2 {
+        margin-bottom: 10px;
+        font-size: 13px;
+        letter-spacing: 0.14em;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #b7d8ff;
+      }
+      .cg {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 12px;
+      }
+      .cf {
+        display: grid;
+        gap: 6px;
+      }
+      .cf.w {
+        grid-column: 1/-1;
+      }
+      .cf label {
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #95a9c9;
+      }
+      .cf input[type="color"] {
+        width: 100%;
+        height: 36px;
+        border: 1px solid rgba(164, 198, 255, 0.18);
+        border-radius: 10px;
+        background: transparent;
+        cursor: pointer;
+      }
+      .cf input[type="text"] {
+        width: 100%;
+        height: 36px;
+        padding: 0 12px;
+        border: 1px solid rgba(164, 198, 255, 0.18);
+        border-radius: 10px;
+        background: rgba(10, 16, 29, 0.9);
+        color: #eaf3ff;
+        outline: none;
+      }
+      .cf input[type="range"] {
+        width: 100%;
+        accent-color: #5fbfff;
+      }
+      .cf output {
+        font-size: 11px;
+        color: #cce1ff;
+        text-align: right;
+      }
+      .cr {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+      .dv {
+        height: 1px;
+        margin: 12px 0;
+        background: linear-gradient(
+          90deg,
+          rgba(95, 191, 255, 0),
+          rgba(95, 191, 255, 0.42),
+          rgba(95, 191, 255, 0)
+        );
+      }
+      .ea {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .ea button {
+        height: 38px;
+        border: 1px solid rgba(138, 189, 255, 0.22);
+        border-radius: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(27, 42, 74, 0.95),
+          rgba(11, 18, 33, 0.95)
+        );
+        color: #eaf3ff;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cp">
+      <h2>SMD Chip Controls</h2>
+      <div class="cg">
+        <div class="cf w">
+          <label>Company Name</label
+          ><input
+            id="cName"
+            type="text"
+            value="nanotech"
+            maxlength="24"
+            spellcheck="false"
+          />
+        </div>
+        <div class="cf w">
+          <label>Part Number</label
+          ><input
+            id="cPart"
+            type="text"
+            value="CSAC-1087"
+            maxlength="24"
+            spellcheck="false"
+          />
+        </div>
+        <div class="cf">
+          <label>Marking Color</label
+          ><input id="cMark" type="color" value="#b8b8b8" />
+        </div>
+        <div class="cf">
+          <label>Body Tint</label
+          ><input id="cBody" type="color" value="#1a1a22" />
+        </div>
+      </div>
+      <div class="dv"></div>
+      <div class="cg">
+        <div class="cf w">
+          <div class="cr">
+            <label>Key Light</label><output id="oKey">4.0</output>
+          </div>
+          <input id="sKey" type="range" min="0" max="8" step=".1" value="4.0" />
+        </div>
+        <div class="cf w">
+          <div class="cr">
+            <label>Fill Light</label><output id="oFill">2.0</output>
+          </div>
+          <input
+            id="sFill"
+            type="range"
+            min="0"
+            max="6"
+            step=".1"
+            value="2.0"
+          />
+        </div>
+        <div class="cf w">
+          <div class="cr">
+            <label>Roughness</label><output id="oRough">0.58</output>
+          </div>
+          <input
+            id="sRough"
+            type="range"
+            min="0.2"
+            max="1"
+            step=".02"
+            value="0.58"
+          />
+        </div>
+      </div>
+      <div class="ea">
+        <button id="expBg">Export BG</button>
+        <button id="expTr">Export Transparent</button>
+      </div>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+      import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+
+      const R = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        preserveDrawingBuffer: true,
+      });
+      R.setPixelRatio(Math.min(devicePixelRatio, 2));
+      R.setSize(innerWidth, innerHeight);
+      R.shadowMap.enabled = true;
+      R.shadowMap.type = THREE.PCFSoftShadowMap;
+      R.toneMapping = THREE.ACESFilmicToneMapping;
+      R.toneMappingExposure = 1.08;
+      R.outputColorSpace = THREE.SRGBColorSpace;
+      R.setClearColor(0x000000, 0);
+      document.body.appendChild(R.domElement);
+
+      const scene = new THREE.Scene();
+
+      function makeBackdropTexture() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 4;
+        canvas.height = 1024;
+        const g = canvas.getContext("2d");
+
+        const gradient = g.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0.0, "#70788b");
+        gradient.addColorStop(0.28, "#5b6270");
+        gradient.addColorStop(0.55, "#414653");
+        gradient.addColorStop(1.0, "#181c24");
+        g.fillStyle = gradient;
+        g.fillRect(0, 0, canvas.width, canvas.height);
+
+        g.fillStyle = "rgba(255,255,255,0.08)";
+        g.fillRect(0, canvas.height * 0.42, canvas.width, canvas.height * 0.07);
+        g.fillStyle = "rgba(255,255,255,0.02)";
+        g.fillRect(0, canvas.height * 0.49, canvas.width, canvas.height * 0.06);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        return texture;
+      }
+
+      function paintStripLight(ctx, x, width, alpha, tint) {
+        const strip = ctx.createLinearGradient(x, 0, x + width, 0);
+        strip.addColorStop(0.0, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
+        strip.addColorStop(
+          0.3,
+          `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha * 0.48})`,
+        );
+        strip.addColorStop(
+          0.55,
+          `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha})`,
+        );
+        strip.addColorStop(
+          0.82,
+          `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha * 0.24})`,
+        );
+        strip.addColorStop(1.0, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
+        ctx.fillStyle = strip;
+        ctx.fillRect(x, 0, width, ctx.canvas.height);
+      }
+
+      function applyEnvironmentMap() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 1024;
+        canvas.height = 384;
+        const g = canvas.getContext("2d");
+
+        g.fillStyle = "#666c75";
+        g.fillRect(0, 0, canvas.width, canvas.height);
+
+        const upper = g.createLinearGradient(0, 0, 0, 228);
+        upper.addColorStop(0.0, "#f2f5f8");
+        upper.addColorStop(0.35, "#c5cdd6");
+        upper.addColorStop(1.0, "#747d87");
+        g.fillStyle = upper;
+        g.fillRect(0, 0, canvas.width, 228);
+
+        const lower = g.createLinearGradient(0, 210, 0, canvas.height);
+        lower.addColorStop(0.0, "#343941");
+        lower.addColorStop(1.0, "#080b10");
+        g.fillStyle = lower;
+        g.fillRect(0, 210, canvas.width, canvas.height - 210);
+
+        paintStripLight(g, 92, 138, 0.88, [255, 255, 255]);
+        paintStripLight(g, 362, 64, 0.58, [214, 228, 255]);
+        paintStripLight(g, 746, 120, 0.76, [255, 255, 255]);
+
+        const warmKey = g.createRadialGradient(236, 72, 0, 236, 72, 220);
+        warmKey.addColorStop(0, "rgba(255,248,238,0.92)");
+        warmKey.addColorStop(1, "rgba(255,248,238,0)");
+        g.fillStyle = warmKey;
+        g.fillRect(0, 0, canvas.width, canvas.height);
+
+        const coolFill = g.createRadialGradient(842, 130, 0, 842, 130, 210);
+        coolFill.addColorStop(0, "rgba(176,206,255,0.54)");
+        coolFill.addColorStop(1, "rgba(176,206,255,0)");
+        g.fillStyle = coolFill;
+        g.fillRect(0, 0, canvas.width, canvas.height);
+
+        const envTexture = new THREE.CanvasTexture(canvas);
+        envTexture.mapping = THREE.EquirectangularReflectionMapping;
+        envTexture.colorSpace = THREE.SRGBColorSpace;
+
+        const pmrem = new THREE.PMREMGenerator(R);
+        pmrem.compileEquirectangularShader();
+        scene.environment = pmrem.fromEquirectangular(envTexture).texture;
+        envTexture.dispose();
+        pmrem.dispose();
+      }
+
+      scene.background = makeBackdropTexture();
+      applyEnvironmentMap();
+
+      const cam = new THREE.PerspectiveCamera(
+        28,
+        innerWidth / innerHeight,
+        0.01,
+        100,
+      );
+      cam.position.set(1.4, 0.94, 1.56);
+      cam.lookAt(0, 0.06, 0);
+
+      const ctrl = new OrbitControls(cam, R.domElement);
+      ctrl.enableDamping = true;
+      ctrl.dampingFactor = 0.05;
+      ctrl.target.set(0, 0.07, 0);
+      ctrl.minDistance = 0.7;
+      ctrl.maxDistance = 6;
+      ctrl.maxPolarAngle = Math.PI * 0.56;
+
+      scene.add(new THREE.HemisphereLight(0xe4edff, 0x0d1018, 1.8));
+
+      const keyL = new THREE.DirectionalLight(0xfffbf2, 4.0);
+      keyL.position.set(-3.3, 5.4, 2.8);
+      keyL.castShadow = true;
+      keyL.shadow.mapSize.set(2048, 2048);
+      keyL.shadow.camera.near = 0.5;
+      keyL.shadow.camera.far = 16;
+      keyL.shadow.camera.left = -2.4;
+      keyL.shadow.camera.right = 2.4;
+      keyL.shadow.camera.top = 2.2;
+      keyL.shadow.camera.bottom = -2.2;
+      keyL.shadow.bias = -0.00025;
+      keyL.shadow.normalBias = 0.025;
+      scene.add(keyL);
+
+      const fillL = new THREE.DirectionalLight(0xb8d4ff, 2.0);
+      fillL.position.set(5.8, 2.4, -0.2);
+      scene.add(fillL);
+
+      const rimL = new THREE.DirectionalLight(0xf6fbff, 1.65);
+      rimL.position.set(-1.0, 3.2, -5.2);
+      scene.add(rimL);
+
+      const frontL = new THREE.DirectionalLight(0xf8fbff, 1.05);
+      frontL.position.set(0.7, 1.9, 5.9);
+      scene.add(frontL);
+
+      const DS = {
+        companyName: "nanotech",
+        partNumber: "CSAC-1087",
+        markingColor: "#b8b8b8",
+        bodyColor: "#1a1a22",
+      };
+
+      const MM = 0.1;
+      const BOARD_W = 2.65;
+      const BOARD_H = 0.08;
+      const BOARD_D = 1.92;
+      const BL = 10.3 * MM;
+      const BW = 3.9 * MM;
+      const BH = 1.75 * MM;
+      const STANDOFF = 0.1 * MM;
+      const PITCH = 1.27 * MM;
+      const LW = 0.4 * MM;
+      const LT = 0.16 * MM;
+      const HEEL = 0.18 * MM;
+      const KNEE = 0.78 * MM;
+      const FOOT = 0.5 * MM;
+      const NP = 8;
+
+      const hw = BL * 0.5;
+      const hd = BW * 0.5;
+      const bodyCenterY = STANDOFF + BH * 0.5;
+      const bodyTopY = bodyCenterY + BH * 0.5;
+      const exitY = STANDOFF + BH * 0.26;
+      const footY = LT * 0.55;
+      const firstX = -((NP - 1) * PITCH) * 0.5;
+      const padCenterZ = hd + KNEE + FOOT * 0.5;
+
+      function textureFromCanvas(canvas, { srgb = false, repeat = null } = {}) {
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        texture.anisotropy = R.capabilities.getMaxAnisotropy();
+        if (repeat) texture.repeat.copy(repeat);
+        if (srgb) texture.colorSpace = THREE.SRGBColorSpace;
+        return texture;
+      }
+
+      function cssColor(color) {
+        return `rgb(${Math.round(color.r * 255)},${Math.round(color.g * 255)},${Math.round(color.b * 255)})`;
+      }
+
+      function disposeTextureSet(set) {
+        Object.values(set).forEach((texture) => texture.dispose());
+      }
+
+      function makePlasticMaps(size = 1024) {
+        const albedo = document.createElement("canvas");
+        const rough = document.createElement("canvas");
+        const normal = document.createElement("canvas");
+        albedo.width = rough.width = normal.width = size;
+        albedo.height = rough.height = normal.height = size;
+
+        const ga = albedo.getContext("2d");
+        const gr = rough.getContext("2d");
+        const gn = normal.getContext("2d");
+
+        const base = new THREE.Color(DS.bodyColor);
+        const lift = base.clone().lerp(new THREE.Color(0xffffff), 0.1);
+        const shade = base.clone().multiplyScalar(0.72);
+        const fill = ga.createLinearGradient(0, 0, size, size);
+        fill.addColorStop(0.0, cssColor(lift));
+        fill.addColorStop(0.48, cssColor(base));
+        fill.addColorStop(1.0, cssColor(shade));
+        ga.fillStyle = fill;
+        ga.fillRect(0, 0, size, size);
+
+        for (let y = 0; y < size; y += 2) {
+          ga.fillStyle = `rgba(255,255,255,${0.007 + Math.random() * 0.012})`;
+          ga.fillRect(0, y, size, 1);
+        }
+
+        for (let y = 1; y < size; y += 5) {
+          ga.fillStyle = `rgba(0,0,0,${0.004 + Math.random() * 0.008})`;
+          ga.fillRect(0, y, size, 1);
+        }
+
+        for (let i = 0; i < 3600; i += 1) {
+          const x = Math.random() * size;
+          const y = Math.random() * size;
+          const radius = 0.3 + Math.random() * 1.2;
+          const tint = 18 + Math.random() * 44;
+          ga.fillStyle = `rgba(${tint},${tint},${tint},${0.02 + Math.random() * 0.05})`;
+          ga.beginPath();
+          ga.arc(x, y, radius, 0, Math.PI * 2);
+          ga.fill();
+        }
+
+        const sheen = ga.createLinearGradient(
+          size * 0.18,
+          0,
+          size * 0.82,
+          size,
+        );
+        sheen.addColorStop(0.0, "rgba(255,255,255,0)");
+        sheen.addColorStop(0.45, "rgba(255,255,255,0.06)");
+        sheen.addColorStop(0.62, "rgba(255,255,255,0.02)");
+        sheen.addColorStop(1.0, "rgba(255,255,255,0)");
+        ga.fillStyle = sheen;
+        ga.fillRect(0, 0, size, size);
+
+        gr.fillStyle = "rgb(176,176,176)";
+        gr.fillRect(0, 0, size, size);
+        for (let y = 0; y < size; y += 2) {
+          const value = 148 + Math.random() * 42;
+          gr.fillStyle = `rgba(${value},${value},${value},${0.1 + Math.random() * 0.12})`;
+          gr.fillRect(0, y, size, 1);
+        }
+        for (let i = 0; i < 1800; i += 1) {
+          const x = Math.random() * size;
+          const y = Math.random() * size;
+          const length = 10 + Math.random() * 90;
+          gr.fillStyle = `rgba(40,40,40,${Math.random() * 0.02})`;
+          gr.fillRect(x, y, length, 1);
+        }
+
+        gn.fillStyle = "rgb(128,128,255)";
+        gn.fillRect(0, 0, size, size);
+        for (let y = 0; y < size; y += 4) {
+          const xValue = 126 + Math.floor(Math.random() * 5);
+          gn.fillStyle = `rgba(${xValue},128,255,0.24)`;
+          gn.fillRect(0, y, size, 1);
+        }
+
+        return {
+          albedo: textureFromCanvas(albedo, { srgb: true }),
+          rough: textureFromCanvas(rough),
+          normal: textureFromCanvas(normal),
+        };
+      }
+
+      function makeBrushedMetalMaps(size = 1024) {
+        const albedo = document.createElement("canvas");
+        const rough = document.createElement("canvas");
+        const normal = document.createElement("canvas");
+        albedo.width = rough.width = normal.width = size;
+        albedo.height = rough.height = normal.height = size;
+
+        const ga = albedo.getContext("2d");
+        const gr = rough.getContext("2d");
+        const gn = normal.getContext("2d");
+
+        ga.fillStyle = "#d8e0e6";
+        ga.fillRect(0, 0, size, size);
+        gr.fillStyle = "rgb(98,98,98)";
+        gr.fillRect(0, 0, size, size);
+        gn.fillStyle = "rgb(128,128,255)";
+        gn.fillRect(0, 0, size, size);
+
+        for (let y = 0; y < size; y += 2) {
+          const bright = 194 + Math.random() * 32;
+          ga.fillStyle = `rgba(${bright},${bright + 4},${bright + 8},${0.035 + Math.random() * 0.05})`;
+          ga.fillRect(0, y, size, 1);
+
+          const roughValue = 70 + Math.random() * 50;
+          gr.fillStyle = `rgba(${roughValue},${roughValue},${roughValue},${0.18 + Math.random() * 0.18})`;
+          gr.fillRect(0, y, size, 1);
+
+          const nx = 126 + Math.floor(Math.random() * 6);
+          gn.fillStyle = `rgba(${nx},128,255,0.28)`;
+          gn.fillRect(0, y, size, 1);
+        }
+
+        for (let i = 0; i < 1400; i += 1) {
+          const x = Math.random() * size;
+          const y = Math.random() * size;
+          const width = 18 + Math.random() * 120;
+          ga.fillStyle = `rgba(255,255,255,${Math.random() * 0.018})`;
+          ga.fillRect(x, y, width, 1);
+          gr.fillStyle = `rgba(30,30,30,${Math.random() * 0.028})`;
+          gr.fillRect(x, y, width, 1);
+        }
+
+        return {
+          albedo: textureFromCanvas(albedo, { srgb: true }),
+          rough: textureFromCanvas(rough),
+          normal: textureFromCanvas(normal),
+        };
+      }
+
+      function roundRect(ctx, x, y, w, h, r) {
+        const rr = Math.min(r, w * 0.5, h * 0.5);
+        ctx.beginPath();
+        ctx.moveTo(x + rr, y);
+        ctx.lineTo(x + w - rr, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + rr);
+        ctx.lineTo(x + w, y + h - rr);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - rr, y + h);
+        ctx.lineTo(x + rr, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - rr);
+        ctx.lineTo(x, y + rr);
+        ctx.quadraticCurveTo(x, y, x + rr, y);
+        ctx.closePath();
+      }
+
+      function makePcbTexture(size = 1024) {
+        const canvas = document.createElement("canvas");
+        canvas.width = canvas.height = size;
+        const ctx = canvas.getContext("2d");
+
+        const fill = ctx.createLinearGradient(0, 0, size, size);
+        fill.addColorStop(0.0, "#61716b");
+        fill.addColorStop(0.45, "#556560");
+        fill.addColorStop(1.0, "#3e4c49");
+        ctx.fillStyle = fill;
+        ctx.fillRect(0, 0, size, size);
+
+        for (let y = 0; y < size; y += 3) {
+          ctx.fillStyle = `rgba(255,255,255,${0.012 + Math.random() * 0.014})`;
+          ctx.fillRect(0, y, size, 1);
+        }
+
+        for (let i = 0; i < 18; i += 1) {
+          const y = 120 + i * 42;
+          ctx.strokeStyle = `rgba(214,231,218,${0.018 + Math.random() * 0.014})`;
+          ctx.lineWidth = 2 + Math.random() * 2;
+          ctx.beginPath();
+          ctx.moveTo(80 + Math.random() * 50, y);
+          ctx.lineTo(
+            size * 0.32 + Math.random() * 70,
+            y + 26 + Math.random() * 18,
+          );
+          ctx.lineTo(
+            size * 0.68 + Math.random() * 70,
+            y + 26 + Math.random() * 18,
+          );
+          ctx.stroke();
+        }
+
+        ctx.strokeStyle = "rgba(255,255,255,0.06)";
+        ctx.lineWidth = 10;
+        roundRect(ctx, 46, 46, size - 92, size - 92, 32);
+        ctx.stroke();
+
+        return textureFromCanvas(canvas, {
+          srgb: true,
+          repeat: new THREE.Vector2(1.5, 1.5),
+        });
+      }
+
+      function makeSilkTexture() {
+        const canvas = document.createElement("canvas");
+        canvas.width = canvas.height = 1024;
+        const ctx = canvas.getContext("2d");
+
+        ctx.clearRect(0, 0, 1024, 1024);
+        ctx.strokeStyle = "rgba(242,245,235,0.78)";
+        ctx.lineWidth = 2.5;
+        roundRect(ctx, 284, 430, 456, 164, 8);
+        ctx.stroke();
+
+        ctx.strokeStyle = "rgba(242,245,235,0.42)";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(258, 512);
+        ctx.lineTo(784, 512);
+        ctx.stroke();
+
+        ctx.fillStyle = "rgba(242,245,235,0.76)";
+        ctx.beginPath();
+        ctx.arc(274, 448, 8, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.font = '600 24px "Segoe UI", Arial, sans-serif';
+        ctx.textAlign = "center";
+        ctx.fillText("U1", 512, 414);
+
+        ctx.font = '400 11px "Segoe UI", Arial, sans-serif';
+        for (let i = 0; i < 8; i += 1) {
+          const px = 328 + i * 53;
+          ctx.fillText(`${i + 1}`, px, 620);
+          ctx.fillText(`${16 - i}`, px, 406);
+        }
+
+        return textureFromCanvas(canvas, { srgb: true });
+      }
+
+      function makeShadowTexture() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 1024;
+        canvas.height = 512;
+        const ctx = canvas.getContext("2d");
+        const shadow = ctx.createRadialGradient(512, 256, 40, 512, 256, 320);
+        shadow.addColorStop(0.0, "rgba(0,0,0,0.36)");
+        shadow.addColorStop(0.38, "rgba(0,0,0,0.20)");
+        shadow.addColorStop(1.0, "rgba(0,0,0,0)");
+        ctx.fillStyle = shadow;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        return textureFromCanvas(canvas);
+      }
+
+      function makeMarkTexture() {
+        const width = 1400;
+        const height = 620;
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+
+        ctx.clearRect(0, 0, width, height);
+        const fill = DS.markingColor;
+        const company = (DS.companyName || "nanotech").trim() || "nanotech";
+        const part = (DS.partNumber || "CSAC-1087").trim() || "CSAC-1087";
+
+        ctx.fillStyle = fill;
+        ctx.globalAlpha = 0.9;
+
+        ctx.beginPath();
+        ctx.arc(110, 118, 24, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.font = '600 78px "Segoe UI", Arial, sans-serif';
+        ctx.textAlign = "left";
+        ctx.textBaseline = "alphabetic";
+        ctx.fillText(company, 112, 230);
+
+        ctx.font = '600 62px "Segoe UI", Arial, sans-serif';
+        ctx.fillText(part, 112, 318);
+
+        ctx.font = '500 40px "Segoe UI", Arial, sans-serif';
+        ctx.fillText("SOIC-16", 112, 392);
+        ctx.fillText("2526", 112, 448);
+
+        ctx.font = '400 34px "Segoe UI", Arial, sans-serif';
+        ctx.fillText("MOLD COMPOUND", 112, 500);
+
+        ctx.textAlign = "right";
+        ctx.font = '400 30px "Segoe UI", Arial, sans-serif';
+        ctx.fillText("L2526A1", width - 102, 500);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.anisotropy = R.capabilities.getMaxAnisotropy();
+        return texture;
+      }
+
+      function createBodyGeometry() {
+        const geometry = new RoundedBoxGeometry(BL, BH, BW, 10, 0.02);
+        const pos = geometry.attributes.position;
+        const v = new THREE.Vector3();
+
+        for (let i = 0; i < pos.count; i += 1) {
+          v.fromBufferAttribute(pos, i);
+          const t = THREE.MathUtils.clamp(v.y / BH + 0.5, 0, 1);
+          v.x *= 1 - t * 0.035;
+          v.z *= 1 - t * 0.055;
+
+          if (v.y < -BH * 0.26) {
+            const edgeX = Math.abs(v.x) / hw;
+            const edgeZ = Math.abs(v.z) / hd;
+            const centerMask = Math.max(0, 1 - Math.max(edgeX, edgeZ));
+            v.y -= centerMask * 0.004;
+          }
+
+          pos.setXYZ(i, v.x, v.y, v.z);
+        }
+
+        geometry.computeVertexNormals();
+        return geometry;
+      }
+
+      function createLeadGeometry() {
+        const halfT = LT * 0.5;
+        const drop = exitY - footY;
+        const toeEnd = KNEE + FOOT;
+        const shape = new THREE.Shape();
+
+        shape.moveTo(-HEEL, exitY + halfT);
+        shape.lineTo(0, exitY + halfT);
+        shape.bezierCurveTo(
+          KNEE * 0.1,
+          exitY + halfT,
+          KNEE * 0.22,
+          exitY + halfT - drop * 0.1,
+          KNEE * 0.38,
+          exitY - drop * 0.42,
+        );
+        shape.bezierCurveTo(
+          KNEE * 0.62,
+          footY + halfT + drop * 0.12,
+          KNEE * 0.82,
+          footY + halfT,
+          KNEE,
+          footY + halfT,
+        );
+        shape.lineTo(toeEnd, footY + halfT);
+        shape.lineTo(toeEnd, footY - halfT);
+        shape.lineTo(KNEE, footY - halfT);
+        shape.bezierCurveTo(
+          KNEE * 0.82,
+          footY - halfT,
+          KNEE * 0.62,
+          footY - halfT - drop * 0.12,
+          KNEE * 0.38,
+          exitY - drop * 0.42,
+        );
+        shape.bezierCurveTo(
+          KNEE * 0.22,
+          exitY - halfT + drop * 0.1,
+          KNEE * 0.1,
+          exitY - halfT,
+          0,
+          exitY - halfT,
+        );
+        shape.lineTo(-HEEL, exitY - halfT);
+        shape.closePath();
+
+        const geometry = new THREE.ExtrudeGeometry(shape, {
+          depth: LW,
+          bevelEnabled: true,
+          bevelThickness: LT * 0.18,
+          bevelSize: LT * 0.12,
+          bevelSegments: 2,
+          curveSegments: 28,
+          steps: 1,
+        });
+
+        geometry.rotateY(-Math.PI / 2);
+        geometry.translate(LW * 0.5, 0, 0);
+        geometry.computeVertexNormals();
+        return geometry;
+      }
+
+      const assembly = new THREE.Group();
+      assembly.position.y = 0.004;
+      assembly.rotation.x = -0.022;
+      assembly.rotation.y = -0.62;
+      assembly.rotation.z = 0.01;
+      scene.add(assembly);
+
+      const pkg = new THREE.Group();
+      assembly.add(pkg);
+
+      const pcb = new THREE.Mesh(
+        new RoundedBoxGeometry(BOARD_W, BOARD_H, BOARD_D, 6, 0.014),
+        new THREE.MeshPhysicalMaterial({
+          map: makePcbTexture(),
+          color: new THREE.Color(0.94, 0.98, 0.96),
+          metalness: 0.02,
+          roughness: 0.76,
+          envMapIntensity: 0.14,
+          clearcoat: 0.06,
+          clearcoatRoughness: 0.64,
+        }),
+      );
+      pcb.position.y = -BOARD_H * 0.5;
+      pcb.receiveShadow = true;
+      pcb.castShadow = true;
+      assembly.add(pcb);
+
+      const packageShadow = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.55, 0.86),
+        new THREE.MeshBasicMaterial({
+          map: makeShadowTexture(),
+          transparent: true,
+          opacity: 0.46,
+          depthWrite: false,
+        }),
+      );
+      packageShadow.rotation.x = -Math.PI / 2;
+      packageShadow.position.y = 0.0015;
+      assembly.add(packageShadow);
+
+      const silk = new THREE.Mesh(
+        new THREE.PlaneGeometry(BOARD_W * 0.92, BOARD_D * 0.92),
+        new THREE.MeshBasicMaterial({
+          map: makeSilkTexture(),
+          transparent: true,
+          opacity: 0.58,
+          depthWrite: false,
+          toneMapped: false,
+        }),
+      );
+      silk.rotation.x = -Math.PI / 2;
+      silk.position.y = 0.0012;
+      assembly.add(silk);
+
+      let plasticMaps = makePlasticMaps();
+      const plasticMat = new THREE.MeshPhysicalMaterial({
+        map: plasticMaps.albedo,
+        roughnessMap: plasticMaps.rough,
+        normalMap: plasticMaps.normal,
+        normalScale: new THREE.Vector2(0.12, 0.12),
+        color: new THREE.Color(1, 1, 1),
+        metalness: 0,
+        roughness: 0.58,
+        envMapIntensity: 0.42,
+        clearcoat: 0.12,
+        clearcoatRoughness: 0.58,
+        specularIntensity: 0.48,
+        specularColor: new THREE.Color(0.38, 0.4, 0.44),
+      });
+
+      const body = new THREE.Mesh(createBodyGeometry(), plasticMat);
+      body.position.y = bodyCenterY;
+      body.castShadow = true;
+      body.receiveShadow = true;
+      pkg.add(body);
+
+      const bodyBelly = new THREE.Mesh(
+        new RoundedBoxGeometry(BL * 0.74, BH * 0.1, BW * 0.54, 6, 0.008),
+        new THREE.MeshPhysicalMaterial({
+          color: new THREE.Color(0.07, 0.07, 0.08),
+          metalness: 0,
+          roughness: 0.74,
+          envMapIntensity: 0.18,
+        }),
+      );
+      bodyBelly.position.y = bodyCenterY - BH * 0.34;
+      bodyBelly.castShadow = true;
+      bodyBelly.receiveShadow = true;
+      pkg.add(bodyBelly);
+
+      const pin1Dimple = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.018, 0.018, 0.0022, 28),
+        new THREE.MeshStandardMaterial({
+          color: 0x09090b,
+          roughness: 0.92,
+          metalness: 0.0,
+        }),
+      );
+      pin1Dimple.position.set(-BL * 0.33, bodyTopY - 0.0007, -BW * 0.21);
+      pkg.add(pin1Dimple);
+
+      let markTex = makeMarkTexture();
+      const markPlane = new THREE.Mesh(
+        new THREE.PlaneGeometry(BL * 0.8, BW * 0.58),
+        new THREE.MeshBasicMaterial({
+          map: markTex,
+          transparent: true,
+          opacity: 0.8,
+          depthWrite: false,
+          toneMapped: false,
+          polygonOffset: true,
+          polygonOffsetFactor: -2,
+          polygonOffsetUnits: -2,
+        }),
+      );
+      markPlane.rotation.x = -Math.PI / 2;
+      markPlane.position.y = bodyTopY + 0.0014;
+      pkg.add(markPlane);
+
+      const leadMaps = makeBrushedMetalMaps();
+      const leadMat = new THREE.MeshPhysicalMaterial({
+        map: leadMaps.albedo,
+        roughnessMap: leadMaps.rough,
+        normalMap: leadMaps.normal,
+        normalScale: new THREE.Vector2(0.18, 0.18),
+        color: new THREE.Color(0.94, 0.97, 1.0),
+        metalness: 1.0,
+        roughness: 0.2,
+        envMapIntensity: 1.9,
+        clearcoat: 0.06,
+        clearcoatRoughness: 0.18,
+      });
+
+      const leadGeometry = createLeadGeometry();
+      for (let i = 0; i < NP; i += 1) {
+        const x = firstX + i * PITCH;
+
+        const nearLead = new THREE.Mesh(leadGeometry, leadMat);
+        nearLead.position.set(x, 0, hd);
+        nearLead.castShadow = true;
+        nearLead.receiveShadow = true;
+        pkg.add(nearLead);
+
+        const farLead = new THREE.Mesh(leadGeometry, leadMat);
+        farLead.rotation.y = Math.PI;
+        farLead.position.set(x, 0, -hd);
+        farLead.castShadow = true;
+        farLead.receiveShadow = true;
+        pkg.add(farLead);
+      }
+
+      const padsGroup = new THREE.Group();
+      assembly.add(padsGroup);
+
+      const padMat = new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color(0.82, 0.74, 0.46),
+        metalness: 1.0,
+        roughness: 0.16,
+        envMapIntensity: 1.55,
+        clearcoat: 0.05,
+        clearcoatRoughness: 0.18,
+      });
+
+      const PAD_H = 0.006;
+      const padGeo = new RoundedBoxGeometry(
+        LW * 1.55,
+        PAD_H,
+        FOOT * 1.4,
+        4,
+        PAD_H * 0.35,
+      );
+      for (const zSign of [1, -1]) {
+        for (let i = 0; i < NP; i += 1) {
+          const pad = new THREE.Mesh(padGeo, padMat);
+          pad.position.set(firstX + i * PITCH, PAD_H * 0.5, zSign * padCenterZ);
+          pad.castShadow = true;
+          pad.receiveShadow = true;
+          padsGroup.add(pad);
+        }
+      }
+
+      const floor = new THREE.Mesh(
+        new THREE.PlaneGeometry(18, 18),
+        new THREE.MeshStandardMaterial({
+          color: 0x14181f,
+          roughness: 0.95,
+          metalness: 0.04,
+        }),
+      );
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.y = -BOARD_H - 0.055;
+      floor.receiveShadow = true;
+      scene.add(floor);
+
+      const fGlow = new THREE.Mesh(
+        new THREE.PlaneGeometry(4.2, 4.2),
+        new THREE.MeshStandardMaterial({
+          color: 0x0f131b,
+          transparent: true,
+          opacity: 0.14,
+          roughness: 0.42,
+          metalness: 0.08,
+        }),
+      );
+      fGlow.rotation.x = -Math.PI / 2;
+      fGlow.position.y = floor.position.y + 0.001;
+      scene.add(fGlow);
+
+      const vig = document.createElement("div");
+      vig.style.cssText =
+        "position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 46%,transparent 24%,rgba(0,0,0,.32) 100%)";
+      document.body.appendChild(vig);
+
+      const $ = (id) => document.getElementById(id);
+
+      function rebuildMarks() {
+        const previous = markTex;
+        markTex = makeMarkTexture();
+        markPlane.material.map = markTex;
+        markPlane.material.needsUpdate = true;
+        previous.dispose();
+        document.title = `${(DS.companyName || "nanotech").trim() || "nanotech"} SOIC-16`;
+      }
+
+      function rebuildPlastic() {
+        const nextMaps = makePlasticMaps();
+        plasticMat.map = nextMaps.albedo;
+        plasticMat.roughnessMap = nextMaps.rough;
+        plasticMat.normalMap = nextMaps.normal;
+        plasticMat.needsUpdate = true;
+        disposeTextureSet(plasticMaps);
+        plasticMaps = nextMaps;
+      }
+
+      $("cName").oninput = () => {
+        DS.companyName = $("cName").value;
+        rebuildMarks();
+      };
+
+      $("cPart").oninput = () => {
+        DS.partNumber = $("cPart").value;
+        rebuildMarks();
+      };
+
+      $("cMark").oninput = () => {
+        DS.markingColor = $("cMark").value;
+        rebuildMarks();
+      };
+
+      $("cBody").oninput = () => {
+        DS.bodyColor = $("cBody").value;
+        rebuildPlastic();
+      };
+
+      $("sKey").oninput = () => {
+        keyL.intensity = +$("sKey").value;
+        $("oKey").textContent = (+$("sKey").value).toFixed(1);
+      };
+
+      $("sFill").oninput = () => {
+        fillL.intensity = +$("sFill").value;
+        $("oFill").textContent = (+$("sFill").value).toFixed(1);
+      };
+
+      $("sRough").oninput = () => {
+        const value = +$("sRough").value;
+        $("oRough").textContent = value.toFixed(2);
+        plasticMat.roughness = value;
+        plasticMat.needsUpdate = true;
+      };
+
+      function downloadImage(filename) {
+        const link = document.createElement("a");
+        link.download = filename;
+        link.href = R.domElement.toDataURL("image/png");
+        link.click();
+      }
+
+      function exp(transparent) {
+        const previous = {
+          background: scene.background,
+          floor: floor.visible,
+          glow: fGlow.visible,
+          board: pcb.visible,
+          silk: silk.visible,
+          pads: padsGroup.visible,
+          shadow: packageShadow.visible,
+          autoSpin,
+        };
+
+        autoSpin = false;
+        document.querySelector(".cp").style.visibility = "hidden";
+
+        if (transparent) {
+          scene.background = null;
+          floor.visible = false;
+          fGlow.visible = false;
+          pcb.visible = false;
+          silk.visible = false;
+          padsGroup.visible = false;
+          packageShadow.visible = false;
+        }
+
+        ctrl.update();
+        R.render(scene, cam);
+        downloadImage(
+          transparent ? "smd-chip-transparent.png" : "smd-chip-bg.png",
+        );
+
+        scene.background = previous.background;
+        floor.visible = previous.floor;
+        fGlow.visible = previous.glow;
+        pcb.visible = previous.board;
+        silk.visible = previous.silk;
+        padsGroup.visible = previous.pads;
+        packageShadow.visible = previous.shadow;
+        document.querySelector(".cp").style.visibility = "";
+        autoSpin = previous.autoSpin;
+        R.render(scene, cam);
+      }
+
+      $("expBg").onclick = () => exp(false);
+      $("expTr").onclick = () => exp(true);
+
+      let autoSpin = true;
+      let lastInteract = 0;
+
+      ctrl.addEventListener("start", () => {
+        autoSpin = false;
+        lastInteract = Date.now();
+      });
+
+      ctrl.addEventListener("end", () => {
+        lastInteract = Date.now();
+      });
+
+      document.title = `${DS.companyName} SOIC-16`;
+
+      const clk = new THREE.Clock();
+      (function anim() {
+        requestAnimationFrame(anim);
+        const t = clk.getElapsedTime();
+
+        if (!autoSpin && Date.now() - lastInteract > 3200) autoSpin = true;
+
+        if (autoSpin) {
+          assembly.rotation.y = -0.64 + Math.sin(t * 0.22) * 0.08;
+          assembly.rotation.z = 0.01 + Math.sin(t * 0.31) * 0.004;
+        }
+
+        ctrl.update();
+        R.render(scene, cam);
+      })();
+
+      addEventListener("resize", () => {
+        cam.aspect = innerWidth / innerHeight;
+        cam.updateProjectionMatrix();
+        R.setSize(innerWidth, innerHeight);
+      });
+    </script>
+  </body>
+</html>
