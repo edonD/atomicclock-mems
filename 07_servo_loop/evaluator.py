@@ -142,6 +142,11 @@ def report(passed, failed, warnings):
 
 
 if __name__ == "__main__":
+    # Ensure UTF-8 output on Windows so Unicode check-marks print cleanly
+    if sys.stdout.encoding and sys.stdout.encoding.lower() not in ("utf-8", "utf-8-sig"):
+        import io
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+
     results, error = load_results()
     if results is None:
         print(f"\n  [NOT RUN]  {error}")

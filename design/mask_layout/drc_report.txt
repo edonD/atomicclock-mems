@@ -1,0 +1,28 @@
+================================================================================
+  DRC REPORT — CSAC_CELL_V1
+  GDS file : C:\Users\DD\OneDrive\Programming\willAI\atomicclock-mems\design\mask_layout\csac_cell_v1.gds
+================================================================================
+
+[PASS] FILE_EXISTS                         GDS loaded — 1 cell(s) found
+[PASS] CELL_FOUND                          Top cell 'CSAC_V1' — 125 polygons
+[PASS] L2_HEATER_MIN_WIDTH                 All 17 polygons >= 20.0 µm (min
+                                              observed = 50.00 µm)
+[PASS] L3_RTD_MIN_WIDTH                    All 21 polygons >= 10.0 µm (min
+                                              observed = 20.00 µm)
+[PASS] L4_BOND_RING_AREA                   Total bond ring area = 2,550,000 µm²
+                                              (>= 1,000,000 µm² minimum) across
+                                              4 polygon(s)
+[PASS] L5_DICING_EXISTS                    4 dicing polygon(s) found
+[PASS] L1_CAVITY_DIAMETER                  cavity[0] bb_w=1499.5 µm, bb_h=1499.8
+                                              µm, avg_diam=1499.6 µm (nominal
+                                              1500.0 ± 50.0 µm) — OK
+[PASS] ALL_LAYERS_IN_DIE                   All 49 non-label polygons inside 3000
+                                              × 3000 µm die boundary
+[PASS] L1_CAVITY_CENTROID                  cavity[0] centroid=(1500.24, 1500.00)
+                                              µm, dist from die-
+                                              center=(1500,1500) = 0.24 µm
+                                              (limit 50.0 µm) — OK
+
+================================================================================
+  OVERALL: ALL RULES PASSED
+================================================================================

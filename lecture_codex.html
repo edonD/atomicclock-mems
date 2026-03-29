@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEMS Atomic Clock Lecture | Codex Version</title>
+<style>
+  :root{
+    --paper:#f7f1e3;
+    --paper-2:#efe3c7;
+    --ink:#132238;
+    --muted:#506176;
+    --line:#d0bf9b;
+    --card:#fffaf0cc;
+    --nav:#fff7e6e8;
+    --accent:#c06a2f;
+    --accent-2:#194a7a;
+    --atom:#1f8f6a;
+    --warn:#a24d2b;
+    --shadow:0 18px 48px rgba(19,34,56,0.10);
+    --radius:24px;
+    --mono:"IBM Plex Mono","Consolas","Courier New",monospace;
+    --sans:"Avenir Next","Segoe UI","Trebuchet MS",sans-serif;
+    --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",serif;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.65;
+    background:
+      radial-gradient(circle at top left, rgba(192,106,47,0.10), transparent 28%),
+      radial-gradient(circle at top right, rgba(25,74,122,0.10), transparent 32%),
+      linear-gradient(180deg, #fbf6ea 0%, #f5eddc 100%);
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:0.20;
+    background:
+      linear-gradient(rgba(208,191,155,0.18) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(208,191,155,0.18) 1px, transparent 1px);
+    background-size:26px 26px;
+    mask-image:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.08));
+  }
+
+  a{color:inherit}
+  .shell{width:min(1120px, calc(100% - 32px));margin:0 auto}
+  .nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:var(--nav);border-bottom:1px solid rgba(19,34,56,0.10)}
+  .nav-inner{width:min(1120px, calc(100% - 32px));margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 0;overflow:auto}
+  .brand{flex:0 0 auto;font:700 0.84rem var(--mono);letter-spacing:0.08em;text-transform:uppercase;color:var(--accent-2);padding-right:8px}
+  .nav a{flex:0 0 auto;text-decoration:none;color:var(--muted);padding:7px 12px;border-radius:999px;border:1px solid transparent;transition:0.18s ease;font-size:0.92rem}
+  .nav a:hover{color:var(--ink);background:#fffdf7;border-color:rgba(19,34,56,0.10)}
+  .hero{padding:42px 0 24px}
+  .eyebrow{font:700 0.78rem var(--mono);letter-spacing:0.10em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px}
+  h1,h2,h3{font-family:var(--serif);line-height:1.1;margin:0}
+  h1{font-size:clamp(2.4rem, 5vw, 4.7rem);max-width:10ch;letter-spacing:-0.03em}
+  .lede{margin-top:18px;max-width:760px;font-size:1.12rem;color:var(--muted)}
+  .hero-grid{margin-top:28px;display:grid;grid-template-columns:1.45fr 1fr;gap:18px}
+  .card{background:var(--card);border:1px solid rgba(19,34,56,0.10);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .hero-copy{padding:28px}
+  .big-idea{font-size:1.18rem;margin:0 0 18px}
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .chip{padding:10px 14px;border-radius:999px;background:#fffdf7;border:1px solid rgba(19,34,56,0.10);font-size:0.92rem}
+  .hero-aside{padding:26px;display:grid;gap:14px;align-content:start}
+  .kpi{padding:15px 16px;border-radius:18px;background:#fffdf7;border:1px solid rgba(19,34,56,0.08)}
+  .kpi span{display:block;color:var(--muted);font-size:0.84rem;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em}
+  .kpi strong{display:block;font-size:1.12rem;line-height:1.3}
+  main{padding-bottom:80px}
+  section{margin-top:34px;scroll-margin-top:92px}
+  .section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:16px}
+  .section-head p{margin:0;max-width:560px;color:var(--muted)}
+  .section-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+  .section-grid.reverse{grid-template-columns:1fr 1.2fr}
+  .body-card{padding:24px}
+  .body-card p{margin:0 0 14px}
+  .body-card p:last-child{margin-bottom:0}
+  .callout{border-left:4px solid var(--accent);background:#fff3e2;padding:15px 16px;border-radius:0 18px 18px 0;margin-top:18px}
+  .callout.blue{border-left-color:var(--accent-2);background:#edf4fb}
+  .callout.green{border-left-color:var(--atom);background:#ebfaf4}
+  .mini-steps{display:grid;gap:12px}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:14px 0;border-top:1px solid rgba(19,34,56,0.10)}
+  .step:first-child{border-top:none;padding-top:0}
+  .num{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;font:700 0.95rem var(--mono)}
+  .formula{margin:14px 0;padding:15px 18px;border-radius:18px;background:#162233;color:#f7f3e7;font:500 1rem/1.5 var(--mono);overflow:auto}
+  .visual{padding:22px;display:grid;gap:14px;align-content:start}
+  .visual h3{font-size:1.45rem}
+  .svg-wrap{padding:12px;border-radius:20px;background:#fffdf7;border:1px solid rgba(19,34,56,0.08)}
+  svg{display:block;width:100%;height:auto}
+  .caption{color:var(--muted);font-size:0.92rem}
+  .control{padding:24px}
+  .control-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:14px 0 10px}
+  label{font-weight:600}
+  input[type="range"]{width:min(100%, 420px);accent-color:var(--accent-2)}
+  .readout{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:12px;margin-top:14px}
+  .readout .kpi strong{font-size:1.02rem}
+  .meter{height:14px;border-radius:999px;overflow:hidden;background:#ecd9b7;border:1px solid rgba(19,34,56,0.10)}
+  .meter > span{display:block;height:100%;width:50%;background:linear-gradient(90deg, var(--warn), var(--accent), var(--atom));transition:width 0.16s ease}
+  canvas{width:100%;display:block;border-radius:20px;background:#fffdf7;border:1px solid rgba(19,34,56,0.10)}
+  .state-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#fffdf7;border:1px solid rgba(19,34,56,0.10);font-weight:700}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--warn);box-shadow:0 0 0 4px rgba(162,77,43,0.12);transition:0.18s ease}
+  .dot.good{background:var(--atom);box-shadow:0 0 0 4px rgba(31,143,106,0.12)}
+  .loop{display:grid;grid-template-columns:repeat(5, minmax(0, 1fr));gap:10px;margin-top:16px}
+  .loop-block{padding:14px;border-radius:18px;background:#fffdf7;border:1px solid rgba(19,34,56,0.10);text-align:center;min-height:90px;display:grid;align-content:center;gap:6px}
+  .loop-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent-2);font:700 1.4rem/1 var(--mono)}
+  .mems-stack{display:grid;gap:8px;margin-top:10px}
+  .layer{padding:14px 16px;border-radius:16px;border:1px solid rgba(19,34,56,0.08);background:#fffdf7;display:flex;justify-content:space-between;gap:12px}
+  .layer strong{font-size:0.98rem}
+  .layer span{color:var(--muted);font-size:0.92rem;text-align:right}
+  .noise-grid{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:14px}
+  .noise{padding:20px;border-radius:20px;background:var(--card);border:1px solid rgba(19,34,56,0.10);box-shadow:var(--shadow)}
+  .noise h3{font-size:1.2rem;margin-bottom:10px}
+  .noise p{margin:0;color:var(--muted)}
+  .module-stack{display:grid;gap:12px;margin-top:12px}
+  .module-card{padding:16px 18px;border-radius:18px;background:#fffdf7;border:1px solid rgba(19,34,56,0.10)}
+  .module-card p{margin:8px 0 0;color:var(--muted)}
+  .module-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .file-tag{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:#edf4fb;color:var(--accent-2);font:700 0.78rem var(--mono);letter-spacing:0.02em}
+  .repo-stage{margin-top:14px;padding:14px 16px;border-radius:18px;background:#fffdf7;border:1px solid rgba(19,34,56,0.10)}
+  .repo-stage strong{display:block;margin-bottom:6px}
+  .repo-stage p{margin:0;color:var(--muted)}
+  .fact-grid{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:12px;margin-top:16px}
+  .fact{padding:15px 16px;border-radius:18px;background:#fffdf7;border:1px solid rgba(19,34,56,0.08)}
+  .fact strong{display:block;margin-bottom:6px}
+  .fact p{margin:0;color:var(--muted)}
+  .mini-head{font-size:1.35rem}
+  .remember{display:grid;grid-template-columns:repeat(5, minmax(0, 1fr));gap:12px}
+  .remember .chip{border-radius:18px;padding:16px;background:var(--card);box-shadow:var(--shadow)}
+  .footer{margin-top:24px;padding:20px 0 10px;color:var(--muted);font-size:0.92rem}
+  button{border:none;border-radius:999px;padding:10px 16px;font:700 0.94rem var(--sans);cursor:pointer;background:var(--ink);color:#fff;transition:0.18s ease}
+  button.secondary{background:#fffdf7;color:var(--ink);border:1px solid rgba(19,34,56,0.10)}
+  button:hover{transform:translateY(-1px)}
+
+  @media (max-width: 980px){
+    .hero-grid,.section-grid,.section-grid.reverse,.noise-grid,.remember,.fact-grid{grid-template-columns:1fr}
+    .loop{grid-template-columns:1fr}
+    .loop-arrow{transform:rotate(90deg);min-height:20px}
+  }
+
+  @media (max-width: 720px){
+    .shell,.nav-inner{width:min(100% - 20px, 1120px)}
+    .hero-copy,.hero-aside,.body-card,.visual,.control{padding:20px}
+    .readout{grid-template-columns:1fr}
+    h1{max-width:none}
+  }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">Codex Lecture</div>
+      <a href="#model">Mental Model</a>
+      <a href="#atom">Atomic Reference</a>
+      <a href="#laser">Laser + Sidebands</a>
+      <a href="#cpt">Dark State</a>
+      <a href="#servo">Servo Loop</a>
+      <a href="#repo">Repo Flow</a>
+      <a href="#mems">Why MEMS</a>
+      <a href="#performance">Stability</a>
+      <a href="#remember">Remember</a>
+    </div>
+  </nav>
+
+  <div class="shell">
+    <header class="hero">
+      <div class="eyebrow">atomicclock-mems / lecture_codex.html</div>
+      <h1>How I would explain a MEMS atomic clock</h1>
+      <p class="lede">
+        Strip away the mystique and it becomes an engineering story:
+        a mediocre local oscillator is constantly compared against a very stubborn quantum reference,
+        and the control loop keeps dragging the electronics back to the right frequency.
+      </p>
+
+      <div class="hero-grid">
+        <div class="card hero-copy">
+          <p class="big-idea">
+            A chip-scale atomic clock is <strong>not</strong> a crystal replacement made out of magic.
+            It is a <strong>feedback system</strong> whose referee is a cloud of rubidium atoms inside a tiny heated cell.
+          </p>
+          <p>
+            The local oscillator wants to drift. The atoms do not care about your temperature,
+            board stress, supply noise, or aging. They only respond strongly when the frequency spacing
+            between two optical tones matches their internal hyperfine splitting.
+          </p>
+          <p>
+            That is the whole idea: <strong>find the atomic resonance, measure whether you are left or right of it,
+            then steer the oscillator back onto it forever.</strong>
+          </p>
+          <div class="chip-row">
+            <div class="chip">Rb-87 reference: 6,834,682,610.904 Hz</div>
+            <div class="chip">VCSEL at 795 nm</div>
+            <div class="chip">RF modulation near 3.417 GHz</div>
+            <div class="chip">MEMS vapor cell + buffer gas + heater</div>
+          </div>
+        </div>
+
+        <aside class="card hero-aside">
+          <div class="kpi">
+            <span>One-line model</span>
+            <strong>Bad oscillator + perfect referee + feedback = atomic clock</strong>
+          </div>
+          <div class="kpi">
+            <span>What the atoms provide</span>
+            <strong>A frequency discriminator anchored to physics, not manufacturing drift</strong>
+          </div>
+          <div class="kpi">
+            <span>What MEMS changes</span>
+            <strong>You shrink the vapor cell from laboratory glassware to a tiny microfabricated package</strong>
+          </div>
+          <div class="kpi">
+            <span>What the photodiode sees</span>
+            <strong>Transmission increases when the atoms enter the CPT dark state</strong>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section id="model">
+        <div class="section-head">
+          <div>
+            <h2>Mental model first</h2>
+            <p>Before equations, get the machine architecture straight. Otherwise the physics feels abstract.</p>
+          </div>
+        </div>
+
+        <div class="section-grid">
+          <article class="card body-card">
+            <p>
+              Quartz oscillators are useful because they are cheap, compact, and easy to integrate.
+              They are also imperfect. Their frequency shifts with temperature, stress, package aging, and electronics drift.
+            </p>
+            <p>
+              Atomic clocks fix that by <strong>not trusting the local oscillator alone</strong>.
+              They continuously compare it to an atomic transition whose frequency is the same for every correct Rb-87 atom.
+            </p>
+            <div class="formula">
+              local oscillator drifts
+              <br>compare against atomic resonance
+              <br>measure error sign
+              <br>integrate correction
+              <br>repeat forever
+            </div>
+            <div class="callout">
+              The atom does not generate your final clock signal directly. It tells the electronics whether they are wrong.
+            </div>
+          </article>
+
+          <aside class="card visual">
+            <h3>The control story in four moves</h3>
+            <div class="mini-steps">
+              <div class="step">
+                <div class="num">1</div>
+                <div><strong>Make a probe</strong><br>Use a VCSEL and RF modulation to create two optical tones that can talk to rubidium.</div>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <div><strong>Interrogate atoms</strong><br>Send light through the vapor cell and watch how much gets through.</div>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <div><strong>Detect the resonance</strong><br>Maximum transparency means the tone spacing is right and atoms have gone dark.</div>
+              </div>
+              <div class="step">
+                <div class="num">4</div>
+                <div><strong>Close the loop</strong><br>Servo the oscillator so it stays centered on that point even while the hardware drifts.</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="atom">
+        <div class="section-head">
+          <div>
+            <h2>The atomic reference</h2>
+            <p>Rubidium-87 gives the clock a frequency target that is set by quantum structure, not by a fab tolerance.</p>
+          </div>
+        </div>
+
+        <div class="section-grid reverse">
+          <aside class="card visual">
+            <h3>The Lambda system</h3>
+            <div class="svg-wrap">
+              <svg viewBox="0 0 540 320" aria-label="Lambda energy diagram">
+                <rect x="0" y="0" width="540" height="320" fill="#fffdf7"/>
+                <line x1="110" y1="240" x2="210" y2="240" stroke="#194a7a" stroke-width="6" stroke-linecap="round"/>
+                <line x1="330" y1="240" x2="430" y2="240" stroke="#194a7a" stroke-width="6" stroke-linecap="round"/>
+                <line x1="220" y1="84" x2="320" y2="84" stroke="#c06a2f" stroke-width="6" stroke-linecap="round"/>
+                <line x1="190" y1="230" x2="255" y2="94" stroke="#c06a2f" stroke-width="5" stroke-linecap="round"/>
+                <line x1="350" y1="230" x2="285" y2="94" stroke="#c06a2f" stroke-width="5" stroke-linecap="round"/>
+                <polygon points="255,94 248,108 262,108" fill="#c06a2f"/>
+                <polygon points="285,94 278,108 292,108" fill="#c06a2f"/>
+                <text x="88" y="266" fill="#132238" font-size="20" font-family="Avenir Next, Segoe UI, sans-serif">|F = 1&gt;</text>
+                <text x="346" y="266" fill="#132238" font-size="20" font-family="Avenir Next, Segoe UI, sans-serif">|F = 2&gt;</text>
+                <text x="192" y="62" fill="#132238" font-size="20" font-family="Avenir Next, Segoe UI, sans-serif">Excited state</text>
+                <text x="80" y="210" fill="#1f8f6a" font-size="18" font-family="IBM Plex Mono, Consolas, monospace">tone 1</text>
+                <text x="352" y="210" fill="#1f8f6a" font-size="18" font-family="IBM Plex Mono, Consolas, monospace">tone 2</text>
+                <text x="118" y="298" fill="#506176" font-size="17" font-family="Avenir Next, Segoe UI, sans-serif">Two ground states separated by the hyperfine splitting</text>
+              </svg>
+            </div>
+            <div class="caption">
+              The important part is not the drawing. It is the logic:
+              two ground states, one excited state, and two coherent optical paths that can interfere.
+            </div>
+          </aside>
+
+          <article class="card body-card">
+            <p>
+              In Rb-87, the two ground hyperfine states are split by a fixed energy gap.
+              That gap corresponds to a microwave frequency:
+            </p>
+            <div class="formula">f<sub>hfs</sub> = 6,834,682,610.904 Hz</div>
+            <p>
+              That number is what the clock cares about. If your interrogation scheme creates two coherent tones
+              whose frequency difference equals that value, the atom responds in a very distinctive way.
+            </p>
+            <p>
+              A useful way to think about it: the atoms are a <strong>frequency template</strong>.
+              They do not care about your implementation details. They only care whether the spacing is right.
+            </p>
+            <div class="callout blue">
+              The clock is anchored to a transition frequency, not to a mechanical resonance in silicon or quartz.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="laser">
+        <div class="section-head">
+          <div>
+            <h2>Laser plus sidebands</h2>
+            <p>The laser itself is optical, but the atomic spacing we need to match is microwave. RF modulation bridges that gap.</p>
+          </div>
+        </div>
+
+        <div class="section-grid">
+          <article class="card body-card">
+            <p>
+              A VCSEL emits near the rubidium D1 line at 795 nm. By modulating the laser current at roughly half the hyperfine splitting,
+              you create optical sidebands around the carrier. The first-order sidebands are separated by:
+            </p>
+            <div class="formula">&Delta;f = 2 f<sub>mod</sub></div>
+            <p>
+              So if you choose <strong>f<sub>mod</sub> = f<sub>hfs</sub> / 2</strong>, the sideband spacing is exactly what the atom wants.
+            </p>
+            <p>
+              That is the elegant trick in CPT clocks. You do not synthesize two independent lasers.
+              You use one laser and one RF modulation frequency to build a coherent two-tone probe.
+            </p>
+            <div class="callout">
+              Engineer translation: the RF synthesizer chooses the spacing, and the atom grades whether that spacing is correct.
+            </div>
+          </article>
+
+          <aside class="card control">
+            <h3>Interactive: tune the modulation frequency</h3>
+            <p class="caption">
+              Move the RF modulation offset. The atom only likes it when the two sidebands land at the right separation.
+            </p>
+            <div class="control-row">
+              <label for="sideband-offset">Offset from perfect half-splitting</label>
+              <input id="sideband-offset" type="range" min="-20" max="20" step="0.1" value="4.8">
+            </div>
+            <div class="meter"><span id="sideband-meter"></span></div>
+            <div class="readout">
+              <div class="kpi">
+                <span>RF modulation</span>
+                <strong id="mod-readout">3.417346105 GHz</strong>
+              </div>
+              <div class="kpi">
+                <span>Sideband spacing</span>
+                <strong id="spacing-readout">6,834,692,210.904 Hz</strong>
+              </div>
+              <div class="kpi">
+                <span>Mismatch to atom</span>
+                <strong id="mismatch-readout">+9,600 Hz</strong>
+              </div>
+            </div>
+            <div class="callout green" id="sideband-message">
+              Near resonance. The atom can still respond, but the dark state will not be deepest.
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="cpt">
+        <div class="section-head">
+          <div>
+            <h2>CPT and the dark state</h2>
+            <p>This is the key physical effect. When the spacing is right, the atom enters a superposition that stops absorbing light.</p>
+          </div>
+        </div>
+
+        <div class="section-grid reverse">
+          <aside class="card control">
+            <h3>Interactive: sweep across the resonance</h3>
+            <p class="caption">
+              Here we plot <strong>transmission</strong>. At exact resonance the cell becomes more transparent, because the atoms are driven into a dark state.
+            </p>
+            <canvas id="resonance-canvas" width="560" height="260"></canvas>
+            <div class="control-row">
+              <label for="detuning-slider">Oscillator detuning</label>
+              <input id="detuning-slider" type="range" min="-8" max="8" step="0.05" value="2.6">
+              <div class="state-pill">
+                <span class="dot" id="dark-dot"></span>
+                <span id="dark-label">Atoms still absorbing</span>
+              </div>
+            </div>
+            <div class="readout">
+              <div class="kpi">
+                <span>Detuning</span>
+                <strong id="detuning-readout">+2.60 kHz</strong>
+              </div>
+              <div class="kpi">
+                <span>Transmission</span>
+                <strong id="transmission-readout">71.3%</strong>
+              </div>
+              <div class="kpi">
+                <span>Interpretation</span>
+                <strong id="cpt-readout">Near the peak, not centered</strong>
+              </div>
+            </div>
+          </aside>
+
+          <article class="card body-card">
+            <p>
+              With only one optical path, the atom absorbs and re-emits light in the ordinary way.
+              With two coherent paths whose spacing matches the hyperfine gap, quantum interference changes the answer.
+            </p>
+            <p>
+              The atom can be driven into a superposition of the two ground states such that the excitation amplitudes cancel.
+              In that state, the atom stops coupling to the light. That is why it is called a <strong>dark state</strong>.
+            </p>
+            <div class="formula">
+              right spacing &rarr; destructive interference in excitation
+              <br>dark state forms
+              <br>absorption drops
+              <br>photodiode sees more transmitted light
+            </div>
+            <p>
+              The resonance is narrow. That narrowness is useful because it gives the servo loop a precise target.
+              The sharper the feature, the easier it is to tell whether you are a little bit high or a little bit low.
+            </p>
+            <div class="callout blue">
+              Practical reading: the vapor cell is acting like a very selective frequency-dependent transparency sensor.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="servo">
+        <div class="section-head">
+          <div>
+            <h2>The servo loop</h2>
+            <p>The physics finds the target. The servo is what keeps the clock actually sitting on that target while the real hardware misbehaves.</p>
+          </div>
+        </div>
+
+        <div class="card body-card">
+          <div class="loop">
+            <div class="loop-block"><strong>VCO / oscillator</strong><span>Produces the tunable clock frequency</span></div>
+            <div class="loop-arrow">&rarr;</div>
+            <div class="loop-block"><strong>Laser + MEMS cell</strong><span>Converts frequency error into optical transmission change</span></div>
+            <div class="loop-arrow">&rarr;</div>
+            <div class="loop-block"><strong>Photodiode + controller</strong><span>Measures error and pushes correction back</span></div>
+          </div>
+        </div>
+
+        <div class="section-grid">
+          <article class="card body-card">
+            <p>
+              If you lock to the top of a peak, you face a classic problem: at the exact center the slope is zero,
+              so how do you know which side you are on? The normal answer is <strong>dither</strong>.
+            </p>
+            <p>
+              You wiggle the oscillator slightly, measure how transmission changes, and demodulate that response.
+              The sign of that demodulated signal tells you whether you are above or below resonance.
+            </p>
+            <div class="formula">
+              dither frequency
+              <br>measure transmission change
+              <br>extract error sign
+              <br>integrate correction into oscillator tuning word
+            </div>
+            <p>
+              This is why I frame the whole clock as a control system. The resonance alone is not enough.
+              Without the loop, you only have a nice measurement. With the loop, you have a stable clock.
+            </p>
+          </article>
+
+          <aside class="card control">
+            <h3>Interactive: watch the loop pull detuning toward zero</h3>
+            <canvas id="servo-canvas" width="560" height="250"></canvas>
+            <div class="control-row">
+              <button id="servo-toggle">Start lock demo</button>
+              <button class="secondary" id="servo-reset">Reset</button>
+              <div class="state-pill">
+                <span class="dot" id="servo-dot"></span>
+                <span id="servo-state">Unlocked</span>
+              </div>
+            </div>
+            <div class="readout">
+              <div class="kpi">
+                <span>Current detuning</span>
+                <strong id="servo-detuning">+5.80 kHz</strong>
+              </div>
+              <div class="kpi">
+                <span>Controller effort</span>
+                <strong id="servo-effort">0.00 arb</strong>
+              </div>
+              <div class="kpi">
+                <span>Transmission</span>
+                <strong id="servo-transmission">58.6%</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="repo">
+        <div class="section-head">
+          <div>
+            <h2>How this repo turns the dip into a clock</h2>
+            <p>This project implements a feedback chain. The photodiode trace is the measurement, and the corrected oscillator is the thing that becomes the clock reference.</p>
+          </div>
+        </div>
+
+        <div class="section-grid">
+          <article class="card body-card">
+            <p>
+              If you were confused by the dip plot, this is the missing bridge:
+              the project does <strong>not</strong> treat the dip itself as the clock output.
+              It uses the dip as a <strong>frequency error sensor</strong>.
+            </p>
+            <div class="module-stack">
+              <div class="module-card">
+                <div class="module-top">
+                  <strong>1. <code>06_rf_synthesis</code></strong>
+                  <span class="file-tag">PLL + VCO</span>
+                </div>
+                <p>Generate a tunable RF tone near <strong>3.417 GHz</strong>, which is half the Rb-87 hyperfine splitting.</p>
+              </div>
+              <div class="module-card">
+                <div class="module-top">
+                  <strong>2. <code>01_vcsel_sideband</code></strong>
+                  <span class="file-tag">VCSEL modulation</span>
+                </div>
+                <p>Use that RF tone to modulate the laser so the first-order optical sidebands are separated by <strong>6.834 GHz</strong>.</p>
+              </div>
+              <div class="module-card">
+                <div class="module-top">
+                  <strong>3. <code>00_atomic_model</code></strong>
+                  <span class="file-tag">CPT dip</span>
+                </div>
+                <p>The rubidium model produces the narrow CPT resonance and the discriminator slope that tells the controller how wrong the oscillator is.</p>
+              </div>
+              <div class="module-card">
+                <div class="module-top">
+                  <strong>4. <code>05_optical</code></strong>
+                  <span class="file-tag">Photodiode</span>
+                </div>
+                <p>Convert transmitted light into photodiode current and SNR. This is the measurement path, not the exported clock.</p>
+              </div>
+              <div class="module-card">
+                <div class="module-top">
+                  <strong>5. <code>07_servo_loop</code></strong>
+                  <span class="file-tag">PID lock</span>
+                </div>
+                <p>Use the CPT slope and VCO gain to build the control loop that keeps pulling the oscillator back to resonance.</p>
+              </div>
+              <div class="module-card">
+                <div class="module-top">
+                  <strong>6. <code>08_allan</code> + <code>09_fullchain</code></strong>
+                  <span class="file-tag">Clock quality</span>
+                </div>
+                <p>Evaluate how stable the locked oscillator is once shot noise, VCO noise, and thermal drift are combined.</p>
+              </div>
+            </div>
+            <div class="callout blue">
+              The key sentence is: <strong>photodiode output = error information, oscillator output = the clock reference.</strong>
+            </div>
+            <div class="fact-grid">
+              <div class="fact">
+                <strong>What the dip does</strong>
+                <p>It marks the frequency the atoms prefer, and its slope gives the controller a signed error.</p>
+              </div>
+              <div class="fact">
+                <strong>What actually gets steered</strong>
+                <p>The PLL/VCO tone around 3.417 GHz, which sets the laser sideband spacing.</p>
+              </div>
+              <div class="fact">
+                <strong>What the repo models</strong>
+                <p>The locked atomic reference and its stability budget.</p>
+              </div>
+              <div class="fact">
+                <strong>What the repo does not model separately</strong>
+                <p>A final package buffer or divider stage for a user-facing 10 MHz output.</p>
+              </div>
+            </div>
+          </article>
+
+          <aside class="card control">
+            <h3>Animated repo walkthrough</h3>
+            <p class="caption">
+              Press play and watch the signal move through the actual module roles in this project.
+            </p>
+            <canvas id="repo-flow-canvas" width="560" height="330"></canvas>
+            <div class="control-row">
+              <button id="repo-flow-toggle">Play walkthrough</button>
+              <button class="secondary" id="repo-flow-step">Next step</button>
+            </div>
+            <div class="repo-stage">
+              <strong id="repo-stage-title">Stage 1: RF synthesis</strong>
+              <p id="repo-stage-text">Start with a tunable RF tone near half the hyperfine frequency. This is the thing the loop will eventually correct.</p>
+            </div>
+          </aside>
+        </div>
+
+        <div class="section-grid reverse" style="margin-top:18px;">
+          <aside class="card control">
+            <h3>Animation: what is the actual clock?</h3>
+            <p class="caption">
+              This view separates the two jobs: the photodiode is a sensor, while the corrected oscillator is the reference that becomes usable timing.
+            </p>
+            <canvas id="clock-output-canvas" width="560" height="320"></canvas>
+            <div class="control-row">
+              <button id="clock-output-toggle">Start lock story</button>
+              <button class="secondary" id="clock-output-reset">Reset</button>
+              <div class="state-pill">
+                <span class="dot" id="clock-output-dot"></span>
+                <span id="clock-output-state">Uncorrected oscillator</span>
+              </div>
+            </div>
+            <div class="readout">
+              <div class="kpi">
+                <span>Photodiode error</span>
+                <strong id="clock-error-readout">+0.90 arb</strong>
+              </div>
+              <div class="kpi">
+                <span>Oscillator offset</span>
+                <strong id="clock-offset-readout">+5.20 kHz</strong>
+              </div>
+              <div class="kpi">
+                <span>Interpretation</span>
+                <strong id="clock-meaning-readout">Sensor says "too high"</strong>
+              </div>
+            </div>
+          </aside>
+
+          <article class="card body-card">
+            <h3 class="mini-head">Read this animation literally</h3>
+            <p>
+              The top plot is the CPT dip. The moving probe is where the oscillator is currently interrogating the atoms.
+              When that probe is not centered, the photodiode changes. The controller interprets that change as a correction direction.
+            </p>
+            <p>
+              The small meter on the right is the <strong>photodiode error signal</strong>.
+              It is not the timing output. It is just a "too high / too low / centered" indicator for the servo.
+            </p>
+            <p>
+              The bottom trace is the <strong>oscillator frequency error over time</strong>.
+              That is the quantity the loop is actually fixing. Once that trace flattens near zero, the oscillator is locked to the atoms.
+            </p>
+            <div class="formula">
+              atoms define the target
+              <br>photodiode reports the error
+              <br>controller computes correction
+              <br>oscillator becomes the clock reference
+            </div>
+            <div class="callout">
+              If you want the simplest sentence: the atoms tell the electronics how to tune the oscillator, and the tuned oscillator is the clock.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="mems">
+        <div class="section-head">
+          <div>
+            <h2>Why MEMS matters</h2>
+            <p>The atomic principle is old. The hard product work is making the vapor cell tiny, manufacturable, warm, and stable enough to use on a chip.</p>
+          </div>
+        </div>
+
+        <div class="section-grid reverse">
+          <aside class="card visual">
+            <h3>A simplified chip cross-section</h3>
+            <div class="mems-stack">
+              <div class="layer"><strong>Top optical window</strong><span>Lets the VCSEL beam enter the cavity</span></div>
+              <div class="layer"><strong>Rb-87 vapor + N2 buffer gas</strong><span>The active medium where CPT happens</span></div>
+              <div class="layer"><strong>Silicon cavity walls</strong><span>Microfabricated geometry that defines the cell</span></div>
+              <div class="layer"><strong>Microheater + temperature sensor</strong><span>Keeps vapor pressure and operating point stable</span></div>
+              <div class="layer"><strong>Package / magnetic shielding</strong><span>Reduces environmental disturbance</span></div>
+            </div>
+            <div class="caption">
+              None of these pieces are decorative. Each exists because a different noise or instability source has to be pushed down.
+            </div>
+          </aside>
+
+          <article class="card body-card">
+            <p>
+              Lab atomic clocks can be large because they have space for optics, thermal control, and shielding.
+              A MEMS clock tries to compress the same logic into a package small enough to deploy.
+            </p>
+            <p>
+              The cell must be hot enough to get the right rubidium vapor density, but heating burns power.
+              Buffer gas reduces motion-related broadening, but too much gas shifts and broadens the line.
+              Small geometry saves volume, but it increases wall interactions and tightens thermal constraints.
+            </p>
+            <p>
+              So MEMS is not just miniaturization. It is the discipline of <strong>keeping the useful physics alive while every dimension, milliwatt, and fabrication tolerance gets tighter</strong>.
+            </p>
+            <div class="callout green">
+              The product challenge is to preserve atomic-quality timing inside a package that looks and behaves like an ordinary embedded component.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="performance">
+        <div class="section-head">
+          <div>
+            <h2>What controls stability</h2>
+            <p>Allan deviation is the clock world's way of asking: over a given averaging time, how repeatable is the frequency?</p>
+          </div>
+        </div>
+
+        <div class="card body-card">
+          <p>
+            You do not need the full statistics first. Start with the engineering intuition:
+            the clock gets better when the resonance is narrow, the contrast is high, the photodetector signal is clean,
+            and the servo is quiet and well-tuned.
+          </p>
+          <div class="formula">
+            better stability comes from:
+            <br>narrower CPT linewidth
+            <br>higher contrast
+            <br>better signal-to-noise ratio
+            <br>lower environmental sensitivity
+            <br>cleaner control loop
+          </div>
+        </div>
+
+        <div class="noise-grid">
+          <article class="noise">
+            <h3>Optical noise</h3>
+            <p>
+              Laser intensity noise, frequency noise, and poor sideband balance all blur the error signal.
+              If the resonance feature looks fuzzy, the loop cannot lock sharply.
+            </p>
+          </article>
+          <article class="noise">
+            <h3>Cell physics noise</h3>
+            <p>
+              Temperature shifts, buffer-gas effects, wall collisions, and magnetic fields perturb the transition
+              or broaden the dark resonance.
+            </p>
+          </article>
+          <article class="noise">
+            <h3>Control and electronics noise</h3>
+            <p>
+              Phase noise in the synthesizer, noisy readout electronics, and a sloppy servo loop can turn
+              a good resonance into a mediocre output clock.
+            </p>
+          </article>
+        </div>
+
+        <div class="card body-card" style="margin-top:18px;">
+          <div class="callout blue">
+            If you want the shortest honest summary:
+            <strong>an atomic clock is only as good as the whole chain from laser modulation to cell physics to photodetection to servo correction.</strong>
+          </div>
+        </div>
+      </section>
+
+      <section id="remember">
+        <div class="section-head">
+          <div>
+            <h2>If you only remember five things</h2>
+            <p>This is the compressed version I would want you to carry away.</p>
+          </div>
+        </div>
+
+        <div class="remember">
+          <div class="chip"><strong>1.</strong><br>The atoms are the reference, not the oscillator.</div>
+          <div class="chip"><strong>2.</strong><br>RF modulation creates two optical tones whose spacing is what matters.</div>
+          <div class="chip"><strong>3.</strong><br>CPT makes the cell more transparent at the right spacing.</div>
+          <div class="chip"><strong>4.</strong><br>The servo loop converts that optical signature into frequency correction.</div>
+          <div class="chip"><strong>5.</strong><br>MEMS is the art of keeping all of this working in a tiny heated package.</div>
+        </div>
+
+        <div class="card body-card" style="margin-top:18px;">
+          <p>
+            If you needed to explain it out loud in one breath:
+            <strong>
+              "A MEMS atomic clock uses a modulated laser to probe rubidium atoms in a tiny vapor cell.
+              When the probe tone spacing matches the atom's hyperfine splitting, the atoms enter a dark state and transmit more light.
+              Electronics detect that condition and servo the oscillator so the clock output stays pinned to the atomic transition."
+            </strong>
+          </p>
+        </div>
+      </section>
+
+      <div class="footer">
+        File: <code>atomicclock-mems/lecture_codex.html</code>
+      </div>
+
+    </main>
+  </div>
+  <script>
+    const atomHz = 6834682610.904;
+    const halfAtomHz = atomHz / 2;
+
+    const fmtHz = (value, digits = 3) =>
+      value.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    const fmtSigned = (value, digits = 1) => {
+      const sign = value > 0 ? "+" : value < 0 ? "-" : "";
+      return sign + Math.abs(value).toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    };
+
+    const sidebandOffset = document.getElementById("sideband-offset");
+    const sidebandMeter = document.getElementById("sideband-meter");
+    const modReadout = document.getElementById("mod-readout");
+    const spacingReadout = document.getElementById("spacing-readout");
+    const mismatchReadout = document.getElementById("mismatch-readout");
+    const sidebandMessage = document.getElementById("sideband-message");
+
+    function updateSidebands() {
+      const offsetKhz = Number(sidebandOffset.value);
+      const modHz = halfAtomHz + offsetKhz * 1e3;
+      const spacingHz = 2 * modHz;
+      const mismatchHz = spacingHz - atomHz;
+      const score = Math.max(0, 1 - Math.abs(mismatchHz) / 12000);
+      sidebandMeter.style.width = `${(score * 100).toFixed(1)}%`;
+      modReadout.textContent = `${(modHz / 1e9).toLocaleString("en-US", { minimumFractionDigits: 9, maximumFractionDigits: 9 })} GHz`;
+      spacingReadout.textContent = `${fmtHz(spacingHz)} Hz`;
+      mismatchReadout.textContent = `${fmtSigned(mismatchHz, 0)} Hz`;
+
+      if (Math.abs(mismatchHz) < 1500) {
+        sidebandMessage.className = "callout green";
+        sidebandMessage.textContent = "Excellent match. This is where the CPT dark state can become deep and clean.";
+      } else if (Math.abs(mismatchHz) < 5000) {
+        sidebandMessage.className = "callout blue";
+        sidebandMessage.textContent = "Close, but not centered. The atoms still respond, though the lock point is weaker.";
+      } else {
+        sidebandMessage.className = "callout";
+        sidebandMessage.textContent = "Too far off. The sidebands are not spaced the way the atom expects, so the dark state mostly disappears.";
+      }
+    }
+
+    const resonanceCanvas = document.getElementById("resonance-canvas");
+    const resonanceCtx = resonanceCanvas.getContext("2d");
+    const detuningSlider = document.getElementById("detuning-slider");
+    const darkDot = document.getElementById("dark-dot");
+    const darkLabel = document.getElementById("dark-label");
+    const detuningReadout = document.getElementById("detuning-readout");
+    const transmissionReadout = document.getElementById("transmission-readout");
+    const cptReadout = document.getElementById("cpt-readout");
+
+    function transmissionFromDetuning(detuningKhz) {
+      return 0.56 + 0.39 * Math.exp(-0.5 * Math.pow(detuningKhz / 1.35, 2));
+    }
+
+    function drawResonance() {
+      const W = resonanceCanvas.width;
+      const H = resonanceCanvas.height;
+      const pad = { l: 48, r: 18, t: 22, b: 36 };
+      const plotW = W - pad.l - pad.r;
+      const plotH = H - pad.t - pad.b;
+      resonanceCtx.clearRect(0, 0, W, H);
+
+      resonanceCtx.fillStyle = "#fffdf7";
+      resonanceCtx.fillRect(0, 0, W, H);
+
+      resonanceCtx.strokeStyle = "rgba(19,34,56,0.10)";
+      resonanceCtx.lineWidth = 1;
+      for (let i = 0; i <= 4; i += 1) {
+        const y = pad.t + (plotH * i) / 4;
+        resonanceCtx.beginPath();
+        resonanceCtx.moveTo(pad.l, y);
+        resonanceCtx.lineTo(W - pad.r, y);
+        resonanceCtx.stroke();
+      }
+      for (let i = -8; i <= 8; i += 2) {
+        const x = pad.l + ((i + 8) / 16) * plotW;
+        resonanceCtx.beginPath();
+        resonanceCtx.moveTo(x, pad.t);
+        resonanceCtx.lineTo(x, H - pad.b);
+        resonanceCtx.stroke();
+      }
+
+      resonanceCtx.strokeStyle = "#1f8f6a";
+      resonanceCtx.lineWidth = 4;
+      resonanceCtx.beginPath();
+      for (let px = 0; px <= 240; px += 1) {
+        const det = -8 + (px / 240) * 16;
+        const tr = transmissionFromDetuning(det);
+        const x = pad.l + (px / 240) * plotW;
+        const y = pad.t + (1 - tr) * plotH;
+        if (px === 0) resonanceCtx.moveTo(x, y);
+        else resonanceCtx.lineTo(x, y);
+      }
+      resonanceCtx.stroke();
+
+      const detuningKhz = Number(detuningSlider.value);
+      const tr = transmissionFromDetuning(detuningKhz);
+      const markerX = pad.l + ((detuningKhz + 8) / 16) * plotW;
+      const markerY = pad.t + (1 - tr) * plotH;
+
+      resonanceCtx.strokeStyle = "#c06a2f";
+      resonanceCtx.lineWidth = 2;
+      resonanceCtx.beginPath();
+      resonanceCtx.moveTo(markerX, pad.t);
+      resonanceCtx.lineTo(markerX, H - pad.b);
+      resonanceCtx.stroke();
+
+      resonanceCtx.fillStyle = "#c06a2f";
+      resonanceCtx.beginPath();
+      resonanceCtx.arc(markerX, markerY, 6, 0, Math.PI * 2);
+      resonanceCtx.fill();
+
+      resonanceCtx.fillStyle = "#506176";
+      resonanceCtx.font = "14px IBM Plex Mono, Consolas, monospace";
+      resonanceCtx.fillText("detuning (kHz)", W - 132, H - 12);
+      resonanceCtx.save();
+      resonanceCtx.translate(18, pad.t + plotH / 2);
+      resonanceCtx.rotate(-Math.PI / 2);
+      resonanceCtx.fillText("transmission", 0, 0);
+      resonanceCtx.restore();
+
+      for (let i = -8; i <= 8; i += 4) {
+        const x = pad.l + ((i + 8) / 16) * plotW;
+        resonanceCtx.fillText(String(i), x - 6, H - 14);
+      }
+
+      detuningReadout.textContent = `${fmtSigned(detuningKhz, 2)} kHz`;
+      transmissionReadout.textContent = `${(tr * 100).toFixed(1)}%`;
+
+      if (Math.abs(detuningKhz) < 0.45) {
+        darkDot.classList.add("good");
+        darkLabel.textContent = "Dark state formed";
+        cptReadout.textContent = "Centered on resonance";
+      } else if (Math.abs(detuningKhz) < 2.2) {
+        darkDot.classList.remove("good");
+        darkLabel.textContent = "Approaching dark state";
+        cptReadout.textContent = "Near the peak, not centered";
+      } else {
+        darkDot.classList.remove("good");
+        darkLabel.textContent = "Atoms still absorbing";
+        cptReadout.textContent = "Off resonance";
+      }
+    }
+
+    sidebandOffset.addEventListener("input", updateSidebands);
+    detuningSlider.addEventListener("input", drawResonance);
+
+    const servoCanvas = document.getElementById("servo-canvas");
+    const servoCtx = servoCanvas.getContext("2d");
+    const servoToggle = document.getElementById("servo-toggle");
+    const servoReset = document.getElementById("servo-reset");
+    const servoDot = document.getElementById("servo-dot");
+    const servoState = document.getElementById("servo-state");
+    const servoDetuning = document.getElementById("servo-detuning");
+    const servoEffort = document.getElementById("servo-effort");
+    const servoTransmission = document.getElementById("servo-transmission");
+
+    let servoRunning = false;
+    let servoTimer = null;
+    let plantDetuning = 5.8;
+    let controllerEffort = 0;
+    let history = new Array(70).fill(plantDetuning);
+    let tick = 0;
+
+    function resetServo() {
+      plantDetuning = 5.8;
+      controllerEffort = 0;
+      history = new Array(70).fill(plantDetuning);
+      tick = 0;
+      servoDot.classList.remove("good");
+      servoState.textContent = "Unlocked";
+      servoToggle.textContent = "Start lock demo";
+      servoRunning = false;
+      if (servoTimer) {
+        clearInterval(servoTimer);
+        servoTimer = null;
+      }
+      drawServo();
+    }
+
+    function stepServo() {
+      tick += 1;
+      const drift = 0.09 + (Math.random() - 0.5) * 0.08 + (tick % 50 === 0 ? 0.55 : 0);
+      plantDetuning += drift;
+      const error = Math.tanh(plantDetuning / 1.6);
+      controllerEffort = controllerEffort * 0.84 + error * 0.28;
+      plantDetuning -= controllerEffort * 0.52;
+      plantDetuning *= 0.985;
+      history.push(plantDetuning);
+      if (history.length > 70) history.shift();
+      drawServo();
+    }
+
+    function drawServo() {
+      const W = servoCanvas.width;
+      const H = servoCanvas.height;
+      const pad = { l: 44, r: 18, t: 24, b: 30 };
+      const plotW = W - pad.l - pad.r;
+      const plotH = H - pad.t - pad.b;
+      servoCtx.clearRect(0, 0, W, H);
+      servoCtx.fillStyle = "#fffdf7";
+      servoCtx.fillRect(0, 0, W, H);
+
+      servoCtx.strokeStyle = "rgba(19,34,56,0.10)";
+      servoCtx.lineWidth = 1;
+      for (let i = 0; i <= 4; i += 1) {
+        const y = pad.t + (plotH * i) / 4;
+        servoCtx.beginPath();
+        servoCtx.moveTo(pad.l, y);
+        servoCtx.lineTo(W - pad.r, y);
+        servoCtx.stroke();
+      }
+
+      const zeroY = pad.t + plotH / 2;
+      servoCtx.fillStyle = "rgba(31,143,106,0.10)";
+      servoCtx.fillRect(pad.l, zeroY - 16, plotW, 32);
+      servoCtx.strokeStyle = "#1f8f6a";
+      servoCtx.lineWidth = 2;
+      servoCtx.beginPath();
+      servoCtx.moveTo(pad.l, zeroY);
+      servoCtx.lineTo(W - pad.r, zeroY);
+      servoCtx.stroke();
+
+      servoCtx.strokeStyle = "#194a7a";
+      servoCtx.lineWidth = 3;
+      servoCtx.beginPath();
+      history.forEach((value, index) => {
+        const x = pad.l + (index / (history.length - 1)) * plotW;
+        const y = zeroY - (value / 8) * (plotH / 2);
+        if (index === 0) servoCtx.moveTo(x, y);
+        else servoCtx.lineTo(x, y);
+      });
+      servoCtx.stroke();
+
+      servoCtx.fillStyle = "#506176";
+      servoCtx.font = "14px IBM Plex Mono, Consolas, monospace";
+      servoCtx.fillText("detuning history (kHz)", W - 214, H - 10);
+      servoCtx.fillText("+8", 14, pad.t + 4);
+      servoCtx.fillText("0", 20, zeroY + 4);
+      servoCtx.fillText("-8", 12, H - pad.b);
+
+      const tr = transmissionFromDetuning(plantDetuning);
+      servoDetuning.textContent = `${fmtSigned(plantDetuning, 2)} kHz`;
+      servoEffort.textContent = `${fmtSigned(controllerEffort, 2)} arb`;
+      servoTransmission.textContent = `${(tr * 100).toFixed(1)}%`;
+
+      if (Math.abs(plantDetuning) < 0.55 && servoRunning) {
+        servoDot.classList.add("good");
+        servoState.textContent = "Locked near resonance";
+      } else if (servoRunning) {
+        servoDot.classList.remove("good");
+        servoState.textContent = "Searching / correcting";
+      } else {
+        servoDot.classList.remove("good");
+        servoState.textContent = "Unlocked";
+      }
+    }
+
+    servoToggle.addEventListener("click", () => {
+      if (servoRunning) {
+        servoRunning = false;
+        servoToggle.textContent = "Resume lock demo";
+        servoState.textContent = "Paused";
+        if (servoTimer) clearInterval(servoTimer);
+        servoTimer = null;
+        drawServo();
+        return;
+      }
+      servoRunning = true;
+      servoToggle.textContent = "Pause";
+      if (servoTimer) clearInterval(servoTimer);
+      servoTimer = setInterval(stepServo, 120);
+    });
+
+    servoReset.addEventListener("click", resetServo);
+
+    const repoFlowCanvas = document.getElementById("repo-flow-canvas");
+    const repoFlowCtx = repoFlowCanvas.getContext("2d");
+    const repoFlowToggle = document.getElementById("repo-flow-toggle");
+    const repoFlowStep = document.getElementById("repo-flow-step");
+    const repoStageTitle = document.getElementById("repo-stage-title");
+    const repoStageText = document.getElementById("repo-stage-text");
+
+    const repoStages = [
+      {
+        module: "06_rf_synthesis",
+        role: "PLL/VCO",
+        title: "Stage 1: RF synthesis",
+        text: "The project starts with a tunable microwave source near 3.417 GHz. This is the thing the servo will push around."
+      },
+      {
+        module: "01_vcsel_sideband",
+        role: "Laser modulation",
+        title: "Stage 2: Make optical sidebands",
+        text: "That RF tone modulates the VCSEL so the first-order optical sidebands are spaced by the full 6.834 GHz atomic splitting."
+      },
+      {
+        module: "00_atomic_model",
+        role: "Atomic discriminator",
+        title: "Stage 3: Rubidium creates the dip",
+        text: "The rubidium cell responds strongly only near the correct spacing, producing the CPT resonance and its slope."
+      },
+      {
+        module: "05_optical",
+        role: "Photodiode path",
+        title: "Stage 4: Measure transmitted light",
+        text: "The optical module turns transmitted light into photodiode current and SNR. This branch measures error; it does not become the clock output."
+      },
+      {
+        module: "07_servo_loop",
+        role: "PID lock",
+        title: "Stage 5: Convert dip slope into correction",
+        text: "The servo loop uses the CPT slope and VCO gain to decide which way to retune the oscillator."
+      },
+      {
+        module: "08_allan / 09_fullchain",
+        role: "Locked reference",
+        title: "Stage 6: Evaluate the locked clock",
+        text: "Once the oscillator is held near resonance, the project computes its stability and power budget. That locked oscillator is the modeled atomic reference."
+      }
+    ];
+
+    let repoStageIndex = 0;
+    let repoRunning = false;
+    let repoTimer = null;
+    let repoFrame = null;
+
+    function updateRepoStageCopy() {
+      const stage = repoStages[repoStageIndex];
+      repoStageTitle.textContent = stage.title;
+      repoStageText.textContent = stage.text;
+    }
+
+    function drawRepoFlow() {
+      const W = repoFlowCanvas.width;
+      const H = repoFlowCanvas.height;
+      repoFlowCtx.clearRect(0, 0, W, H);
+      repoFlowCtx.fillStyle = "#fffdf7";
+      repoFlowCtx.fillRect(0, 0, W, H);
+
+      const lineX = W / 2;
+      const boxes = repoStages.map((stage, index) => ({
+        x: 48,
+        y: 28 + index * 46,
+        w: W - 96,
+        h: 34,
+        stage
+      }));
+
+      repoFlowCtx.strokeStyle = "rgba(19,34,56,0.16)";
+      repoFlowCtx.lineWidth = 4;
+      repoFlowCtx.beginPath();
+      repoFlowCtx.moveTo(lineX, boxes[0].y + boxes[0].h / 2);
+      repoFlowCtx.lineTo(lineX, boxes[boxes.length - 1].y + boxes[boxes.length - 1].h / 2);
+      repoFlowCtx.stroke();
+
+      const pulse = repoRunning ? (0.55 + 0.45 * Math.sin(performance.now() / 240)) : 0.72;
+
+      boxes.forEach((box, index) => {
+        const isCurrent = index === repoStageIndex;
+        const isDone = index < repoStageIndex;
+        repoFlowCtx.fillStyle = isCurrent ? `rgba(25,74,122,${0.12 + pulse * 0.12})` : isDone ? "rgba(31,143,106,0.12)" : "rgba(19,34,56,0.04)";
+        repoFlowCtx.strokeStyle = isCurrent ? "#194a7a" : isDone ? "#1f8f6a" : "rgba(19,34,56,0.12)";
+        repoFlowCtx.lineWidth = isCurrent ? 2.6 : 1.2;
+        repoFlowCtx.beginPath();
+        repoFlowCtx.roundRect(box.x, box.y, box.w, box.h, 16);
+        repoFlowCtx.fill();
+        repoFlowCtx.stroke();
+
+        repoFlowCtx.fillStyle = "#132238";
+        repoFlowCtx.font = "700 15px IBM Plex Mono, Consolas, monospace";
+        repoFlowCtx.fillText(`${index + 1}. ${box.stage.module}`, box.x + 16, box.y + 14);
+        repoFlowCtx.fillStyle = "#506176";
+        repoFlowCtx.font = "13px Avenir Next, Segoe UI, sans-serif";
+        repoFlowCtx.fillText(box.stage.role, box.x + 16, box.y + 28);
+      });
+
+      const activeBox = boxes[repoStageIndex];
+      const dotY = activeBox.y + activeBox.h / 2;
+      repoFlowCtx.fillStyle = repoStageIndex === repoStages.length - 1 ? "#1f8f6a" : "#c06a2f";
+      repoFlowCtx.beginPath();
+      repoFlowCtx.arc(lineX, dotY, 8 + pulse * 2, 0, Math.PI * 2);
+      repoFlowCtx.fill();
+
+      repoFlowCtx.fillStyle = "#506176";
+      repoFlowCtx.font = "13px IBM Plex Mono, Consolas, monospace";
+      repoFlowCtx.fillText("measurement branch only", 332, boxes[3].y + 55);
+      repoFlowCtx.fillText("locked reference emerges here", 286, boxes[5].y + 55);
+
+      if (repoRunning) {
+        repoFrame = requestAnimationFrame(drawRepoFlow);
+      } else {
+        repoFrame = null;
+      }
+    }
+
+    function stopRepoFlow() {
+      repoRunning = false;
+      if (repoTimer) {
+        clearInterval(repoTimer);
+        repoTimer = null;
+      }
+      if (repoFrame) {
+        cancelAnimationFrame(repoFrame);
+        repoFrame = null;
+      }
+      repoFlowToggle.textContent = repoStageIndex === repoStages.length - 1 ? "Replay walkthrough" : "Resume walkthrough";
+      drawRepoFlow();
+    }
+
+    function advanceRepoFlow() {
+      if (repoStageIndex < repoStages.length - 1) {
+        repoStageIndex += 1;
+        updateRepoStageCopy();
+      } else {
+        stopRepoFlow();
+      }
+    }
+
+    repoFlowToggle.addEventListener("click", () => {
+      if (repoRunning) {
+        stopRepoFlow();
+        return;
+      }
+      if (repoStageIndex === repoStages.length - 1) {
+        repoStageIndex = 0;
+        updateRepoStageCopy();
+      }
+      repoRunning = true;
+      repoFlowToggle.textContent = "Pause walkthrough";
+      if (repoTimer) clearInterval(repoTimer);
+      repoTimer = setInterval(advanceRepoFlow, 1700);
+      if (!repoFrame) drawRepoFlow();
+    });
+
+    repoFlowStep.addEventListener("click", () => {
+      if (repoRunning) stopRepoFlow();
+      if (repoStageIndex === repoStages.length - 1) {
+        repoStageIndex = 0;
+      } else {
+        repoStageIndex += 1;
+      }
+      updateRepoStageCopy();
+      drawRepoFlow();
+    });
+
+    const clockOutputCanvas = document.getElementById("clock-output-canvas");
+    const clockOutputCtx = clockOutputCanvas.getContext("2d");
+    const clockOutputToggle = document.getElementById("clock-output-toggle");
+    const clockOutputReset = document.getElementById("clock-output-reset");
+    const clockOutputDot = document.getElementById("clock-output-dot");
+    const clockOutputState = document.getElementById("clock-output-state");
+    const clockErrorReadout = document.getElementById("clock-error-readout");
+    const clockOffsetReadout = document.getElementById("clock-offset-readout");
+    const clockMeaningReadout = document.getElementById("clock-meaning-readout");
+
+    let clockStoryRunning = false;
+    let clockStoryTimer = null;
+    let clockStoryOffset = 5.2;
+    let clockStoryController = 0;
+    let clockStoryHistory = new Array(90).fill(clockStoryOffset);
+    let clockStoryTick = 0;
+
+    function resetClockStory() {
+      clockStoryRunning = false;
+      if (clockStoryTimer) {
+        clearInterval(clockStoryTimer);
+        clockStoryTimer = null;
+      }
+      clockStoryOffset = 5.2;
+      clockStoryController = 0;
+      clockStoryHistory = new Array(90).fill(clockStoryOffset);
+      clockStoryTick = 0;
+      clockOutputDot.classList.remove("good");
+      clockOutputState.textContent = "Uncorrected oscillator";
+      clockOutputToggle.textContent = "Start lock story";
+      drawClockStory();
+    }
+
+    function stepClockStory() {
+      clockStoryTick += 1;
+      const drift = 0.07 + (Math.random() - 0.5) * 0.07 + (clockStoryTick % 60 === 0 ? 0.45 : 0);
+      clockStoryOffset += drift;
+      const error = Math.tanh(clockStoryOffset / 1.5);
+      clockStoryController = clockStoryController * 0.84 + error * 0.22;
+      clockStoryOffset -= clockStoryController * 0.5;
+      clockStoryOffset *= 0.989;
+      clockStoryHistory.push(clockStoryOffset);
+      if (clockStoryHistory.length > 90) clockStoryHistory.shift();
+      drawClockStory();
+    }
+
+    function drawClockStory() {
+      const W = clockOutputCanvas.width;
+      const H = clockOutputCanvas.height;
+      clockOutputCtx.clearRect(0, 0, W, H);
+      clockOutputCtx.fillStyle = "#fffdf7";
+      clockOutputCtx.fillRect(0, 0, W, H);
+
+      const dip = { x: 40, y: 28, w: 300, h: 105 };
+      const meter = { x: 364, y: 34, w: 150, h: 92 };
+      const hist = { x: 40, y: 174, w: 474, h: 110 };
+
+      clockOutputCtx.strokeStyle = "rgba(19,34,56,0.10)";
+      clockOutputCtx.lineWidth = 1;
+      clockOutputCtx.beginPath();
+      clockOutputCtx.roundRect(dip.x, dip.y, dip.w, dip.h, 18);
+      clockOutputCtx.stroke();
+      clockOutputCtx.beginPath();
+      clockOutputCtx.roundRect(meter.x, meter.y, meter.w, meter.h, 18);
+      clockOutputCtx.stroke();
+      clockOutputCtx.beginPath();
+      clockOutputCtx.roundRect(hist.x, hist.y, hist.w, hist.h, 18);
+      clockOutputCtx.stroke();
+
+      const centerX = dip.x + dip.w / 2;
+      const centerY = dip.y + dip.h * 0.78;
+      const scaleX = dip.w / 16;
+      const scaleY = dip.h * 0.55;
+
+      clockOutputCtx.strokeStyle = "#1f8f6a";
+      clockOutputCtx.setLineDash([5, 5]);
+      clockOutputCtx.beginPath();
+      clockOutputCtx.moveTo(centerX, dip.y + 10);
+      clockOutputCtx.lineTo(centerX, dip.y + dip.h - 10);
+      clockOutputCtx.stroke();
+      clockOutputCtx.setLineDash([]);
+
+      clockOutputCtx.strokeStyle = "#194a7a";
+      clockOutputCtx.lineWidth = 3;
+      clockOutputCtx.beginPath();
+      for (let px = 0; px <= 260; px += 1) {
+        const det = -8 + (px / 260) * 16;
+        const tr = transmissionFromDetuning(det);
+        const x = dip.x + 16 + (px / 260) * (dip.w - 32);
+        const y = dip.y + dip.h - 16 - (tr - 0.56) / 0.39 * scaleY;
+        if (px === 0) clockOutputCtx.moveTo(x, y);
+        else clockOutputCtx.lineTo(x, y);
+      }
+      clockOutputCtx.stroke();
+
+      const shownOffset = Math.max(-7.8, Math.min(7.8, clockStoryOffset));
+      const probeX = centerX + shownOffset * scaleX;
+      const probeY = dip.y + dip.h - 16 - (transmissionFromDetuning(shownOffset) - 0.56) / 0.39 * scaleY;
+      clockOutputCtx.strokeStyle = "#c06a2f";
+      clockOutputCtx.lineWidth = 2;
+      clockOutputCtx.beginPath();
+      clockOutputCtx.moveTo(probeX, dip.y + 12);
+      clockOutputCtx.lineTo(probeX, dip.y + dip.h - 12);
+      clockOutputCtx.stroke();
+      clockOutputCtx.fillStyle = "#c06a2f";
+      clockOutputCtx.beginPath();
+      clockOutputCtx.arc(probeX, probeY, 6, 0, Math.PI * 2);
+      clockOutputCtx.fill();
+
+      const error = Math.tanh(clockStoryOffset / 1.5);
+      clockOutputCtx.fillStyle = "#132238";
+      clockOutputCtx.font = "700 15px Avenir Next, Segoe UI, sans-serif";
+      clockOutputCtx.fillText("Atoms judge here", dip.x + 14, dip.y + 20);
+      clockOutputCtx.fillStyle = "#506176";
+      clockOutputCtx.font = "13px IBM Plex Mono, Consolas, monospace";
+      clockOutputCtx.fillText("CPT resonance", centerX - 44, dip.y + 94);
+
+      clockOutputCtx.fillStyle = "#132238";
+      clockOutputCtx.font = "700 15px Avenir Next, Segoe UI, sans-serif";
+      clockOutputCtx.fillText("Photodiode error", meter.x + 14, meter.y + 22);
+      clockOutputCtx.fillStyle = "#506176";
+      clockOutputCtx.font = "13px IBM Plex Mono, Consolas, monospace";
+      clockOutputCtx.fillText("sensor only", meter.x + 14, meter.y + 40);
+      const barY = meter.y + 61;
+      const barX = meter.x + 16;
+      const barW = meter.w - 32;
+      clockOutputCtx.fillStyle = "#ecd9b7";
+      clockOutputCtx.fillRect(barX, barY, barW, 14);
+      clockOutputCtx.strokeStyle = "rgba(19,34,56,0.12)";
+      clockOutputCtx.strokeRect(barX, barY, barW, 14);
+      clockOutputCtx.strokeStyle = "#132238";
+      clockOutputCtx.beginPath();
+      clockOutputCtx.moveTo(barX + barW / 2, barY - 3);
+      clockOutputCtx.lineTo(barX + barW / 2, barY + 17);
+      clockOutputCtx.stroke();
+      const fillW = Math.min(barW / 2, Math.abs(error) * (barW / 2));
+      clockOutputCtx.fillStyle = error >= 0 ? "#c06a2f" : "#1f8f6a";
+      clockOutputCtx.fillRect(error >= 0 ? barX + barW / 2 : barX + barW / 2 - fillW, barY + 1, fillW, 12);
+
+      const zeroY = hist.y + hist.h / 2;
+      clockOutputCtx.fillStyle = "rgba(31,143,106,0.10)";
+      clockOutputCtx.fillRect(hist.x + 10, zeroY - 14, hist.w - 20, 28);
+      clockOutputCtx.strokeStyle = "#1f8f6a";
+      clockOutputCtx.lineWidth = 2;
+      clockOutputCtx.beginPath();
+      clockOutputCtx.moveTo(hist.x + 10, zeroY);
+      clockOutputCtx.lineTo(hist.x + hist.w - 10, zeroY);
+      clockOutputCtx.stroke();
+      clockOutputCtx.strokeStyle = "#194a7a";
+      clockOutputCtx.lineWidth = 3;
+      clockOutputCtx.beginPath();
+      clockStoryHistory.forEach((value, index) => {
+        const x = hist.x + 12 + (index / (clockStoryHistory.length - 1)) * (hist.w - 24);
+        const y = zeroY - (value / 8) * ((hist.h - 26) / 2);
+        if (index === 0) clockOutputCtx.moveTo(x, y);
+        else clockOutputCtx.lineTo(x, y);
+      });
+      clockOutputCtx.stroke();
+      clockOutputCtx.fillStyle = "#132238";
+      clockOutputCtx.font = "700 15px Avenir Next, Segoe UI, sans-serif";
+      clockOutputCtx.fillText("Oscillator frequency error over time", hist.x + 12, hist.y + 20);
+      clockOutputCtx.fillStyle = "#506176";
+      clockOutputCtx.font = "13px IBM Plex Mono, Consolas, monospace";
+      clockOutputCtx.fillText("this becomes the clock reference", hist.x + 12, hist.y + 39);
+
+      clockErrorReadout.textContent = `${fmtSigned(error, 2)} arb`;
+      clockOffsetReadout.textContent = `${fmtSigned(clockStoryOffset, 2)} kHz`;
+
+      if (Math.abs(clockStoryOffset) < 0.55 && clockStoryRunning) {
+        clockOutputDot.classList.add("good");
+        clockOutputState.textContent = "Locked to atomic resonance";
+        clockMeaningReadout.textContent = "Sensor near zero, oscillator centered";
+      } else if (clockStoryRunning) {
+        clockOutputDot.classList.remove("good");
+        clockOutputState.textContent = "Sensor steering oscillator";
+        clockMeaningReadout.textContent = error > 0 ? "Sensor says \"too high\"" : "Sensor says \"too low\"";
+      } else {
+        clockOutputDot.classList.remove("good");
+        clockOutputState.textContent = "Uncorrected oscillator";
+        clockMeaningReadout.textContent = error > 0 ? "Sensor says \"too high\"" : "Sensor says \"too low\"";
+      }
+    }
+
+    clockOutputToggle.addEventListener("click", () => {
+      if (clockStoryRunning) {
+        clockStoryRunning = false;
+        if (clockStoryTimer) {
+          clearInterval(clockStoryTimer);
+          clockStoryTimer = null;
+        }
+        clockOutputToggle.textContent = "Resume lock story";
+        drawClockStory();
+        return;
+      }
+      clockStoryRunning = true;
+      clockOutputToggle.textContent = "Pause";
+      if (clockStoryTimer) clearInterval(clockStoryTimer);
+      clockStoryTimer = setInterval(stepClockStory, 120);
+    });
+
+    clockOutputReset.addEventListener("click", resetClockStory);
+
+    updateSidebands();
+    drawResonance();
+    resetServo();
+    updateRepoStageCopy();
+    drawRepoFlow();
+    resetClockStory();
+  </script>
+</body>
+</html>

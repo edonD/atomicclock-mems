@@ -19,6 +19,10 @@ EXIT 1 = FAIL
 import sys
 import os
 
+# Ensure Unicode output works on Windows consoles (cp1252 → utf-8)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 BENCHMARKS = {
 
     "adev_1s": {

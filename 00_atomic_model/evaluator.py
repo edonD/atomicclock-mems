@@ -15,6 +15,10 @@ EXIT 1 = FAIL  — fix simulation, do not proceed
 import sys
 import os
 
+# Ensure UTF-8 output on Windows (checkmarks, etc.)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 # ─────────────────────────────────────────────────────────────────────────────
 # BENCHMARKS
 # These are the numbers the simulation MUST reproduce or beat.

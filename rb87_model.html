@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rb-87 Electron Structure — Interactive Model</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0d1117;color:#c9d1d9;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:14px;line-height:1.6}
+h1{font-size:1.6rem;color:#e6edf3;letter-spacing:-0.01em}
+h2{font-size:1.1rem;color:#79c0ff;margin-bottom:10px}
+h3{font-size:0.95rem;color:#79c0ff;margin-bottom:6px}
+strong{color:#e6edf3}
+.page{max-width:1280px;margin:0 auto;padding:24px 20px 60px}
+.hero{background:linear-gradient(135deg,#0d1117,#0d1f33 60%,#0d1117);
+  border-bottom:1px solid #1f6feb;padding:32px 20px 28px;text-align:center}
+.hero p{color:#8b949e;margin-top:6px;font-size:0.95rem}
+.badge{display:inline-block;background:#161b22;border:1px solid #30363d;
+  border-radius:20px;padding:4px 14px;font-size:0.8rem;margin:4px}
+.grid-top{display:grid;grid-template-columns:400px 1fr;gap:24px;margin-top:28px;align-items:start}
+.card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:18px 20px;margin-bottom:20px}
+.card.accent{border-color:#1f6feb}
+.card.green{border-color:#238636}
+.card.orange{border-color:#9e6a03}
+canvas{display:block;border-radius:10px;border:1px solid #30363d}
+.shell-btn{display:inline-block;padding:4px 12px;border-radius:6px;
+  border:1px solid #30363d;background:#0d1117;color:#8b949e;
+  font-size:0.78rem;cursor:pointer;margin:3px;transition:all 0.15s;font-family:monospace}
+.shell-btn:hover,.shell-btn.active{border-color:#58a6ff;color:#58a6ff;background:#0d1f33}
+.shell-btn.valence{border-color:#f78166;color:#f78166}
+.shell-btn.valence.active{background:#2d1a18}
+table{width:100%;border-collapse:collapse;font-size:0.82rem}
+th{background:#161b22;color:#79c0ff;padding:7px 10px;text-align:left;
+   border-bottom:2px solid #30363d;font-weight:600}
+td{padding:6px 10px;border-bottom:1px solid #21262d}
+tr.valence-row{background:#1a1206}
+tr.valence-row td{color:#f78166}
+tr:hover td{background:#161b22}
+.qn-tag{display:inline-block;background:#0d1f33;border:1px solid #1f6feb;
+  border-radius:4px;padding:1px 6px;font-family:monospace;font-size:0.78rem;
+  color:#79c0ff;margin:1px}
+.info-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.info-item{background:#0d1117;border:1px solid #21262d;border-radius:6px;
+  padding:4px 12px;font-size:0.82rem}
+.info-item span{color:#58a6ff;font-weight:600}
+.note{font-size:0.78rem;color:#6e7681;margin-top:6px;font-style:italic}
+.hf-label{font-size:11px;fill:#8b949e}
+.transition-highlight{stroke:#f0883e;stroke-width:2}
+/* responsive */
+@media(max-width:860px){
+  .grid-top{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>⚛️ Rubidium-87 Electron Structure</h1>
+  <p>Interactive atomic model — correct quantum numbers, Bohr shells, and hyperfine structure</p>
+  <div style="margin-top:12px">
+    <span class="badge">Z = 37 protons</span>
+    <span class="badge">N = 50 neutrons</span>
+    <span class="badge">A = 87</span>
+    <span class="badge">Configuration: [Kr] 5s¹</span>
+    <span class="badge" style="border-color:#f78166;color:#f78166">Valence: 5s¹ (1 electron)</span>
+    <span class="badge" style="border-color:#56d364;color:#56d364">Nuclear spin I = 3/2</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- TOP GRID: Bohr model + Energy levels -->
+  <div class="grid-top">
+
+    <!-- LEFT: Bohr canvas -->
+    <div>
+      <div class="card accent" style="padding:14px">
+        <h2 style="margin-bottom:10px">Bohr Shell Model</h2>
+        <canvas id="bohr" width="360" height="360"></canvas>
+        <p style="font-size:0.75rem;color:#6e7681;margin-top:6px;text-align:center">
+          Click a shell button to highlight it &nbsp;|&nbsp;
+          Orbital speeds ∝ 1/n³ (Kepler scaling)
+        </p>
+        <div style="margin-top:10px">
+          <div id="shell-buttons"></div>
+        </div>
+        <div id="shell-info" class="card" style="margin-top:12px;padding:12px;min-height:72px;background:#0d1117;border-color:#21262d">
+          <p style="color:#6e7681;font-size:0.82rem">Click a shell to see details</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Energy levels + hyperfine -->
+    <div>
+      <div class="card accent" style="padding:14px;margin-bottom:20px">
+        <h2>Energy Levels &amp; Hyperfine Structure</h2>
+        <canvas id="energy-canvas" width="560" height="420"></canvas>
+        <p class="note" style="margin-top:6px">
+          The <strong>6,834,682,610.904 Hz</strong> gap between F=2 and F=1 is the clock transition.
+          Two laser sidebands straddle this gap to create <em>Coherent Population Trapping (CPT)</em>.
+        </p>
+      </div>
+
+      <!-- Fact cards -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="card green">
+          <h3>Why one valence electron?</h3>
+          <p style="font-size:0.82rem;color:#8b949e">
+            The inner 36 electrons fill shells 1–4 completely (the <em>krypton core</em>).
+            The 37th electron must go to n=5, subshell 5s. With only one outer electron,
+            Rb behaves like a simple <strong>two-level-like</strong> quantum system — ideal for laser manipulation.
+          </p>
+        </div>
+        <div class="card orange">
+          <h3>Nuclear spin I = 3/2</h3>
+          <p style="font-size:0.82rem;color:#8b949e">
+            The Rb-87 nucleus has spin I = 3/2. Combined with the 5s electron spin J = 1/2,
+            the total angular momentum F = I±J = <strong>2 or 1</strong>.
+            These two hyperfine ground states are the clock levels, separated by
+            <strong>6.835 GHz</strong>.
+          </p>
+        </div>
+        <div class="card" style="border-color:#388bfd">
+          <h3>Pauli Exclusion</h3>
+          <p style="font-size:0.82rem;color:#8b949e">
+            No two electrons share the same four quantum numbers (n, l, m<sub>l</sub>, m<sub>s</sub>).
+            Each orbital holds at most 2 electrons with opposite spins (↑↓).
+            The 5s¹ electron is unpaired — that lone spin is what we exploit.
+          </p>
+        </div>
+        <div class="card" style="border-color:#f78166">
+          <h3>Valence electron 5s¹</h3>
+          <p style="font-size:0.82rem;color:#8b949e">
+            n=5, l=0, m<sub>l</sub>=0, m<sub>s</sub>=+½.
+            The 5→5 electric-dipole transition is forbidden (Δl=0).
+            Transitions use D1 (794.7 nm) and D2 (780.2 nm) lines:
+            5S → 5P via photon absorption.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORBITAL TABLE -->
+  <div class="card" style="margin-top:8px">
+    <h2>Complete Orbital Breakdown — All 37 Electrons</h2>
+    <p style="font-size:0.82rem;color:#8b949e;margin-bottom:12px">
+      Each row = one subshell. Quantum numbers: <em>n</em> (principal), <em>l</em> (azimuthal),
+      <em>m<sub>l</sub></em> (magnetic), <em>m<sub>s</sub></em> (spin ±½).
+      Subshell capacity = 2(2l+1).
+    </p>
+    <div style="overflow-x:auto">
+    <table id="orbital-table">
+      <thead>
+        <tr>
+          <th>Shell</th><th>n</th><th>Subshell</th><th>l</th>
+          <th>m<sub>l</sub> values</th><th>Electrons</th>
+          <th>Notation</th><th>Cumulative</th><th>Notes</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+    <p class="note" style="margin-top:10px">
+      ★ The 5s¹ electron is the lone valence electron. All others form the inert [Kr] noble-gas core.
+      The Aufbau principle fills 3d before 4s in the sequence: 1s→2s→2p→3s→3p→4s→3d→4p→5s.
+    </p>
+  </div>
+
+  <!-- QUANTUM NUMBERS LEGEND -->
+  <div class="card" style="margin-top:0">
+    <h2>Quantum Number Quick Reference</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:8px">
+      <div>
+        <strong>n — Principal quantum number</strong>
+        <p style="font-size:0.82rem;color:#8b949e;margin-top:4px">
+          Determines shell (energy level). n = 1,2,3,4,5 for Rb-87.
+          Shell letters: K,L,M,N,O. Energy ∝ −1/n².
+        </p>
+      </div>
+      <div>
+        <strong>l — Azimuthal quantum number</strong>
+        <p style="font-size:0.82rem;color:#8b949e;margin-top:4px">
+          Determines subshell shape. l = 0(s), 1(p), 2(d), 3(f).
+          l ranges 0 to n−1. s=sphere, p=dumbbell, d=clover.
+        </p>
+      </div>
+      <div>
+        <strong>m<sub>l</sub> — Magnetic quantum number</strong>
+        <p style="font-size:0.82rem;color:#8b949e;margin-top:4px">
+          Orientation of orbital in space. m<sub>l</sub> = −l to +l.
+          In a magnetic field each m<sub>l</sub> has a slightly different energy (Zeeman effect).
+        </p>
+      </div>
+      <div>
+        <strong>m<sub>s</sub> — Spin quantum number</strong>
+        <p style="font-size:0.82rem;color:#8b949e;margin-top:4px">
+          Electron intrinsic spin: +½ (up ↑) or −½ (down ↓).
+          The 5s¹ valence electron is unpaired (only one spin present).
+        </p>
+      </div>
+      <div>
+        <strong>F — Total hyperfine angular momentum</strong>
+        <p style="font-size:0.82rem;color:#8b949e;margin-top:4px">
+          F = J + I where J = electron total angular momentum,
+          I = nuclear spin = 3/2.
+          Ground state: F=1 (lower) and F=2 (upper).
+        </p>
+      </div>
+      <div>
+        <strong>m<sub>F</sub> — Hyperfine magnetic sublevel</strong>
+        <p style="font-size:0.82rem;color:#8b949e;margin-top:4px">
+          m<sub>F</sub> = −F to +F. The <em>clock transition</em> uses
+          |F=1, m<sub>F</sub>=0⟩ ↔ |F=2, m<sub>F</sub>=0⟩,
+          which is first-order insensitive to magnetic fields.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- .page -->
+
+<footer style="text-align:center;color:#30363d;font-size:0.75rem;padding:20px;
+  border-top:1px solid #21262d">
+  Rb-87 data: NIST Atomic Spectra Database.
+  Hyperfine splitting: 6,834,682,610.904 Hz (exact, historical SI second definition anchor).
+  Bohr model is a classical approximation; real electrons are probability clouds (wavefunctions).
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// Shell / orbital data — scientifically correct for Rb-87
+// ─────────────────────────────────────────────────────────────────────────────
+const SHELLS = [
+  {
+    n: 1, shellName: 'K', color: '#60a0ff',
+    subshells: [{ name:'1s', l:0, ml:[0], count:2 }],
+    electrons: 2, cumulative: 2,
+    label: '1s²'
+  },
+  {
+    n: 2, shellName: 'L', color: '#58d68d',
+    subshells: [
+      { name:'2s', l:0, ml:[0], count:2 },
+      { name:'2p', l:1, ml:[-1,0,1], count:6 }
+    ],
+    electrons: 8, cumulative: 10,
+    label: '2s² 2p⁶'
+  },
+  {
+    n: 3, shellName: 'M', color: '#f0883e',
+    subshells: [
+      { name:'3s', l:0, ml:[0], count:2 },
+      { name:'3p', l:1, ml:[-1,0,1], count:6 },
+      { name:'3d', l:2, ml:[-2,-1,0,1,2], count:10 }
+    ],
+    electrons: 18, cumulative: 28,
+    label: '3s² 3p⁶ 3d¹⁰'
+  },
+  {
+    n: 4, shellName: 'N', color: '#bc8cff',
+    subshells: [
+      { name:'4s', l:0, ml:[0], count:2 },
+      { name:'4p', l:1, ml:[-1,0,1], count:6 }
+    ],
+    electrons: 8, cumulative: 36,
+    label: '4s² 4p⁶',
+    note: '[Kr] core complete'
+  },
+  {
+    n: 5, shellName: 'O', color: '#f78166',
+    subshells: [
+      { name:'5s', l:0, ml:[0], count:1 }
+    ],
+    electrons: 1, cumulative: 37,
+    label: '5s¹',
+    valence: true,
+    note: '★ Valence electron — unpaired spin'
+  }
+];
+
+// Orbital radii on canvas (px) — visually spread so all shells are visible
+const RADII = [28, 62, 100, 138, 174];
+
+// Angular speed ∝ 1/n³ (Kepler), scaled so n=1 is comfortably fast
+const BASE_OMEGA = 0.022; // rad per frame for n=1
+const OMEGAS = SHELLS.map(s => BASE_OMEGA / Math.pow(s.n, 3));
+
+// Phase offsets for each electron in a shell (evenly spaced)
+function shellAngles(count) {
+  return Array.from({length: count}, (_, i) => (2 * Math.PI * i) / count);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Bohr canvas animation
+// ─────────────────────────────────────────────────────────────────────────────
+const bohrCanvas = document.getElementById('bohr');
+const bCtx = bohrCanvas.getContext('2d');
+const BW = bohrCanvas.width;
+const BH = bohrCanvas.height;
+const BCX = BW / 2;
+const BCY = BH / 2;
+
+let highlightShell = -1; // -1 = all, 0-4 = specific shell index
+let frameCount = 0;
+
+// Per-shell electron angle state
+const shellPhases = SHELLS.map((s, i) => {
+  const angles = shellAngles(s.electrons);
+  return angles;
+});
+
+function drawBohr() {
+  bCtx.clearRect(0, 0, BW, BH);
+  bCtx.fillStyle = '#0d1117';
+  bCtx.fillRect(0, 0, BW, BH);
+
+  // Nucleus
+  const nucR = 18;
+  const nucGrad = bCtx.createRadialGradient(BCX-3, BCY-3, 2, BCX, BCY, nucR);
+  nucGrad.addColorStop(0, '#ff9944');
+  nucGrad.addColorStop(0.5, '#cc4400');
+  nucGrad.addColorStop(1, '#661100');
+  bCtx.beginPath();
+  bCtx.arc(BCX, BCY, nucR, 0, Math.PI * 2);
+  bCtx.fillStyle = nucGrad;
+  bCtx.fill();
+  bCtx.strokeStyle = '#ff6622';
+  bCtx.lineWidth = 1.5;
+  bCtx.stroke();
+
+  // Nucleus label
+  bCtx.fillStyle = '#ffddaa';
+  bCtx.font = 'bold 9px monospace';
+  bCtx.textAlign = 'center';
+  bCtx.textBaseline = 'middle';
+  bCtx.fillText('⁸⁷Rb', BCX, BCY - 3);
+  bCtx.font = '7px monospace';
+  bCtx.fillStyle = '#ff9944';
+  bCtx.fillText('Z=37', BCX, BCY + 6);
+
+  // Shells (orbits + electrons)
+  SHELLS.forEach((shell, si) => {
+    const r = RADII[si];
+    const isHighlighted = highlightShell === si;
+    const isDimmed = highlightShell >= 0 && !isHighlighted;
+    const alpha = isDimmed ? 0.18 : 1.0;
+    const color = shell.color;
+
+    // Orbit ring
+    bCtx.beginPath();
+    bCtx.arc(BCX, BCY, r, 0, Math.PI * 2);
+    bCtx.strokeStyle = `rgba(${hexToRgb(color)},${isDimmed ? 0.12 : (isHighlighted ? 0.5 : 0.25)})`;
+    bCtx.lineWidth = isHighlighted ? 1.5 : 1;
+    bCtx.setLineDash(isHighlighted ? [] : [4, 4]);
+    bCtx.stroke();
+    bCtx.setLineDash([]);
+
+    // Shell label on orbit (right side)
+    bCtx.fillStyle = `rgba(${hexToRgb(color)},${alpha * 0.9})`;
+    bCtx.font = `${isHighlighted ? 'bold ' : ''}10px monospace`;
+    bCtx.textAlign = 'left';
+    bCtx.textBaseline = 'middle';
+    bCtx.fillText(`n=${shell.n} ${shell.shellName}`, BCX + r + 6, BCY - r * 0.3 + si * 0);
+
+    // Electron count label
+    bCtx.font = '9px monospace';
+    bCtx.fillStyle = `rgba(${hexToRgb(color)},${alpha * 0.7})`;
+    bCtx.fillText(`(${shell.electrons}e)`, BCX + r + 6, BCY - r * 0.3 + 11);
+
+    // Electrons
+    const omega = OMEGAS[si];
+    const baseAngles = shellPhases[si];
+
+    baseAngles.forEach((phi0, ei) => {
+      const angle = phi0 + omega * frameCount;
+      const ex = BCX + r * Math.cos(angle);
+      const ey = BCY + r * Math.sin(angle);
+
+      const eR = shell.valence ? 5.5 : 4;
+      const grd = bCtx.createRadialGradient(ex - 1, ey - 1, 0.5, ex, ey, eR);
+
+      if (shell.valence) {
+        // Valence electron: bright orange-red with glow
+        grd.addColorStop(0, `rgba(255, 200, 100, ${alpha})`);
+        grd.addColorStop(0.5, `rgba(247, 129, 102, ${alpha})`);
+        grd.addColorStop(1, `rgba(200, 50, 20, 0)`);
+        // glow ring
+        if (!isDimmed) {
+          bCtx.beginPath();
+          bCtx.arc(ex, ey, eR + 4, 0, Math.PI * 2);
+          bCtx.fillStyle = 'rgba(247,129,102,0.12)';
+          bCtx.fill();
+        }
+      } else {
+        grd.addColorStop(0, `rgba(180,220,255,${alpha})`);
+        grd.addColorStop(0.6, `rgba(${hexToRgb(color)},${alpha * 0.85})`);
+        grd.addColorStop(1, `rgba(${hexToRgb(color)},0)`);
+      }
+
+      bCtx.beginPath();
+      bCtx.arc(ex, ey, eR, 0, Math.PI * 2);
+      bCtx.fillStyle = grd;
+      bCtx.fill();
+
+      if (!isDimmed) {
+        bCtx.beginPath();
+        bCtx.arc(ex, ey, eR, 0, Math.PI * 2);
+        bCtx.strokeStyle = shell.valence ? 'rgba(255,160,80,0.8)' : `rgba(${hexToRgb(color)},0.6)`;
+        bCtx.lineWidth = 0.8;
+        bCtx.stroke();
+      }
+    });
+  });
+
+  // Highlight border
+  if (highlightShell >= 0) {
+    const sh = SHELLS[highlightShell];
+    const r = RADII[highlightShell];
+    bCtx.beginPath();
+    bCtx.arc(BCX, BCY, r, 0, Math.PI * 2);
+    bCtx.strokeStyle = `rgba(${hexToRgb(sh.color)},0.6)`;
+    bCtx.lineWidth = 2.5;
+    bCtx.setLineDash([]);
+    bCtx.stroke();
+  }
+
+  frameCount++;
+  requestAnimationFrame(drawBohr);
+}
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Shell buttons
+// ─────────────────────────────────────────────────────────────────────────────
+const btnContainer = document.getElementById('shell-buttons');
+const infoBox = document.getElementById('shell-info');
+
+// "All" button
+const allBtn = document.createElement('button');
+allBtn.className = 'shell-btn active';
+allBtn.id = 'btn-all';
+allBtn.textContent = 'All shells';
+allBtn.addEventListener('click', () => {
+  highlightShell = -1;
+  document.querySelectorAll('.shell-btn').forEach(b => b.classList.remove('active'));
+  allBtn.classList.add('active');
+  infoBox.innerHTML = '<p style="color:#6e7681;font-size:0.82rem">Click a shell to see details</p>';
+});
+btnContainer.appendChild(allBtn);
+
+SHELLS.forEach((sh, si) => {
+  const btn = document.createElement('button');
+  btn.className = 'shell-btn' + (sh.valence ? ' valence' : '');
+  btn.id = `btn-shell-${si}`;
+  btn.textContent = `n=${sh.n} ${sh.shellName}: ${sh.label}`;
+  btn.style.borderColor = sh.color + '88';
+  btn.style.color = sh.color;
+  btn.addEventListener('click', () => {
+    highlightShell = si;
+    document.querySelectorAll('.shell-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    showShellInfo(sh);
+  });
+  btnContainer.appendChild(btn);
+});
+
+function showShellInfo(sh) {
+  const subshellRows = sh.subshells.map(ss => {
+    const mlStr = ss.ml.map(m => (m >= 0 ? '+' : '') + m).join(', ');
+    const spins = ss.count === 1 ? '+½ only (unpaired)' : `+½ and −½ per orbital`;
+    return `<tr>
+      <td><span class="qn-tag">${ss.name}</span></td>
+      <td><span class="qn-tag">l=${ss.l}</span></td>
+      <td>${mlStr}</td>
+      <td>${spins}</td>
+      <td><strong>${ss.count}</strong></td>
+    </tr>`;
+  }).join('');
+
+  infoBox.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+      <strong style="color:${sh.color}">Shell ${sh.shellName} (n = ${sh.n})</strong>
+      <span style="font-size:0.8rem;color:#8b949e">${sh.electrons} electrons total — cumulative: ${sh.cumulative}/37</span>
+    </div>
+    <table style="font-size:0.78rem;margin-bottom:6px">
+      <thead><tr>
+        <th>Subshell</th><th>l</th><th>m<sub>l</sub></th><th>m<sub>s</sub></th><th>Count</th>
+      </tr></thead>
+      <tbody>${subshellRows}</tbody>
+    </table>
+    ${sh.note ? `<p style="font-size:0.78rem;color:#f78166;margin-top:4px">⚡ ${sh.note}</p>` : ''}
+  `;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Energy level / hyperfine canvas
+// ─────────────────────────────────────────────────────────────────────────────
+const eCanvas = document.getElementById('energy-canvas');
+const eCtx = eCanvas.getContext('2d');
+const EW = eCanvas.width;
+const EH = eCanvas.height;
+
+function drawEnergyLevels() {
+  eCtx.clearRect(0, 0, EW, EH);
+  eCtx.fillStyle = '#0d1117';
+  eCtx.fillRect(0, 0, EW, EH);
+
+  // Layout:
+  //  y=50:  5P₃/₂  (D2 upper, 780.241 nm)   F'=0,1,2,3
+  //  y=110: 5P₁/₂  (D1 upper, 794.979 nm)   F'=1,2
+  //  gap
+  //  y=300: 5S₁/₂  F=2  (upper hyperfine)
+  //  y=360: 5S₁/₂  F=1  (lower hyperfine)
+
+  const leftX = 60;
+  const levelW = 140;
+  const mfSpacing = 30;
+
+  // ─ 5P₃/₂ state (D2 line) ──────────────────────────────────────────────
+  const p32y = 52;
+  drawStateBlock(p32y, '5²P₃/₂', 'D2 line, 780.241 nm', '#79c0ff', leftX, levelW);
+
+  // F' sublevels for 5P₃/₂: F'=0,1,2,3
+  const p32F = [0,1,2,3];
+  p32F.forEach((F, i) => {
+    const fy = p32y + 28 + i * 22;
+    drawHFLevel(fy, F, '#3d8bcd', 220, 480);
+    eCtx.fillStyle = '#6e7681';
+    eCtx.font = '9px monospace';
+    eCtx.textAlign = 'left';
+    eCtx.fillText(`F'=${F}  (2F+1=${2*F+1} sublevels)`, 490, fy + 4);
+  });
+
+  // ─ 5P₁/₂ state (D1 line) ──────────────────────────────────────────────
+  const p12y = 158;
+  drawStateBlock(p12y, '5²P₁/₂', 'D1 line, 794.979 nm', '#56d364', leftX, levelW);
+  const p12F = [1,2];
+  p12F.forEach((F, i) => {
+    const fy = p12y + 28 + i * 22;
+    drawHFLevel(fy, F, '#2d7a3a', 220, 480);
+    eCtx.fillStyle = '#6e7681';
+    eCtx.font = '9px monospace';
+    eCtx.textAlign = 'left';
+    eCtx.fillText(`F'=${F}`, 490, fy + 4);
+  });
+
+  // Transition wavelength labels (arrows from ground to excited)
+  // D2: 780.241 nm
+  eCtx.strokeStyle = '#79c0ff';
+  eCtx.lineWidth = 1;
+  eCtx.setLineDash([3, 3]);
+  eCtx.beginPath();
+  eCtx.moveTo(leftX + levelW * 0.35, p32y + 100);
+  eCtx.lineTo(leftX + levelW * 0.35, 278);
+  eCtx.stroke();
+  eCtx.setLineDash([]);
+  // arrowhead up
+  arrowHead(eCtx, leftX + levelW * 0.35, p32y + 100, '#79c0ff', 'up');
+  eCtx.fillStyle = '#79c0ff';
+  eCtx.font = '9px sans-serif';
+  eCtx.textAlign = 'center';
+  eCtx.fillText('780.2 nm', leftX + levelW * 0.35 + 28, p32y + 135);
+
+  // D1: 794.9 nm
+  eCtx.strokeStyle = '#56d364';
+  eCtx.lineWidth = 1;
+  eCtx.setLineDash([3, 3]);
+  eCtx.beginPath();
+  eCtx.moveTo(leftX + levelW * 0.65, p12y + 66);
+  eCtx.lineTo(leftX + levelW * 0.65, 278);
+  eCtx.stroke();
+  eCtx.setLineDash([]);
+  arrowHead(eCtx, leftX + levelW * 0.65, p12y + 66, '#56d364', 'up');
+  eCtx.fillStyle = '#56d364';
+  eCtx.font = '9px sans-serif';
+  eCtx.textAlign = 'center';
+  eCtx.fillText('794.9 nm', leftX + levelW * 0.65 + 28, p12y + 86);
+
+  // ─ Gap label ───────────────────────────────────────────────────────────
+  const gapY = 240;
+  eCtx.strokeStyle = '#21262d';
+  eCtx.lineWidth = 1;
+  eCtx.setLineDash([2,4]);
+  eCtx.beginPath(); eCtx.moveTo(0, gapY); eCtx.lineTo(EW, gapY); eCtx.stroke();
+  eCtx.setLineDash([]);
+  eCtx.fillStyle = '#30363d';
+  eCtx.font = 'italic 9px sans-serif';
+  eCtx.textAlign = 'center';
+  eCtx.fillText('~ 1.6 eV gap (optical transition)', EW/2, gapY - 5);
+
+  // ─ Ground state 5S₁/₂ ─────────────────────────────────────────────────
+  const f2y = 285;  // F=2 (upper)
+  const f1y = 355;  // F=1 (lower)
+
+  drawStateBlock(f2y - 30, '5²S₁/₂', 'Ground state', '#f78166', leftX, levelW);
+
+  // F=2 level
+  eCtx.strokeStyle = '#f78166';
+  eCtx.lineWidth = 2;
+  eCtx.beginPath();
+  eCtx.moveTo(leftX + 5, f2y);
+  eCtx.lineTo(leftX + levelW - 5, f2y);
+  eCtx.stroke();
+  eCtx.fillStyle = '#f78166';
+  eCtx.font = 'bold 11px monospace';
+  eCtx.textAlign = 'right';
+  eCtx.fillText('F = 2', leftX - 4, f2y + 4);
+
+  // F=1 level
+  eCtx.strokeStyle = '#ffa07a';
+  eCtx.lineWidth = 2;
+  eCtx.beginPath();
+  eCtx.moveTo(leftX + 5, f1y);
+  eCtx.lineTo(leftX + levelW - 5, f1y);
+  eCtx.stroke();
+  eCtx.fillStyle = '#ffa07a';
+  eCtx.font = 'bold 11px monospace';
+  eCtx.textAlign = 'right';
+  eCtx.fillText('F = 1', leftX - 4, f1y + 4);
+
+  // Hyperfine splitting brace + label
+  eCtx.strokeStyle = '#8b949e';
+  eCtx.lineWidth = 1;
+  eCtx.beginPath();
+  eCtx.moveTo(leftX + levelW + 12, f2y);
+  eCtx.lineTo(leftX + levelW + 22, f2y);
+  eCtx.lineTo(leftX + levelW + 22, f1y);
+  eCtx.lineTo(leftX + levelW + 12, f1y);
+  eCtx.stroke();
+  eCtx.fillStyle = '#f0883e';
+  eCtx.font = 'bold 10px monospace';
+  eCtx.textAlign = 'left';
+  eCtx.fillText('Δf =', leftX + levelW + 28, (f2y+f1y)/2 - 8);
+  eCtx.fillStyle = '#f0883e';
+  eCtx.font = 'bold 11px monospace';
+  eCtx.fillText('6.835 GHz', leftX + levelW + 28, (f2y+f1y)/2 + 6);
+  eCtx.fillStyle = '#8b949e';
+  eCtx.font = '8px monospace';
+  eCtx.fillText('(6,834,682,610.904 Hz)', leftX + levelW + 28, (f2y+f1y)/2 + 19);
+
+  // mF sublevels for F=2: mF = -2,-1,0,+1,+2
+  const mf2 = [-2,-1,0,1,2];
+  const mfX0 = 230;
+  mf2.forEach((mf, i) => {
+    const x = mfX0 + i * mfSpacing;
+    const isClock = mf === 0;
+    eCtx.strokeStyle = isClock ? '#f0883e' : '#f78166';
+    eCtx.lineWidth = isClock ? 2.5 : 1.5;
+    eCtx.beginPath();
+    eCtx.moveTo(x - 10, f2y);
+    eCtx.lineTo(x + 10, f2y);
+    eCtx.stroke();
+    eCtx.fillStyle = isClock ? '#f0883e' : '#f78166';
+    eCtx.font = `${isClock ? 'bold ' : ''}8px monospace`;
+    eCtx.textAlign = 'center';
+    eCtx.fillText(mf >= 0 ? `+${mf}` : `${mf}`, x, f2y - 5);
+  });
+  eCtx.fillStyle = '#8b949e';
+  eCtx.font = '9px monospace';
+  eCtx.textAlign = 'left';
+  eCtx.fillText('m_F:', mfX0 - 35, f2y - 5);
+  eCtx.fillText('F=2: 5 sublevels (m_F = −2 to +2)', mfX0 - 35, f2y + 14);
+
+  // mF sublevels for F=1: mF = -1,0,+1
+  const mf1 = [-1,0,1];
+  const mfX1 = 260;
+  mf1.forEach((mf, i) => {
+    const x = mfX1 + i * mfSpacing;
+    const isClock = mf === 0;
+    eCtx.strokeStyle = isClock ? '#f0883e' : '#ffa07a';
+    eCtx.lineWidth = isClock ? 2.5 : 1.5;
+    eCtx.beginPath();
+    eCtx.moveTo(x - 10, f1y);
+    eCtx.lineTo(x + 10, f1y);
+    eCtx.stroke();
+    eCtx.fillStyle = isClock ? '#f0883e' : '#ffa07a';
+    eCtx.font = `${isClock ? 'bold ' : ''}8px monospace`;
+    eCtx.textAlign = 'center';
+    eCtx.fillText(mf >= 0 ? `+${mf}` : `${mf}`, x, f1y - 5);
+  });
+  eCtx.fillStyle = '#8b949e';
+  eCtx.font = '9px monospace';
+  eCtx.textAlign = 'left';
+  eCtx.fillText('F=1: 3 sublevels (m_F = −1, 0, +1)', mfX1 - 35, f1y + 14);
+
+  // Clock transition arrow: |F=1, mF=0⟩ → |F=2, mF=0⟩
+  const clockX1 = mfX1 + 1 * mfSpacing;  // mF=0 in F=1
+  const clockX2 = mfX0 + 2 * mfSpacing;  // mF=0 in F=2
+  eCtx.strokeStyle = '#f0883e';
+  eCtx.lineWidth = 2;
+  eCtx.setLineDash([]);
+  eCtx.beginPath();
+  eCtx.moveTo(clockX1, f1y - 1);
+  eCtx.lineTo(clockX2, f2y + 1);
+  eCtx.stroke();
+  arrowHead(eCtx, clockX2, f2y + 1, '#f0883e', 'up');
+  // Double-headed (both ways for CPT)
+  arrowHead(eCtx, clockX1, f1y - 1, '#f0883e', 'down');
+
+  eCtx.fillStyle = '#f0883e';
+  eCtx.font = 'bold 10px sans-serif';
+  eCtx.textAlign = 'center';
+  eCtx.fillText('CLOCK', (clockX1+clockX2)/2 + 30, (f1y+f2y)/2 - 6);
+  eCtx.font = '9px monospace';
+  eCtx.fillText('TRANSITION', (clockX1+clockX2)/2 + 30, (f1y+f2y)/2 + 6);
+  eCtx.fillStyle = '#8b949e';
+  eCtx.font = '8px monospace';
+  eCtx.fillText('|F=1,m_F=0⟩ ↔ |F=2,m_F=0⟩', (clockX1+clockX2)/2 + 30, (f1y+f2y)/2 + 18);
+
+  // Ground state: no mF splitting label note
+  eCtx.fillStyle = '#6e7681';
+  eCtx.font = '8px sans-serif';
+  eCtx.textAlign = 'center';
+  eCtx.fillText('(mF levels split in magnetic field; clock levels ≈ field-insensitive at mF=0)',
+    EW/2, EH - 12);
+}
+
+function drawStateBlock(y, term, subtitle, color, x, w) {
+  eCtx.fillStyle = `rgba(${hexToRgbNum(color)},0.08)`;
+  eCtx.fillRect(x, y, w, 18);
+  eCtx.strokeStyle = `rgba(${hexToRgbNum(color)},0.4)`;
+  eCtx.lineWidth = 1;
+  eCtx.strokeRect(x, y, w, 18);
+  eCtx.fillStyle = color;
+  eCtx.font = 'bold 11px monospace';
+  eCtx.textAlign = 'left';
+  eCtx.fillText(term, x + 6, y + 12);
+  eCtx.fillStyle = '#8b949e';
+  eCtx.font = '9px sans-serif';
+  eCtx.fillText(subtitle, x + w + 8, y + 12);
+}
+
+function drawHFLevel(y, F, color, x0, x1) {
+  eCtx.strokeStyle = color;
+  eCtx.lineWidth = 1.5;
+  eCtx.beginPath();
+  eCtx.moveTo(x0, y);
+  eCtx.lineTo(x1, y);
+  eCtx.stroke();
+  eCtx.fillStyle = color;
+  eCtx.font = '9px monospace';
+  eCtx.textAlign = 'right';
+  eCtx.fillText(`F'=${F}`, x0 - 4, y + 4);
+}
+
+function arrowHead(ctx, x, y, color, dir) {
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  if (dir === 'up') {
+    ctx.moveTo(x, y - 7);
+    ctx.lineTo(x - 4, y);
+    ctx.lineTo(x + 4, y);
+  } else {
+    ctx.moveTo(x, y + 7);
+    ctx.lineTo(x - 4, y);
+    ctx.lineTo(x + 4, y);
+  }
+  ctx.closePath();
+  ctx.fill();
+}
+
+function hexToRgbNum(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Orbital table
+// ─────────────────────────────────────────────────────────────────────────────
+const tbody = document.querySelector('#orbital-table tbody');
+
+const orbitalData = [
+  // shell, n, subshell, l, ml_str, electrons, notation, cumulative, notes
+  ['K', 1, '1s', 0, '0', 2, '1s²', 2, ''],
+  ['L', 2, '2s', 0, '0', 2, '2s²', 4, ''],
+  ['L', 2, '2p', 1, '−1, 0, +1', 6, '2p⁶', 10, ''],
+  ['M', 3, '3s', 0, '0', 2, '3s²', 12, ''],
+  ['M', 3, '3p', 1, '−1, 0, +1', 6, '3p⁶', 18, ''],
+  ['M', 3, '3d', 2, '−2, −1, 0, +1, +2', 10, '3d¹⁰', 28, 'Fills before 4p (Aufbau)'],
+  ['N', 4, '4s', 0, '0', 2, '4s²', 30, ''],
+  ['N', 4, '4p', 1, '−1, 0, +1', 6, '4p⁶', 36, '[Kr] noble gas core complete'],
+  ['O', 5, '5s', 0, '0', 1, '5s¹', 37, '★ Lone valence electron: n=5, l=0, ml=0, ms=+½'],
+];
+
+orbitalData.forEach(row => {
+  const [shell, n, sub, l, ml, count, notation, cum, note] = row;
+  const tr = document.createElement('tr');
+  if (sub === '5s') tr.className = 'valence-row';
+  tr.innerHTML = `
+    <td><strong>${shell}</strong></td>
+    <td><span class="qn-tag">n=${n}</span></td>
+    <td><span class="qn-tag">${sub}</span></td>
+    <td><span class="qn-tag">l=${l}</span></td>
+    <td style="font-family:monospace;font-size:0.8rem">${ml}</td>
+    <td><strong>${count}</strong></td>
+    <td style="font-family:monospace">${notation}</td>
+    <td>${cum}</td>
+    <td style="font-size:0.78rem;color:${sub==='5s'?'#f78166':'#6e7681'}">${note}</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Start everything
+// ─────────────────────────────────────────────────────────────────────────────
+drawBohr();
+drawEnergyLevels();
+</script>
+</body>
+</html>

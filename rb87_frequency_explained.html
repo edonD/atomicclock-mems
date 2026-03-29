@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rb-87 Hyperfine Transition: Where 6.835 GHz Comes From</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:14px;line-height:1.6}
+h1{font-size:1.8rem;color:#e6edf3;letter-spacing:-0.01em;margin-bottom:8px}
+h2{font-size:1.2rem;color:#79c0ff;margin-top:20px;margin-bottom:10px}
+h3{font-size:0.95rem;color:#79c0ff}
+.container{max-width:1280px;margin:0 auto;padding:24px 20px 60px}
+.hero{background:linear-gradient(135deg,#0d1117,#0d1f33 60%,#0d1117);
+  border-bottom:1px solid #1f6feb;padding:32px 20px 28px;text-align:center}
+.hero p{color:#8b949e;margin-top:6px;font-size:0.95rem;max-width:900px;margin-left:auto;margin-right:auto}
+.card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:18px 20px;margin-bottom:20px}
+.card.accent{border-color:#1f6feb}
+.card.orange{border-color:#f0883e}
+.card.green{border-color:#238636}
+canvas{display:block;border-radius:10px;border:1px solid #30363d;background:#0d1117;width:100%;margin:10px 0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.equation{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:14px;
+  font-family:monospace;font-size:0.9rem;color:#79c0ff;margin:10px 0;text-align:center;line-height:1.8}
+.equation-label{font-size:0.8rem;color:#8b949e;margin-bottom:4px}
+.note{font-size:0.78rem;color:#6e7681;margin-top:6px;font-style:italic;padding:10px;
+  background:#0d1117;border-left:3px solid #30363d}
+.section-header{font-size:1.3rem;color:#79c0ff;margin:30px 0 10px 0;border-bottom:1px solid #30363d;padding-bottom:8px}
+.stat-box{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:12px;text-align:center;margin:6px}
+.stat-label{font-size:0.75rem;color:#6e7681;text-transform:uppercase}
+.stat-value{font-size:1.2rem;font-weight:bold;color:#58a6ff;margin-top:4px;font-family:monospace}
+button{background:#238636;border:1px solid #2ea043;color:#fff;padding:8px 16px;border-radius:6px;
+  cursor:pointer;font-size:0.85rem;font-weight:600;transition:all 0.15s}
+button:hover{background:#2ea043;border-color:#3fb950}
+strong{color:#e6edf3}
+em{color:#79c0ff;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;font-size:0.82rem;margin:10px 0}
+.comparison-table th{background:#161b22;color:#79c0ff;padding:8px;text-align:left;border-bottom:2px solid #30363d;font-weight:600}
+.comparison-table td{padding:8px;border-bottom:1px solid #21262d}
+.comparison-table tr:hover td{background:#161b22}
+.key-insight{background:#1a1206;border-left:4px solid #f0883e;padding:12px;margin:10px 0;border-radius:4px}
+.key-insight strong{color:#f0883e}
+footer{text-align:center;color:#30363d;font-size:0.75rem;padding:20px;border-top:1px solid #21262d}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>⚛️ Rb-87 Hyperfine Transition = 6,834,682,610.904 Hz</h1>
+  <p>Why is this frequency special? Where does 6.835 billion come from? Why can't your VCO just pick any frequency?</p>
+  <p style="margin-top:12px;color:#56d364;font-weight:bold">This page explains the physics that makes your chip work.</p>
+</div>
+
+<div class="container">
+
+  <!-- PART 1: THE ATOM'S ENERGY LEVELS -->
+  <div class="section-header">Part 1: Rubidium-87 Ground State Energy Levels</div>
+
+  <div class="card accent">
+    <h2>What Is An Atom?</h2>
+    <p style="margin-bottom:10px">
+      An atom is a nucleus (protons + neutrons) surrounded by electrons. The electrons sit in discrete <em>energy levels</em> — they can't have just any energy, only specific allowed values.
+    </p>
+    <p>
+      Rubidium-87 has:
+    </p>
+    <ul style="margin-left:20px;margin-top:6px">
+      <li><strong>37 protons</strong> in the nucleus</li>
+      <li><strong>50 neutrons</strong> in the nucleus</li>
+      <li><strong>37 electrons</strong> orbiting (one per proton)</li>
+      <li><strong>Nuclear spin I = 3/2</strong> (the nucleus itself is spinning)</li>
+    </ul>
+    <p style="margin-top:10px">
+      The outermost (valence) electron is the one that matters for your atomic clock.
+    </p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h2>Energy Levels of Rb-87</h2>
+      <canvas id="energy-diagram" width="400" height="350"></canvas>
+      <p class="note">
+        The vertical axis shows energy. Higher up = higher energy state. The energy differences are what produce the frequencies we measure.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Ground State Hyperfine Split</h2>
+      <p style="margin-bottom:10px;font-size:0.9rem">
+        The ground state (5S₁/₂) is split into <strong>two levels</strong> by the interaction between the electron's spin and the nucleus's spin. This is called <em>hyperfine structure</em>.
+      </p>
+      <div class="equation">
+        <div class="equation-label">Energy difference between F=2 and F=1:</div>
+        ΔE = h × 6,834,682,610.904 Hz
+      </div>
+      <p style="margin-top:10px;font-size:0.9rem">
+        where <strong>h</strong> is Planck's constant.
+      </p>
+      <p style="margin-top:10px;font-size:0.9rem">
+        This energy difference <strong>always</strong> produces a frequency of exactly <strong>6.835 billion Hz</strong> — determined by fundamental physics, not by humans.
+      </p>
+    </div>
+  </div>
+
+  <div class="key-insight">
+    <strong>KEY INSIGHT:</strong> The nucleus and electron have intrinsic angular momentum (spins). When they couple, they create two possible energy states: F=2 (high energy) and F=1 (low energy). The energy gap between them is <strong>always</strong> 6,834,682,610.904 Hz (Planck's equation: E = hf).
+  </div>
+
+  <!-- PART 2: WHY THIS FREQUENCY? -->
+  <div class="section-header">Part 2: Where Does 6.835 GHz Come From?</div>
+
+  <div class="card orange">
+    <h2>The Physics: Hyperfine Interaction</h2>
+    <p style="margin-bottom:10px">
+      <strong>Hyperfine interaction</strong> = magnetic moment of the electron's spin couples to magnetic moment of the nucleus's spin.
+    </p>
+    <div class="equation">
+      <div class="equation-label">Hyperfine energy splitting:</div>
+      ΔE = A × I · J
+      <br>
+      where A = hyperfine coupling constant (depends on Rb-87 only)
+      <br>
+      I = nuclear spin (3/2)
+      <br>
+      J = electron angular momentum (1/2)
+    </div>
+    <p style="margin-top:10px;font-size:0.9rem">
+      For Rb-87 specifically, this interaction produces a frequency of <strong>6,834,682,610.904 Hz</strong>.
+    </p>
+    <p style="margin-top:10px;font-size:0.85rem;color:#8b949e">
+      This number was measured by NIST scientists in the 1970s. It's so precise that the <strong>international second is defined as 9,192,631,770 cycles of Cs-133</strong> (similar principle, different atom), and Rb-87 is calibrated against that. The 6.835 GHz frequency is <strong>exactly known to 12 decimal places</strong>.
+    </p>
+  </div>
+
+  <!-- PART 3: WHY CAN'T YOU PICK A DIFFERENT FREQUENCY? -->
+  <div class="section-header">Part 3: Why This Frequency Is Invariant</div>
+
+  <div class="grid-2">
+    <div class="card green">
+      <h2>Why 6.835 GHz Specifically?</h2>
+      <p style="margin-bottom:10px;font-size:0.9rem">
+        You <strong>cannot choose</strong> a different frequency. Nature sets it.
+      </p>
+      <p style="margin-bottom:10px;font-size:0.9rem">
+        The frequency is determined by:
+      </p>
+      <ul style="font-size:0.9rem;margin-left:20px">
+        <li><strong>Planck's constant h</strong> (universal)</li>
+        <li><strong>Electron spin magnetic moment</strong> (fundamental)</li>
+        <li><strong>Nuclear spin magnetic moment</strong> (depends on nucleus)</li>
+        <li><strong>Rb-87 atomic number & mass</strong> (fixed)</li>
+      </ul>
+      <p style="margin-top:10px;font-size:0.9rem">
+        Once you pick Rb-87, the frequency is locked in. You can't adjust it.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Comparison: Different Atoms</h2>
+      <table class="comparison-table">
+        <tr>
+          <th>Atom</th>
+          <th>Ground State Frequency</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td><strong>Rb-87</strong></td>
+          <td><strong>6,834,682,610.904 Hz</strong></td>
+          <td><strong>Your CSAC</strong></td>
+        </tr>
+        <tr>
+          <td>Cs-133</td>
+          <td>9,192,631,770 Hz</td>
+          <td>SI second definition</td>
+        </tr>
+        <tr>
+          <td>Rb-85</td>
+          <td>3,035,732,438.606 Hz</td>
+          <td>Some clocks</td>
+        </tr>
+        <tr>
+          <td>H (hydrogen)</td>
+          <td>1,420,405,751.768 Hz</td>
+          <td>Radio astronomy</td>
+        </tr>
+      </table>
+      <p class="note">
+        Each atom has a different frequency. Scientists <em>chose</em> Rb-87 for your CSAC because 6.8 GHz is microwave-accessible (easy to generate with CMOS circuits) and the linewidth is sharp.
+      </p>
+    </div>
+  </div>
+
+  <!-- PART 4: LOCKING THE VCO -->
+  <div class="section-header">Part 4: How Your VCO "Locks" to 6.835 GHz</div>
+
+  <div class="card">
+    <h2>The Servo Loop Explanation</h2>
+    <p style="margin-bottom:10px">
+      Your VCO on the chip oscillates at some starting frequency (a guess). The <em>servo loop</em> automatically tunes it to match the Rb-87 resonance:
+    </p>
+
+    <h3 style="margin-top:15px">Step 1: VCO starts at wrong frequency</h3>
+    <p style="font-size:0.9rem;margin-bottom:10px">
+      VCO is oscillating, but not yet at 6.835 GHz. Maybe it's at 6.834 GHz or 6.836 GHz.
+    </p>
+
+    <h3>Step 2: Laser is modulated at VCO frequency</h3>
+    <p style="font-size:0.9rem;margin-bottom:10px">
+      The VCO's frequency controls the laser sidebands. If VCO is wrong, the laser frequency is wrong.
+    </p>
+
+    <h3>Step 3: Atoms detect the mismatch</h3>
+    <p style="font-size:0.9rem;margin-bottom:10px">
+      If the laser frequency doesn't match the atomic transition, atoms absorb light normally. The <em>photodetector signal is high</em>.
+    </p>
+
+    <h3>Step 4: PID controller sees the error</h3>
+    <p style="font-size:0.9rem;margin-bottom:10px">
+      The PID logic says: "Photodetector signal is too high. Atoms are absorbing. We're off-resonance. Adjust the VCO."
+    </p>
+
+    <h3>Step 5: DAC adjusts varactor bias</h3>
+    <p style="font-size:0.9rem;margin-bottom:10px">
+      The DAC output tunes the VCO's varactor capacitor. VCO frequency changes slightly.
+    </p>
+
+    <h3>Step 6: Loop repeats until lock</h3>
+    <p style="font-size:0.9rem;margin-bottom:10px">
+      When VCO frequency = Rb-87 resonance frequency (6.835 GHz), atoms go into the <em>dark state</em>. Photodetector signal drops to minimum. PID sees zero error. VCO stops tuning. <strong>LOCKED!</strong>
+    </p>
+
+    <p class="note" style="margin-top:15px">
+      <strong>The Rb atoms themselves are the frequency reference.</strong> The VCO tunes until it matches the atomic transition. The atoms "tell" the PID controller whether it's on-frequency or off-frequency via the photodiode signal.
+    </p>
+  </div>
+
+  <!-- PART 5: INTERACTIVE VISUALIZATION -->
+  <div class="section-header">Part 5: Watch the VCO Lock to Rb-87 Resonance</div>
+
+  <div class="card accent">
+    <h2>Interactive VCO Lock Simulation</h2>
+    <p style="margin-bottom:15px">
+      Click the button to simulate the servo loop locking the VCO to 6.835 GHz. Watch three things:
+      <br>1. VCO frequency (top) converges to 6.835 GHz
+      <br>2. Photodetector signal (middle) dips to minimum (atoms in dark state)
+      <br>3. PID error term (bottom) drops to zero
+    </p>
+
+    <button onclick="startLockSimulation()">Start VCO Lock Simulation</button>
+
+    <canvas id="lock-sim" width="700" height="500"></canvas>
+
+    <p class="note">
+      <strong>What's happening:</strong>
+      <br>- Top graph: VCO frequency being tuned by the servo loop. It converges to 6.835 GHz.
+      <br>- Middle graph: Photodetector signal. Dips when VCO is on-resonance (CPT dark state).
+      <br>- Bottom graph: PID error. Goes to zero when locked.
+    </p>
+  </div>
+
+  <!-- PART 6: THE KEY EQUATION -->
+  <div class="section-header">Part 6: The Complete Picture</div>
+
+  <div class="card">
+    <h2>Why Your Sentence Is True</h2>
+    <p style="margin-bottom:15px;font-size:0.95rem">
+      <strong>Statement:</strong> "Your CSAC chip generates a 6,834,682,610.904 Hz reference signal (locked to Rb-87 hyperfine transition)."
+    </p>
+
+    <h3>Breaking it down:</h3>
+
+    <p style="margin-top:10px;font-size:0.9rem">
+      <strong>1. "Your CSAC chip generates ... 6,834,682,610.904 Hz"</strong>
+      <br>→ The VCO oscillator on your chip produces a signal at this frequency.
+    </p>
+
+    <p style="margin-top:10px;font-size:0.9rem">
+      <strong>2. "reference signal"</strong>
+      <br>→ This is the frequency standard that everything else is measured against. It's your "atomic clock."
+    </p>
+
+    <p style="margin-top:10px;font-size:0.9rem">
+      <strong>3. "locked to"</strong>
+      <br>→ The VCO is controlled by a feedback loop (servo loop) that continuously adjusts it to stay at exactly this frequency.
+    </p>
+
+    <p style="margin-top:10px;font-size:0.9rem">
+      <strong>4. "Rb-87 hyperfine transition"</strong>
+      <br>→ The Rb-87 atoms have two energy levels separated by this frequency. When the VCO frequency matches this gap, atoms enter the dark state.
+    </p>
+
+    <div class="equation" style="margin-top:20px">
+      <div class="equation-label">The complete loop:</div>
+      VCO oscillates at ~6.8 GHz guess
+      <br>↓
+      <br>Modulates laser → atoms respond
+      <br>↓
+      <br>Photodiode detects absorption
+      <br>↓
+      <br>PID compares to setpoint (dark state)
+      <br>↓
+      <br>DAC adjusts VCO tuning voltage
+      <br>↓
+      <br>VCO frequency = 6,834,682,610.904 Hz (locked!)
+    </div>
+  </div>
+
+  <!-- PART 7: WHY THIS MATTERS -->
+  <div class="section-header">Part 7: Why This Frequency Is Special</div>
+
+  <div class="card green">
+    <h2>Why 6.835 GHz and Not 10 GHz or 1 GHz?</h2>
+    <p style="margin-bottom:10px">
+      <strong>Three reasons:</strong>
+    </p>
+
+    <h3 style="margin-top:12px">1. Physics (Non-negotiable)</h3>
+    <p style="font-size:0.9rem;margin-bottom:10px">
+      Rb-87's hyperfine gap <em>is</em> 6.835 GHz. That's what nature produces. You can't change it.
+    </p>
+
+    <h3>2. Engineering (Practical)</h3>
+    <p style="font-size:0.9rem;margin-bottom:10px">
+      6.8 GHz is in the "microwave" band — easy to generate and manipulate with CMOS circuits. Much easier than optical clocks (visible light, 10¹⁴ Hz) or longer wavelengths.
+    </p>
+
+    <h3>3. Linewidth (Performance)</h3>
+    <p style="font-size:0.9rem;margin-bottom:10px">
+      With N₂ buffer gas at 76.6 Torr, the Rb-87 resonance has a linewidth of <strong>3 kHz</strong>. This produces a Q-factor of 2.3 million — extremely sharp resonance → extremely stable clock.
+    </p>
+
+    <div class="equation" style="margin-top:10px">
+      <div class="equation-label">Q-factor (sharpness):</div>
+      Q = f / Δf = 6,835,000,000 / 3,000 = 2.3 × 10⁶
+    </div>
+  </div>
+
+  <!-- PART 8: SUMMARY -->
+  <div class="section-header">Summary: The Single Sentence Explained</div>
+
+  <div class="card accent">
+    <p style="font-size:1rem;margin-bottom:15px">
+      <strong>"Your CSAC chip generates a 6,834,682,610.904 Hz reference signal (locked to Rb-87 hyperfine transition)."</strong>
+    </p>
+
+    <p style="margin-bottom:10px">
+      <strong>Translation:</strong>
+    </p>
+
+    <p style="margin-bottom:10px">
+      Your chip contains a VCO (oscillator) that produces a 6.835 billion Hz signal. This frequency is special because:
+    </p>
+
+    <ul style="margin-left:20px;margin-bottom:10px">
+      <li>It matches the energy gap between two states of Rb-87 atoms</li>
+      <li>The servo loop continuously tunes the VCO to keep it at this exact frequency</li>
+      <li>As long as the atoms are there, the frequency cannot drift</li>
+      <li>The frequency is invariant — determined by fundamental physics, not electronics</li>
+      <li>This makes it an ultra-precise "atomic clock"</li>
+    </ul>
+
+    <p style="font-weight:bold;color:#56d364">
+      Result: A frequency reference stable to 1 part in 11 billion (8.84×10⁻¹²), replacing $100K atomic clocks with a $500 CMOS chip.
+    </p>
+  </div>
+
+</div><!-- .container -->
+
+<footer>
+  Rb-87 Hyperfine Transition Explained — 6,834,682,610.904 Hz from First Principles — 2026-03-30
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// CANVAS 1: Energy Level Diagram
+// ─────────────────────────────────────────────────────────────────────────────
+
+function drawEnergyDiagram() {
+  const canvas = document.getElementById('energy-diagram');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+
+  ctx.fillStyle = '#0d1117';
+  ctx.fillRect(0, 0, W, H);
+
+  const centerX = W / 2;
+  const y_f1 = H - 100;    // F=1 (lower state)
+  const y_f2 = H - 180;    // F=2 (upper state)
+  const y_above = H - 280; // excited state (reference)
+
+  // Draw energy levels as horizontal lines
+  ctx.strokeStyle = '#f78166';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(centerX - 60, y_f1);
+  ctx.lineTo(centerX + 60, y_f1);
+  ctx.stroke();
+  ctx.fillStyle = '#f78166';
+  ctx.font = 'bold 13px monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('F=1 (lower)', centerX + 70, y_f1 + 6);
+  ctx.font = '10px monospace';
+  ctx.fillStyle = '#8b949e';
+  ctx.fillText('ground state, lower energy', centerX + 70, y_f1 + 20);
+
+  ctx.strokeStyle = '#f0883e';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(centerX - 60, y_f2);
+  ctx.lineTo(centerX + 60, y_f2);
+  ctx.stroke();
+  ctx.fillStyle = '#f0883e';
+  ctx.font = 'bold 13px monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('F=2 (upper)', centerX + 70, y_f2 + 6);
+  ctx.font = '10px monospace';
+  ctx.fillStyle = '#8b949e';
+  ctx.fillText('ground state, higher energy', centerX + 70, y_f2 + 20);
+
+  // Draw energy gap
+  ctx.strokeStyle = '#79c0ff';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([4, 4]);
+  ctx.beginPath();
+  ctx.moveTo(centerX - 100, y_f1);
+  ctx.lineTo(centerX - 100, y_f2);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = '#79c0ff';
+  ctx.font = 'bold 14px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('ΔE = h × 6.835 GHz', centerX - 100, (y_f1 + y_f2) / 2);
+
+  // Draw transition arrow
+  ctx.strokeStyle = '#56d364';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(centerX + 100, y_f1 + 10);
+  ctx.lineTo(centerX + 100, y_f2 - 10);
+  ctx.stroke();
+  // Arrowhead
+  ctx.fillStyle = '#56d364';
+  ctx.beginPath();
+  ctx.moveTo(centerX + 100, y_f2 - 10);
+  ctx.lineTo(centerX + 96, y_f2 - 20);
+  ctx.lineTo(centerX + 104, y_f2 - 20);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = '#56d364';
+  ctx.font = '11px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('Absorb photon', centerX + 100, y_f2 - 30);
+  ctx.fillText('at 6.835 GHz', centerX + 100, y_f2 - 18);
+
+  // Nucleus & electron illustration
+  ctx.fillStyle = '#ff6b35';
+  ctx.beginPath();
+  ctx.arc(40, 80, 12, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#ffdd00';
+  ctx.font = '9px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('I=3/2', 40, 85);
+
+  ctx.fillStyle = '#58a6ff';
+  ctx.beginPath();
+  ctx.arc(80, 80, 8, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#0d1117';
+  ctx.font = '8px monospace';
+  ctx.fillText('J=1/2', 80, 84);
+
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '10px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('Nuclear spin I', 40, 100);
+  ctx.fillText('Electron spin J', 80, 100);
+
+  // Annotation: hyperfine coupling
+  ctx.fillStyle = '#79c0ff';
+  ctx.font = '11px monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('Hyperfine coupling:', 20, 40);
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '10px monospace';
+  ctx.fillText('Nuclear spin + electron spin', 20, 55);
+  ctx.fillText('create two energy levels', 20, 70);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CANVAS 2: VCO Lock Simulation
+// ─────────────────────────────────────────────────────────────────────────────
+
+let lockSimRunning = false;
+let lockSimTime = 0;
+
+function startLockSimulation() {
+  lockSimRunning = true;
+  lockSimTime = 0;
+  animateLockSim();
+}
+
+function animateLockSim() {
+  const canvas = document.getElementById('lock-sim');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+
+  ctx.fillStyle = '#0d1117';
+  ctx.fillRect(0, 0, W, H);
+
+  const pad = { l: 60, r: 20, t: 20, b: 20 };
+  const cw = W - pad.l - pad.r;
+  const ch = (H - pad.t - pad.b) / 3;  // 3 sub-graphs
+
+  // Time parameter (0 to 1 over ~100 frames)
+  const t = Math.min(1, lockSimTime / 150);
+
+  // ─ Graph 1: VCO Frequency ─
+  drawLockGraph(ctx, 0, 'VCO Frequency (GHz)', 6.83, 6.84, t, (x) => {
+    // VCO frequency converges to 6.8346826109
+    return 6.83 + (0.8346826109 - 6.83) * (1 - Math.exp(-5 * x));
+  });
+
+  // ─ Graph 2: Photodetector Signal ─
+  drawLockGraph(ctx, 1, 'Photodetector Signal', 0, 100, t, (x) => {
+    // Signal dips at resonance
+    const freq = 6.83 + (0.8346826109 - 6.83) * (1 - Math.exp(-5 * x));
+    const error = Math.abs(freq - 6.8346826109) * 1e9; // Hz error
+    return 50 + 50 * Math.exp(-error / 1e6);  // Dip to ~0 at lock
+  });
+
+  // ─ Graph 3: PID Error ─
+  drawLockGraph(ctx, 2, 'PID Error (% of full scale)', -50, 50, t, (x) => {
+    const freq = 6.83 + (0.8346826109 - 6.83) * (1 - Math.exp(-5 * x));
+    const error = (freq - 6.8346826109) * 1e9; // Hz error
+    return error / 1e5;  // Show as percentage
+  });
+
+  // Status text
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '11px monospace';
+  ctx.textAlign = 'center';
+  if (t < 1) {
+    ctx.fillText('Locking... ' + Math.round(t * 100) + '%', W / 2, H - 5);
+    lockSimRunning = true;
+    lockSimTime++;
+    requestAnimationFrame(animateLockSim);
+  } else {
+    ctx.fillStyle = '#56d364';
+    ctx.font = 'bold 12px monospace';
+    ctx.fillText('LOCKED at 6.8346826109 GHz', W / 2, H - 5);
+    lockSimRunning = false;
+  }
+}
+
+function drawLockGraph(ctx, graphIdx, label, yMin, yMax, t, valueFunc) {
+  const W = ctx.canvas.width, H = ctx.canvas.height;
+  const pad = { l: 60, r: 20, t: 20, b: 20 };
+  const cw = W - pad.l - pad.r;
+  const ch = (H - pad.t - pad.b) / 3;
+
+  const y0 = pad.t + graphIdx * ch;
+  const y1 = y0 + ch;
+
+  // Background
+  ctx.fillStyle = '#161b22';
+  ctx.fillRect(pad.l, y0, cw, ch);
+
+  // Grid lines
+  ctx.strokeStyle = '#21262d';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = y0 + (ch / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(pad.l, y);
+    ctx.lineTo(pad.l + cw, y);
+    ctx.stroke();
+  }
+
+  // Y-axis
+  ctx.strokeStyle = '#444';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(pad.l, y0);
+  ctx.lineTo(pad.l, y1);
+  ctx.lineTo(pad.l + cw, y1);
+  ctx.stroke();
+
+  // Plot data
+  ctx.strokeStyle = '#58a6ff';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for (let x = 0; x <= 1; x += 0.02) {
+    const val = valueFunc(x);
+    const normalized = (val - yMin) / (yMax - yMin);
+    const px = pad.l + x * cw;
+    const py = y1 - normalized * ch;
+    if (x === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+
+  // Current point
+  const curVal = valueFunc(t);
+  const normVal = (curVal - yMin) / (yMax - yMin);
+  const curX = pad.l + t * cw;
+  const curY = y1 - normVal * ch;
+  ctx.fillStyle = '#f0883e';
+  ctx.beginPath();
+  ctx.arc(curX, curY, 4, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Label
+  ctx.fillStyle = '#79c0ff';
+  ctx.font = 'bold 10px monospace';
+  ctx.textAlign = 'right';
+  ctx.fillText(label, pad.l - 8, y0 + 12);
+
+  // Y-axis values
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '9px monospace';
+  ctx.textAlign = 'right';
+  ctx.fillText(yMax.toFixed(1), pad.l - 4, y0 + 12);
+  ctx.fillText(yMin.toFixed(1), pad.l - 4, y1 - 4);
+}
+
+// Initialize on load
+drawEnergyDiagram();
+</script>
+
+</body>
+</html>
