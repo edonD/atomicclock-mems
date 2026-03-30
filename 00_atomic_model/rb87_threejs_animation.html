@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rb-87 Quantum Animation | 6.834 GHz Hyperfine Transition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(0, 255, 255, 0.16), transparent 30%),
+                radial-gradient(circle at 80% 20%, rgba(255, 102, 0, 0.12), transparent 24%),
+                linear-gradient(135deg, #050915 0%, #0a0e27 45%, #131b3a 100%);
+            color: #fff;
+            overflow: hidden;
+        }
+
+        #canvas {
+            position: fixed;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100vh;
+        }
+
+        #canvas canvas {
+            cursor: grab;
+        }
+
+        #canvas canvas:active {
+            cursor: grabbing;
+        }
+
+        #ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            color: #00ffff;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .helper-note {
+            max-width: 420px;
+            color: #9fd8ff;
+            font-size: 12px;
+            line-height: 1.5;
+            background: rgba(0, 255, 255, 0.08);
+            border: 1px solid rgba(0, 255, 255, 0.18);
+            border-radius: 8px;
+            padding: 10px 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(10, 14, 39, 0.9);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 10;
+            pointer-events: auto;
+            min-width: 280px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .controls h3 {
+            color: #00ffff;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .control-value {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #ff0055, #00ffff, #00ff88);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #00ffff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px #00ffff;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #00ffff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px #00ffff;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #ff0055, #ff6600);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 12px;
+        }
+
+        button:hover {
+            box-shadow: 0 0 20px #ff0055;
+            transform: translateY(-2px);
+        }
+
+        button.active {
+            background: linear-gradient(135deg, #00ff88, #00ffff);
+            color: #000;
+            box-shadow: 0 0 20px #00ff88;
+        }
+
+        .stats {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(10, 14, 39, 0.9);
+            border: 2px solid #ff6600;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 10;
+            pointer-events: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(255, 102, 0, 0.2);
+            min-width: 280px;
+        }
+
+        .stat-item {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stat-label {
+            color: #ff6600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(10, 14, 39, 0.9);
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            padding: 15px;
+            z-index: 10;
+            pointer-events: auto;
+            font-size: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .legend-item {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .legend-label {
+            color: #aaa;
+            font-size: 11px;
+        }
+
+        .info-text {
+            position: absolute;
+            top: 116px;
+            left: 20px;
+            transform: none;
+            text-align: left;
+            pointer-events: none;
+            z-index: 6;
+            width: min(300px, calc(100vw - 40px));
+            padding: 10px 12px;
+            background: rgba(5, 9, 21, 0.38);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 18px rgba(0, 255, 255, 0.04);
+        }
+
+        .info-text h2 {
+            font-size: 16px;
+            color: #00ffff;
+            margin-bottom: 4px;
+            text-shadow: 0 0 14px rgba(0, 255, 255, 0.22);
+        }
+
+        .info-text p {
+            color: rgba(221, 232, 240, 0.82);
+            font-size: 11px;
+            line-height: 1.4;
+            margin-bottom: 3px;
+        }
+
+        .population-bar {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .bar-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .bar {
+            width: 40px;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #00ffff;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(180deg, #00ffff, #0088ff);
+            transition: height 0.05s;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .bar-label {
+            margin-top: 10px;
+            color: #aaa;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bar-value {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .controls-note {
+            margin-top: 10px;
+            color: #9fd8ff;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .legend-note {
+            margin-top: 10px;
+            color: #9fd8ff;
+            font-size: 11px;
+            line-height: 1.5;
+            max-width: 220px;
+        }
+
+        @media (max-width: 980px) {
+            body {
+                overflow-y: auto;
+            }
+
+            .controls,
+            .stats,
+            .legend,
+            .population-bar {
+                position: relative;
+                top: auto;
+                right: auto;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                margin: 20px;
+                width: auto;
+            }
+
+            .header {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 20px 20px 0;
+            }
+
+            .population-bar {
+                text-align: left;
+            }
+
+            .info-text {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin: 0 20px 20px;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas"></div>
+    <div id="ui">
+        <div class="header">
+            <h1>Rb-87 Quantum Simulation</h1>
+            <p>6.834 GHz Hyperfine Transition | Interactive 3D Visualization</p>
+            <p class="helper-note">Drag to orbit, scroll to zoom, press Space to pause, and use keys 1-3 to switch view focus.</p>
+        </div>
+
+        <div class="info-text">
+            <h2 id="sceneHeadline">State starts in F=2</h2>
+            <p id="sceneExplanation">On resonance, the red state vector precesses around the equatorial drive axis and can reach F=3.</p>
+            <p id="sceneDetail">Detuning tilts the orange effective axis toward +Z and limits how much population can move upward.</p>
+        </div>
+
+        <div class="controls">
+            <h3>Controls</h3>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <span>Rabi Frequency (kHz)</span>
+                    <span class="control-value" id="rabiValue">100</span>
+                </div>
+                <input type="range" id="rabiSlider" min="10" max="500" value="100" step="10">
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <span>Detuning (MHz)</span>
+                    <span class="control-value" id="detuningValue">0.0</span>
+                </div>
+                <input type="range" id="detuningSlider" min="-2" max="2" value="0" step="0.1">
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <span>Speed</span>
+                    <span class="control-value" id="speedValue">1.0x</span>
+                </div>
+                <input type="range" id="speedSlider" min="0.1" max="3" value="1" step="0.1">
+            </div>
+
+            <button id="playBtn" class="active">⏸ PAUSE</button>
+            <button id="resetBtn">⟲ RESET</button>
+
+            <button id="clearTrailBtn">CLEAR TRAIL</button>
+
+            <div class="control-group" style="margin-top: 15px;">
+                <div class="control-label">
+                    <span>View Mode</span>
+                </div>
+                <button id="blochBtn" class="mode-btn active" style="margin-bottom: 5px;">Bloch Sphere</button>
+                <button id="populationBtn" class="mode-btn" style="margin-bottom: 5px;">Populations</button>
+                <button id="allBtn" class="mode-btn">All Views</button>
+            </div>
+            <p class="controls-note" id="modeStatus">Mode: All views. Off resonance, the drive axis tilts away from the equator.</p>
+        </div>
+
+        <div class="stats">
+            <h3 style="color: #ff6600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">Live Metrics</h3>
+            <div class="stat-item">
+                <span class="stat-label">Time Elapsed</span>
+                <span class="stat-value" id="timeValue">0.0 ns</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Rabi Cycle</span>
+                <span class="stat-value" id="rabiCycleValue">0.0%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">P(F=2)</span>
+                <span class="stat-value" id="p2Value">100.0%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">P(F=3)</span>
+                <span class="stat-value" id="p3Value">0.0%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Coherence</span>
+                <span class="stat-value" id="coherenceValue">0.0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Effective Ω</span>
+                <span class="stat-value" id="omegaValue">0.0 kHz</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Axis Tilt</span>
+                <span class="stat-value" id="axisTiltValue">0.0 deg</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Max Transfer</span>
+                <span class="stat-value" id="transferValue">100.0%</span>
+            </div>
+        </div>
+
+        <div class="legend">
+            <h3 style="color: #00ff88; margin-bottom: 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Legend</h3>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff0055;"></div>
+                <span class="legend-label">State Vector</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #00ffff;"></div>
+                <span class="legend-label">Bloch Sphere</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #00ff88;"></div>
+                <span class="legend-label">Trajectory</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff6600;"></div>
+                <span class="legend-label">Excited (F=3)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #0088ff;"></div>
+                <span class="legend-label">Ground (F=2)</span>
+            </div>
+            <p class="legend-note">All mode shows both the Bloch sphere and the population columns. Population mode shifts the camera toward the bar pair.</p>
+        </div>
+
+        <div class="population-bar">
+            <div class="bar-container">
+                <div class="bar">
+                    <div class="bar-fill" id="bar2"></div>
+                </div>
+                <div class="bar">
+                    <div class="bar-fill" id="bar3"></div>
+                </div>
+            </div>
+            <div class="bar-label">
+                <span style="color: #0088ff;">F=2</span> / <span style="color: #ff6600;">F=3</span>
+            </div>
+            <div class="bar-value"><span id="bar2Value">100.0%</span> / <span id="bar3Value">0.0%</span></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // SCENE SETUP
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0a0e27);
+        scene.fog = new THREE.Fog(0x0a0e27, 100, 1000);
+
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.set(1.15, 0.35, 4.4);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.05;
+        renderer.shadowMap.enabled = true;
+        document.getElementById('canvas').appendChild(renderer.domElement);
+
+        const orbitControls = typeof THREE.OrbitControls === 'function'
+            ? new THREE.OrbitControls(camera, renderer.domElement)
+            : null;
+
+        if (orbitControls) {
+            orbitControls.enableDamping = true;
+            orbitControls.enablePan = false;
+            orbitControls.dampingFactor = 0.07;
+            orbitControls.minDistance = 2.4;
+            orbitControls.maxDistance = 7.5;
+        }
+
+        const simClock = new THREE.Clock();
+
+        function createStarfield(count, radius) {
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(count * 3);
+
+            for (let i = 0; i < count; i += 1) {
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                const r = radius * (0.45 + Math.random() * 0.55);
+
+                positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+                positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+                positions[i * 3 + 2] = r * Math.cos(phi);
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            return new THREE.Points(
+                geometry,
+                new THREE.PointsMaterial({
+                    color: 0x6bd8ff,
+                    size: 0.045,
+                    transparent: true,
+                    opacity: 0.55,
+                    depthWrite: false
+                })
+            );
+        }
+
+        const starfield = createStarfield(1200, 18);
+        scene.add(starfield);
+
+        function createTextSprite(text, color, fill) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = 256;
+            canvas.height = 72;
+
+            context.fillStyle = fill;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            context.strokeStyle = color;
+            context.lineWidth = 2;
+            context.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
+            context.fillStyle = color;
+            context.font = 'bold 24px Segoe UI';
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText(text, canvas.width / 2, canvas.height / 2);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.encoding = THREE.sRGBEncoding;
+
+            const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+                map: texture,
+                transparent: true,
+                depthWrite: false,
+                opacity: 0.68
+            }));
+            sprite.scale.set(0.82, 0.22, 1);
+            return sprite;
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // LIGHTING
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        const ambientLight = new THREE.AmbientLight(0x00ffff, 0.3);
+        scene.add(ambientLight);
+
+        const pointLight1 = new THREE.PointLight(0x00ffff, 1.5, 100);
+        pointLight1.position.set(5, 5, 5);
+        scene.add(pointLight1);
+
+        const pointLight2 = new THREE.PointLight(0xff0055, 1, 100);
+        pointLight2.position.set(-5, -5, 5);
+        scene.add(pointLight2);
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // BLOCH SPHERE
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        const blochGroup = new THREE.Group();
+        scene.add(blochGroup);
+
+        // Sphere wireframe
+        const sphereGeometry = new THREE.IcosahedronGeometry(1, 32);
+        const sphereMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00ffff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+        blochGroup.add(sphere);
+
+        // Coordinate axes
+        const axesLength = 1.5;
+        const axes = new THREE.Group();
+
+        const xAxisGeometry = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(axesLength, 0, 0)
+        ]);
+        const xAxisMaterial = new THREE.LineBasicMaterial({ color: 0xff0055, linewidth: 3 });
+        const xAxis = new THREE.Line(xAxisGeometry, xAxisMaterial);
+        axes.add(xAxis);
+
+        const yAxisGeometry = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, axesLength, 0)
+        ]);
+        const yAxisMaterial = new THREE.LineBasicMaterial({ color: 0x00ff88, linewidth: 3 });
+        const yAxis = new THREE.Line(yAxisGeometry, yAxisMaterial);
+        axes.add(yAxis);
+
+        const zAxisGeometry = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, 0, axesLength)
+        ]);
+        const zAxisMaterial = new THREE.LineBasicMaterial({ color: 0x0088ff, linewidth: 3 });
+        const zAxis = new THREE.Line(zAxisGeometry, zAxisMaterial);
+        axes.add(zAxis);
+
+        blochGroup.add(axes);
+
+        // Trajectory line
+        const trajectoryPoints = [];
+        const trajectoryGeometry = new THREE.BufferGeometry();
+        const trajectoryMaterial = new THREE.LineBasicMaterial({
+            color: 0x00ff88,
+            linewidth: 2,
+            transparent: true,
+            opacity: 0.8
+        });
+        const trajectoryLine = new THREE.Line(trajectoryGeometry, trajectoryMaterial);
+        blochGroup.add(trajectoryLine);
+
+        // State vector (arrow)
+        const stateVectorGroup = new THREE.Group();
+        const stateVectorGeometry = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, 0, 1)
+        ]);
+        const stateVectorMaterial = new THREE.LineBasicMaterial({ color: 0xff0055, linewidth: 4 });
+        const stateVectorLine = new THREE.Line(stateVectorGeometry, stateVectorMaterial);
+        stateVectorGroup.add(stateVectorLine);
+
+        // Arrow head
+        const arrowGeometry = new THREE.ConeGeometry(0.1, 0.2, 8);
+        const arrowMaterial = new THREE.MeshStandardMaterial({
+            color: 0xff0055,
+            emissive: 0xff0055,
+            emissiveIntensity: 0.5
+        });
+        const arrowHead = new THREE.Mesh(arrowGeometry, arrowMaterial);
+        arrowHead.position.z = 1.1;
+        stateVectorGroup.add(arrowHead);
+
+        blochGroup.add(stateVectorGroup);
+
+        // Sphere glow
+        const glowGeometry = new THREE.IcosahedronGeometry(1.05, 32);
+        const glowMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00ffff,
+            transparent: true,
+            opacity: 0.1,
+            side: THREE.BackSide
+        });
+        const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+        blochGroup.add(glow);
+
+        const driveAxisGeometry = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(-1.2, 0, 0),
+            new THREE.Vector3(1.2, 0, 0)
+        ]);
+        const driveAxisMaterial = new THREE.LineBasicMaterial({
+            color: 0xffb547,
+            transparent: true,
+            opacity: 0.8
+        });
+        const driveAxisLine = new THREE.Line(driveAxisGeometry, driveAxisMaterial);
+        blochGroup.add(driveAxisLine);
+
+        const microwaveRing = new THREE.Mesh(
+            new THREE.TorusGeometry(1.08, 0.016, 12, 72),
+            new THREE.MeshBasicMaterial({
+                color: 0xff6600,
+                transparent: true,
+                opacity: 0.14
+            })
+        );
+        microwaveRing.rotation.y = Math.PI / 2;
+        blochGroup.add(microwaveRing);
+
+        const excitedStateLabel = createTextSprite('F=3 excited', '#ffb547', 'rgba(14, 20, 34, 0.42)');
+        excitedStateLabel.position.set(0, 0.14, 1.34);
+        blochGroup.add(excitedStateLabel);
+
+        const groundStateLabel = createTextSprite('F=2 ground', '#55d8ff', 'rgba(10, 18, 32, 0.42)');
+        groundStateLabel.position.set(0, -0.14, -1.34);
+        blochGroup.add(groundStateLabel);
+
+        const driveAxisLabel = createTextSprite('effective axis', '#ffb547', 'rgba(22, 16, 8, 0.42)');
+        driveAxisLabel.position.set(1.26, 0.16, 0);
+        blochGroup.add(driveAxisLabel);
+
+        const populationGroup = new THREE.Group();
+        populationGroup.position.set(2.35, -0.95, 0);
+        scene.add(populationGroup);
+
+        function createPopulationColumn(color, glowColor, xOffset) {
+            const group = new THREE.Group();
+            group.position.x = xOffset;
+
+            const base = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.24, 0.28, 0.08, 24),
+                new THREE.MeshStandardMaterial({
+                    color: 0x081322,
+                    emissive: color,
+                    emissiveIntensity: 0.18
+                })
+            );
+            group.add(base);
+
+            const fill = new THREE.Mesh(
+                new THREE.BoxGeometry(0.32, 1, 0.32),
+                new THREE.MeshStandardMaterial({
+                    color,
+                    emissive: glowColor,
+                    emissiveIntensity: 0.25,
+                    transparent: true,
+                    opacity: 0.86
+                })
+            );
+            fill.position.y = 0.5;
+            group.add(fill);
+
+            const cap = new THREE.Mesh(
+                new THREE.TorusGeometry(0.18, 0.025, 10, 32),
+                new THREE.MeshBasicMaterial({
+                    color: glowColor,
+                    transparent: true,
+                    opacity: 0.6
+                })
+            );
+            cap.rotation.x = Math.PI / 2;
+            cap.position.y = 1.02;
+            group.add(cap);
+
+            return { group, fill, cap };
+        }
+
+        const groundColumn = createPopulationColumn(0x0088ff, 0x55d8ff, -0.45);
+        const excitedColumn = createPopulationColumn(0xff6600, 0xffb547, 0.45);
+        populationGroup.add(groundColumn.group, excitedColumn.group);
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // SIMULATION STATE
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        let simulationState = {
+            timeSeconds: 0,
+            rabiFreq: 100e3, // Hz
+            detuning: 0,     // Hz
+            speed: 1,
+            isPlaying: true,
+            maxHistoryPoints: 700,
+            simulatedNsPerSecond: 20000,
+            viewMode: 'all'
+        };
+
+        let populations = {
+            ground: 1.0,
+            excited: 0.0
+        };
+
+        const cameraModes = {
+            bloch: {
+                position: new THREE.Vector3(0.1, 0.1, 3.4),
+                target: new THREE.Vector3(0, 0, 0)
+            },
+            population: {
+                position: new THREE.Vector3(2.35, 0.45, 4.2),
+                target: new THREE.Vector3(2.35, 0.2, 0)
+            },
+            all: {
+                position: new THREE.Vector3(1.15, 0.35, 4.4),
+                target: new THREE.Vector3(1.1, 0, 0)
+            }
+        };
+
+        let cameraTransition = {
+            active: false,
+            position: cameraModes.all.position.clone(),
+            target: cameraModes.all.target.clone()
+        };
+
+        function clamp01(value) {
+            return Math.min(1, Math.max(0, value));
+        }
+
+        function formatTime(seconds) {
+            const ns = seconds * 1e9;
+
+            if (ns < 1e3) return `${ns.toFixed(1)} ns`;
+            if (ns < 1e6) return `${(ns / 1e3).toFixed(2)} us`;
+            if (ns < 1e9) return `${(ns / 1e6).toFixed(2)} ms`;
+            return `${seconds.toFixed(2)} s`;
+        }
+
+        function formatFrequency(hz) {
+            const absHz = Math.abs(hz);
+
+            if (absHz >= 1e6) return `${(hz / 1e6).toFixed(3)} MHz`;
+            if (absHz >= 1e3) return `${(hz / 1e3).toFixed(1)} kHz`;
+            return `${hz.toFixed(1)} Hz`;
+        }
+
+        function setPopulationColumn(column, value) {
+            const height = Math.max(0.04, value * 1.55);
+            column.fill.scale.y = height;
+            column.fill.position.y = height / 2;
+            column.cap.position.y = height + 0.03;
+        }
+
+        function clearTrajectory() {
+            trajectoryPoints.length = 0;
+            trajectoryLine.geometry.setFromPoints([
+                new THREE.Vector3(0, 0, -1),
+                new THREE.Vector3(0, 0, -1)
+            ]);
+        }
+
+        function updateDriveAxis(axisVector) {
+            driveAxisLine.geometry.setFromPoints([
+                axisVector.clone().multiplyScalar(-1.25),
+                axisVector.clone().multiplyScalar(1.25)
+            ]);
+            driveAxisLabel.position.copy(axisVector.clone().multiplyScalar(1.42));
+            driveAxisLabel.position.y += 0.18;
+        }
+
+        function transitionCamera(mode) {
+            const preset = cameraModes[mode];
+            cameraTransition.position.copy(preset.position);
+            cameraTransition.target.copy(preset.target);
+            cameraTransition.active = true;
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // UPDATE FUNCTION
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        function updateSimulation(deltaTime) {
+            if (simulationState.isPlaying) {
+                simulationState.timeSeconds += deltaTime * simulationState.speed * simulationState.simulatedNsPerSecond * 1e-9;
+            }
+
+            const omegaRabi = 2 * Math.PI * simulationState.rabiFreq;
+            const delta = 2 * Math.PI * simulationState.detuning;
+            const omegaEff = Math.hypot(omegaRabi, delta);
+            const t = simulationState.timeSeconds;
+
+            let stateVector = new THREE.Vector3(0, 0, -1);
+            let coherence = 0;
+            let axisTilt = 0;
+            let transferCeiling = 0;
+            let cyclePercent = 0;
+            let driveAxis = new THREE.Vector3(1, 0, 0);
+
+            if (omegaEff > 1e-12) {
+                const nx = omegaRabi / omegaEff;
+                const nz = delta / omegaEff;
+                const theta = omegaEff * t;
+                const cosTheta = Math.cos(theta);
+                const sinTheta = Math.sin(theta);
+
+                const blochX = -(nx * nz) * (1 - cosTheta);
+                const blochY = nx * sinTheta;
+                const blochZ = -(nz * nz + nx * nx * cosTheta);
+
+                stateVector = new THREE.Vector3(blochX, blochY, blochZ).normalize();
+                populations.excited = clamp01((blochZ + 1) / 2);
+                populations.ground = 1 - populations.excited;
+                coherence = Math.sqrt(blochX * blochX + blochY * blochY);
+                axisTilt = Math.atan2(Math.abs(delta), Math.abs(omegaRabi || 1e-12)) * 180 / Math.PI;
+                transferCeiling = nx * nx;
+                cyclePercent = (((theta % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2)) / (Math.PI * 2) * 100;
+                driveAxis = new THREE.Vector3(nx, 0, nz).normalize();
+            } else {
+                populations.excited = 0;
+                populations.ground = 1;
+            }
+
+            stateVectorLine.geometry.dispose();
+            stateVectorLine.geometry = new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(0, 0, 0),
+                stateVector.clone().multiplyScalar(0.95)
+            ]);
+
+            arrowHead.position.copy(stateVector.clone().multiplyScalar(1.1));
+            arrowHead.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), stateVector.clone().normalize());
+
+            if (simulationState.isPlaying) {
+                const lastPoint = trajectoryPoints[trajectoryPoints.length - 1];
+                if (!lastPoint || lastPoint.distanceToSquared(stateVector) > 0.0009) {
+                    trajectoryPoints.push(stateVector.clone());
+                }
+                if (trajectoryPoints.length > simulationState.maxHistoryPoints) {
+                    trajectoryPoints.shift();
+                }
+            }
+
+            trajectoryLine.geometry.dispose();
+            trajectoryLine.geometry = new THREE.BufferGeometry().setFromPoints(
+                trajectoryPoints.length > 1 ? trajectoryPoints : [stateVector.clone(), stateVector.clone()]
+            );
+
+            glow.material.opacity = 0.08 + coherence * 0.08;
+            glow.scale.setScalar(1.03 + coherence * 0.06);
+            populationGroup.visible = simulationState.viewMode !== 'bloch';
+            setPopulationColumn(groundColumn, populations.ground);
+            setPopulationColumn(excitedColumn, populations.excited);
+            updateDriveAxis(driveAxis);
+
+            updateUI(t, omegaEff, coherence, axisTilt, transferCeiling, cyclePercent);
+
+            simulationState.currentCoherence = coherence;
+            simulationState.currentOmega = omegaEff;
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // UI UPDATES
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        function updateUI(timeSeconds, omegaEff, coherence, axisTilt, transferCeiling, cyclePercent) {
+            const groundPercent = populations.ground * 100;
+            const excitedPercent = populations.excited * 100;
+            const omegaHz = omegaEff / (2 * Math.PI);
+
+            document.getElementById('playBtn').textContent = simulationState.isPlaying ? 'PAUSE' : 'PLAY';
+            document.getElementById('resetBtn').textContent = 'RESET';
+            document.getElementById('omegaValue').previousElementSibling.textContent = 'Effective Omega';
+            document.getElementById('timeValue').textContent = formatTime(timeSeconds);
+            document.getElementById('rabiCycleValue').textContent = cyclePercent.toFixed(1) + '%';
+            document.getElementById('p2Value').textContent = groundPercent.toFixed(1) + '%';
+            document.getElementById('p3Value').textContent = excitedPercent.toFixed(1) + '%';
+            document.getElementById('coherenceValue').textContent = coherence.toFixed(3);
+            document.getElementById('omegaValue').textContent = formatFrequency(omegaHz);
+            document.getElementById('axisTiltValue').textContent = axisTilt.toFixed(1) + ' deg';
+            document.getElementById('transferValue').textContent = (transferCeiling * 100).toFixed(1) + '%';
+            document.getElementById('bar2').style.height = groundPercent + '%';
+            document.getElementById('bar3').style.height = excitedPercent + '%';
+            document.getElementById('bar2Value').textContent = groundPercent.toFixed(1) + '%';
+            document.getElementById('bar3Value').textContent = excitedPercent.toFixed(1) + '%';
+            document.getElementById('rabiValue').textContent = (simulationState.rabiFreq / 1e3).toFixed(0);
+            document.getElementById('detuningValue').textContent = (simulationState.detuning / 1e6).toFixed(2);
+            document.getElementById('speedValue').textContent = simulationState.speed.toFixed(1) + 'x';
+
+            const detuningMHz = simulationState.detuning / 1e6;
+            const headline = excitedPercent < 10
+                ? 'Mostly F=2'
+                : excitedPercent > 90
+                    ? 'Mostly F=3'
+                    : 'In superposition';
+            const explanation = `F=2 ${groundPercent.toFixed(1)}% | F=3 ${excitedPercent.toFixed(1)}% | axis ${axisTilt.toFixed(1)} deg`;
+            const detail = Math.abs(detuningMHz) < 0.02
+                ? 'Resonant drive: full oscillation is possible.'
+                : `Detuned ${(detuningMHz > 0 ? '+' : '') + detuningMHz.toFixed(2)} MHz | max transfer ${(transferCeiling * 100).toFixed(1)}%`;
+
+            document.getElementById('sceneHeadline').textContent = headline;
+            document.getElementById('sceneExplanation').textContent = explanation;
+            document.getElementById('sceneDetail').textContent = detail;
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // EVENT LISTENERS
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        let lastTime = Date.now();
+
+        document.getElementById('rabiSlider').addEventListener('input', (e) => {
+            simulationState.rabiFreq = parseFloat(e.target.value) * 1e3;
+            document.getElementById('rabiValue').textContent = e.target.value;
+        });
+
+        document.getElementById('detuningSlider').addEventListener('input', (e) => {
+            simulationState.detuning = parseFloat(e.target.value) * 1e6;
+            document.getElementById('detuningValue').textContent = e.target.value;
+        });
+
+        document.getElementById('speedSlider').addEventListener('input', (e) => {
+            simulationState.speed = parseFloat(e.target.value);
+            document.getElementById('speedValue').textContent = e.target.value.toFixed(1) + 'x';
+        });
+
+        document.getElementById('playBtn').addEventListener('click', () => {
+            simulationState.isPlaying = !simulationState.isPlaying;
+            const btn = document.getElementById('playBtn');
+            if (simulationState.isPlaying) {
+                btn.textContent = '⏸ PAUSE';
+                btn.classList.add('active');
+            } else {
+                btn.textContent = '▶ PLAY';
+                btn.classList.remove('active');
+            }
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            simulationState.time = 0;
+            trajectoryPoints.length = 0;
+            populations.ground = 1.0;
+            populations.excited = 0.0;
+        });
+
+        function replaceNode(id) {
+            const node = document.getElementById(id);
+            const clone = node.cloneNode(true);
+            node.replaceWith(clone);
+            return clone;
+        }
+
+        const rabiSlider = replaceNode('rabiSlider');
+        const detuningSlider = replaceNode('detuningSlider');
+        const speedSlider = replaceNode('speedSlider');
+        const playBtn = replaceNode('playBtn');
+        const resetBtn = replaceNode('resetBtn');
+        const clearTrailBtn = document.getElementById('clearTrailBtn');
+        const blochBtn = document.getElementById('blochBtn');
+        const populationBtn = document.getElementById('populationBtn');
+        const allBtn = document.getElementById('allBtn');
+
+        function applyViewMode(mode) {
+            simulationState.viewMode = mode;
+            blochBtn.classList.toggle('active', mode === 'bloch');
+            populationBtn.classList.toggle('active', mode === 'population');
+            allBtn.classList.toggle('active', mode === 'all');
+
+            document.getElementById('modeStatus').textContent = mode === 'bloch'
+                ? 'Mode: Bloch sphere focus. Population columns are hidden.'
+                : mode === 'population'
+                    ? 'Mode: Population focus. Camera shifts to the population columns.'
+                    : 'Mode: All views. Off resonance, the drive axis tilts away from the equator.';
+
+            transitionCamera(mode);
+        }
+
+        function refreshScene() {
+            updateSimulation(0);
+        }
+
+        rabiSlider.addEventListener('input', (event) => {
+            simulationState.rabiFreq = parseFloat(event.target.value) * 1e3;
+            refreshScene();
+        });
+
+        detuningSlider.addEventListener('input', (event) => {
+            simulationState.detuning = parseFloat(event.target.value) * 1e6;
+            refreshScene();
+        });
+
+        speedSlider.addEventListener('input', (event) => {
+            simulationState.speed = parseFloat(event.target.value);
+            refreshScene();
+        });
+
+        playBtn.addEventListener('click', () => {
+            simulationState.isPlaying = !simulationState.isPlaying;
+            playBtn.classList.toggle('active', simulationState.isPlaying);
+            refreshScene();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            simulationState.timeSeconds = 0;
+            populations.ground = 1.0;
+            populations.excited = 0.0;
+            clearTrajectory();
+            refreshScene();
+        });
+
+        clearTrailBtn.addEventListener('click', () => {
+            clearTrajectory();
+        });
+
+        blochBtn.addEventListener('click', () => applyViewMode('bloch'));
+        populationBtn.addEventListener('click', () => applyViewMode('population'));
+        allBtn.addEventListener('click', () => applyViewMode('all'));
+
+        window.addEventListener('keydown', (event) => {
+            const activeTag = document.activeElement ? document.activeElement.tagName : '';
+            if (activeTag === 'INPUT') return;
+
+            if (event.code === 'Space') {
+                event.preventDefault();
+                simulationState.isPlaying = !simulationState.isPlaying;
+                playBtn.classList.toggle('active', simulationState.isPlaying);
+                refreshScene();
+            } else if (event.code === 'KeyR') {
+                simulationState.timeSeconds = 0;
+                clearTrajectory();
+                refreshScene();
+            } else if (event.code === 'Digit1') {
+                applyViewMode('bloch');
+            } else if (event.code === 'Digit2') {
+                applyViewMode('population');
+            } else if (event.code === 'Digit3') {
+                applyViewMode('all');
+            }
+        });
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // ANIMATION LOOP
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const deltaTime = Math.min(simClock.getDelta(), 0.05);
+            updateSimulation(deltaTime);
+
+            starfield.rotation.y += deltaTime * 0.015;
+            const drivePulse = 0.5 + 0.5 * Math.sin(performance.now() * 0.006);
+            microwaveRing.scale.setScalar(1 + drivePulse * 0.08 + (simulationState.rabiFreq / 500000) * 0.08);
+            microwaveRing.material.opacity = 0.08 + (simulationState.rabiFreq / 500000) * 0.12;
+            populationGroup.scale.setScalar(simulationState.viewMode === 'population' ? 1.08 : 0.92);
+            blochGroup.scale.setScalar(simulationState.viewMode === 'bloch' ? 1.02 : 0.94);
+
+            if (cameraTransition.active) {
+                camera.position.lerp(cameraTransition.position, 0.08);
+
+                if (orbitControls) {
+                    orbitControls.target.lerp(cameraTransition.target, 0.08);
+                } else {
+                    camera.lookAt(cameraTransition.target);
+                }
+
+                const done = camera.position.distanceToSquared(cameraTransition.position) < 0.0005;
+                if (done) {
+                    cameraTransition.active = false;
+                }
+            }
+
+            if (orbitControls) {
+                orbitControls.update();
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // HANDLE RESIZE
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        window.addEventListener('resize', () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        });
+
+        // Start animation
+        applyViewMode('all');
+        clearTrajectory();
+        updateSimulation(0);
+        animate();
+    </script>
+</body>
+</html>
