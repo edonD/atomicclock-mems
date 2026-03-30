@@ -2,7 +2,7 @@
 
 ## What's in This Package
 
-You now have three comprehensive documents mapping the fundable research landscape across quantum computing, advanced photonics, THz technology, bioelectronics, MEMS, precision measurement, and AI/neuromorphic computing.
+You now have four comprehensive documents mapping the fundable research landscape across quantum computing, advanced photonics, THz technology, bioelectronics, MEMS, precision measurement, AI/neuromorphic computing, and defense-oriented MEMS extensions.
 
 ### Files
 
@@ -25,6 +25,12 @@ You now have three comprehensive documents mapping the fundable research landsca
    - Higher technical depth on atomic clock related work
    - Tier system (feasibility assessment)
    - Use for: Core CSAC expertise + natural extensions
+
+4. **`DEFENSE_MEMS_PROJECT_BACKLOG.md`** (Defense-oriented follow-on ideas)
+   - 8 defense MEMS projects derived from recent research threads
+   - Focus on assured PNT, ISR, RF agility, standoff sensing, and non-energetic safe-and-arm reliability work
+   - Maps each project to likely reuse of the current repo
+   - Use for: Later-stage project selection, defense-specific prioritization, and backlog planning
 
 ---
 
@@ -305,4 +311,3 @@ Next Update: June 2026 (new funding announcements)
 You now have the most comprehensive map of fundable research opportunities in quantum computing, advanced photonics, and adjacent technologies. The key insight: Your Rb-87 CSAC expertise positions you perfectly for quantum repeaters, space-qualified clocks, and photonic integration—all of which have €20M+ in funding available RIGHT NOW.
 
 **Recommended action:** Start with quantum repeaters (EU QR.N), add space-qualified clocks (DoD), scale to photonic integration (DARPA). Target: $8-17M in government funding 2026-2030.
-
