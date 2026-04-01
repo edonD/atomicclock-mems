@@ -3,132 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <title>CSAC-1 SOIC-16 | nanotech</title>
+    <link rel="stylesheet" href="./render-theme.css" />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
       body {
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        background: #000;
-        font-family: "Segoe UI", Arial, sans-serif;
-      }
-      canvas {
-        display: block;
-      }
-      .cp {
-        position: absolute;
-        top: 18px;
-        right: 18px;
-        z-index: 10;
-        width: min(310px, calc(100vw-36px));
-        padding: 14px;
-        border: 1px solid rgba(124, 169, 255, 0.25);
-        border-radius: 16px;
-        background: rgba(6, 10, 20, 0.82);
-        backdrop-filter: blur(10px);
-        color: #e8f1ff;
-        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38);
-      }
-      .cp h2 {
-        margin-bottom: 10px;
-        font-size: 13px;
-        letter-spacing: 0.14em;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: #b7d8ff;
-      }
-      .cg {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px 12px;
-      }
-      .cf {
-        display: grid;
-        gap: 6px;
-      }
-      .cf.w {
-        grid-column: 1/-1;
-      }
-      .cf label {
-        font-size: 11px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: #95a9c9;
-      }
-      .cf input[type="color"] {
-        width: 100%;
-        height: 36px;
-        border: 1px solid rgba(164, 198, 255, 0.18);
-        border-radius: 10px;
-        background: transparent;
-        cursor: pointer;
-      }
-      .cf input[type="text"] {
-        width: 100%;
-        height: 36px;
-        padding: 0 12px;
-        border: 1px solid rgba(164, 198, 255, 0.18);
-        border-radius: 10px;
-        background: rgba(10, 16, 29, 0.9);
-        color: #eaf3ff;
-        outline: none;
-      }
-      .cf input[type="range"] {
-        width: 100%;
-        accent-color: #5fbfff;
-      }
-      .cf output {
-        font-size: 11px;
-        color: #cce1ff;
-        text-align: right;
-      }
-      .cr {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-      }
-      .dv {
-        height: 1px;
-        margin: 12px 0;
-        background: linear-gradient(
-          90deg,
-          rgba(95, 191, 255, 0),
-          rgba(95, 191, 255, 0.42),
-          rgba(95, 191, 255, 0)
-        );
-      }
-      .ea {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 12px;
-      }
-      .ea button {
-        height: 38px;
-        border: 1px solid rgba(138, 189, 255, 0.22);
-        border-radius: 12px;
-        background: linear-gradient(
-          180deg,
-          rgba(27, 42, 74, 0.95),
-          rgba(11, 18, 33, 0.95)
-        );
-        color: #eaf3ff;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        cursor: pointer;
+        --render-panel-width: 310px;
       }
     </style>
   </head>
   <body>
     <div class="cp">
-      <h2>SMD Chip Controls</h2>
+      <h2>Package Controls</h2>
       <div class="cg">
         <div class="cf w">
           <label>Company Name</label
@@ -229,40 +113,20 @@
       document.body.appendChild(R.domElement);
 
       const scene = new THREE.Scene();
-
-      function makeBackdropTexture() {
-        const canvas = document.createElement("canvas");
-        canvas.width = 4;
-        canvas.height = 1024;
-        const g = canvas.getContext("2d");
-
-        const gradient = g.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0.0, "#70788b");
-        gradient.addColorStop(0.28, "#5b6270");
-        gradient.addColorStop(0.55, "#414653");
-        gradient.addColorStop(1.0, "#181c24");
-        g.fillStyle = gradient;
-        g.fillRect(0, 0, canvas.width, canvas.height);
-
-        g.fillStyle = "rgba(255,255,255,0.08)";
-        g.fillRect(0, canvas.height * 0.42, canvas.width, canvas.height * 0.07);
-        g.fillStyle = "rgba(255,255,255,0.02)";
-        g.fillRect(0, canvas.height * 0.49, canvas.width, canvas.height * 0.06);
-
-        const texture = new THREE.CanvasTexture(canvas);
-        texture.colorSpace = THREE.SRGBColorSpace;
-        return texture;
-      }
+      const BRAND_FONT =
+        '"Bahnschrift SemiCondensed", "Aptos Display", "Segoe UI Variable Display", "Segoe UI", Arial, sans-serif';
+      const MONO_FONT =
+        '"Cascadia Mono", "Consolas", "SFMono-Regular", monospace';
 
       function paintStripLight(ctx, x, width, alpha, tint) {
         const strip = ctx.createLinearGradient(x, 0, x + width, 0);
         strip.addColorStop(0.0, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
         strip.addColorStop(
-          0.3,
-          `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha * 0.48})`,
+          0.28,
+          `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha * 0.46})`,
         );
         strip.addColorStop(
-          0.55,
+          0.56,
           `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha})`,
         );
         strip.addColorStop(
@@ -274,40 +138,66 @@
         ctx.fillRect(x, 0, width, ctx.canvas.height);
       }
 
-      function applyEnvironmentMap() {
+      function makeBackdropTexture() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 8;
+        canvas.height = 1200;
+        const g = canvas.getContext("2d");
+
+        const gradient = g.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0.0, "#66707f");
+        gradient.addColorStop(0.24, "#525a67");
+        gradient.addColorStop(0.56, "#313743");
+        gradient.addColorStop(1.0, "#0e1218");
+        g.fillStyle = gradient;
+        g.fillRect(0, 0, canvas.width, canvas.height);
+
+        g.fillStyle = "rgba(255,255,255,0.06)";
+        g.fillRect(0, canvas.height * 0.4, canvas.width, canvas.height * 0.06);
+        g.fillStyle = "rgba(112,214,255,0.05)";
+        g.fillRect(0, canvas.height * 0.47, canvas.width, canvas.height * 0.03);
+        g.fillStyle = "rgba(255,190,113,0.03)";
+        g.fillRect(0, canvas.height * 0.52, canvas.width, canvas.height * 0.03);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        return texture;
+      }
+
+      function applyStudioEnvironment() {
         const canvas = document.createElement("canvas");
         canvas.width = 1024;
         canvas.height = 384;
         const g = canvas.getContext("2d");
 
-        g.fillStyle = "#666c75";
+        g.fillStyle = "#676d76";
         g.fillRect(0, 0, canvas.width, canvas.height);
 
         const upper = g.createLinearGradient(0, 0, 0, 228);
-        upper.addColorStop(0.0, "#f2f5f8");
-        upper.addColorStop(0.35, "#c5cdd6");
-        upper.addColorStop(1.0, "#747d87");
+        upper.addColorStop(0.0, "#f5f6f8");
+        upper.addColorStop(0.34, "#cad0d8");
+        upper.addColorStop(1.0, "#767d86");
         g.fillStyle = upper;
         g.fillRect(0, 0, canvas.width, 228);
 
-        const lower = g.createLinearGradient(0, 210, 0, canvas.height);
-        lower.addColorStop(0.0, "#343941");
-        lower.addColorStop(1.0, "#080b10");
+        const lower = g.createLinearGradient(0, 208, 0, canvas.height);
+        lower.addColorStop(0.0, "#393f47");
+        lower.addColorStop(1.0, "#070b10");
         g.fillStyle = lower;
-        g.fillRect(0, 210, canvas.width, canvas.height - 210);
+        g.fillRect(0, 208, canvas.width, canvas.height - 208);
 
-        paintStripLight(g, 92, 138, 0.88, [255, 255, 255]);
-        paintStripLight(g, 362, 64, 0.58, [214, 228, 255]);
-        paintStripLight(g, 746, 120, 0.76, [255, 255, 255]);
+        paintStripLight(g, 86, 132, 0.86, [255, 255, 255]);
+        paintStripLight(g, 362, 64, 0.54, [214, 228, 255]);
+        paintStripLight(g, 742, 128, 0.74, [255, 255, 255]);
 
-        const warmKey = g.createRadialGradient(236, 72, 0, 236, 72, 220);
+        const warmKey = g.createRadialGradient(224, 72, 0, 224, 72, 220);
         warmKey.addColorStop(0, "rgba(255,248,238,0.92)");
         warmKey.addColorStop(1, "rgba(255,248,238,0)");
         g.fillStyle = warmKey;
         g.fillRect(0, 0, canvas.width, canvas.height);
 
-        const coolFill = g.createRadialGradient(842, 130, 0, 842, 130, 210);
-        coolFill.addColorStop(0, "rgba(176,206,255,0.54)");
+        const coolFill = g.createRadialGradient(844, 128, 0, 844, 128, 212);
+        coolFill.addColorStop(0, "rgba(176,206,255,0.52)");
         coolFill.addColorStop(1, "rgba(176,206,255,0)");
         g.fillStyle = coolFill;
         g.fillRect(0, 0, canvas.width, canvas.height);
@@ -323,8 +213,22 @@
         pmrem.dispose();
       }
 
+      function mountRenderHud() {
+        const root = document.createElement("div");
+        root.className = "render-hud";
+        root.innerHTML = `
+          <div class="render-kicker">Package Surface</div>
+          <h1 class="render-title">CSAC Package Marking Study</h1>
+          <p class="render-meta">Editable package marking, finish, and lighting for the phase 2 package concept.</p>
+          <div class="render-status">Concept package artwork</div>
+          <p class="render-note">Use the controls to tune the body finish, legend color, and studio intensity.</p>
+        `;
+        document.body.appendChild(root);
+      }
+
+      mountRenderHud();
       scene.background = makeBackdropTexture();
-      applyEnvironmentMap();
+      applyStudioEnvironment();
 
       const cam = new THREE.PerspectiveCamera(
         28,
@@ -637,11 +541,11 @@
         ctx.arc(274, 448, 8, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.font = '600 24px "Segoe UI", Arial, sans-serif';
+        ctx.font = `600 24px ${BRAND_FONT}`;
         ctx.textAlign = "center";
         ctx.fillText("U1", 512, 414);
 
-        ctx.font = '400 11px "Segoe UI", Arial, sans-serif';
+        ctx.font = `400 11px ${MONO_FONT}`;
         for (let i = 0; i < 8; i += 1) {
           const px = 328 + i * 53;
           ctx.fillText(`${i + 1}`, px, 620);
@@ -685,24 +589,24 @@
         ctx.arc(110, 118, 24, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.font = '600 78px "Segoe UI", Arial, sans-serif';
+        ctx.font = `600 78px ${BRAND_FONT}`;
         ctx.textAlign = "left";
         ctx.textBaseline = "alphabetic";
         ctx.fillText(company, 112, 230);
 
-        ctx.font = '600 62px "Segoe UI", Arial, sans-serif';
+        ctx.font = `600 62px ${BRAND_FONT}`;
         ctx.fillText(part, 112, 318);
 
-        ctx.font = '500 40px "Segoe UI", Arial, sans-serif';
-        ctx.fillText("SOIC-16", 112, 392);
-        ctx.fillText("2526", 112, 448);
+        ctx.font = `600 32px ${MONO_FONT}`;
+        ctx.fillText("RUBIDIUM MEMS REF", 112, 388);
+        ctx.fillText("ENG SAMPLE 2526", 112, 444);
 
-        ctx.font = '400 34px "Segoe UI", Arial, sans-serif';
-        ctx.fillText("MOLD COMPOUND", 112, 500);
+        ctx.font = `500 28px ${MONO_FONT}`;
+        ctx.fillText("SOIC-16   3V3   10MHZ", 112, 496);
 
         ctx.textAlign = "right";
-        ctx.font = '400 30px "Segoe UI", Arial, sans-serif';
-        ctx.fillText("L2526A1", width - 102, 500);
+        ctx.font = `500 28px ${MONO_FONT}`;
+        ctx.fillText("LOT L2526A1", width - 102, 496);
 
         const texture = new THREE.CanvasTexture(canvas);
         texture.colorSpace = THREE.SRGBColorSpace;

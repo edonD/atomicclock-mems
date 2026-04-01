@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEMS Area-Awareness Demo</title>
+<style>
+:root {
+  --bg: #09131b;
+  --panel: rgba(15, 28, 38, 0.88);
+  --panel-strong: rgba(12, 22, 31, 0.96);
+  --line: rgba(120, 170, 190, 0.22);
+  --text: #e5f0f3;
+  --muted: #90a9b5;
+  --cyan: #6ed8ff;
+  --teal: #39d0b6;
+  --lime: #9be15d;
+  --amber: #ffbf69;
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+  --radius: 18px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: "Aptos", "Segoe UI Variable Text", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(58, 113, 134, 0.22), transparent 32%),
+    radial-gradient(circle at top right, rgba(53, 120, 102, 0.16), transparent 28%),
+    linear-gradient(180deg, #071018 0%, #09131b 35%, #0b1720 100%);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--cyan);
+}
+
+code,
+pre,
+.mono {
+  font-family: "Cascadia Mono", "Consolas", monospace;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 20px 56px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(125deg, rgba(110, 216, 255, 0.08), transparent 44%),
+    linear-gradient(315deg, rgba(57, 208, 182, 0.09), transparent 36%);
+  pointer-events: none;
+}
+
+.hero-inner,
+.container,
+.sticky-nav-inner {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid rgba(110, 216, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(18, 31, 42, 0.72);
+  color: var(--cyan);
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 18px 0 14px;
+  max-width: 880px;
+  font-family: "Bahnschrift SemiCondensed", "Aptos Display", "Segoe UI Variable Display", sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.hero p {
+  max-width: 760px;
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 1.02rem;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.badge {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(11, 21, 29, 0.9);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.badge strong {
+  color: var(--teal);
+}
+
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(14px);
+  background: rgba(8, 15, 21, 0.82);
+  border-bottom: 1px solid var(--line);
+}
+
+.sticky-nav-inner {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  overflow-x: auto;
+  padding: 12px 0;
+}
+
+.sticky-nav-inner a,
+.sticky-nav-label {
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.sticky-nav-label {
+  color: var(--text);
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.sticky-nav-inner a {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.sticky-nav-inner a:hover {
+  color: var(--cyan);
+  border-color: var(--line);
+  background: rgba(16, 29, 39, 0.95);
+}
+
+.container {
+  padding: 34px 0 92px;
+}
+
+.section {
+  margin-bottom: 28px;
+  padding: 28px;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-strong) 100%);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.section-header {
+  margin-bottom: 20px;
+}
+
+.section-kicker {
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+}
+
+.section h2 {
+  margin: 0 0 6px;
+  font-family: "Bahnschrift SemiCondensed", "Aptos Display", sans-serif;
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  color: var(--muted);
+  margin: 0;
+}
+
+.two-col,
+.three-col,
+.four-col {
+  display: grid;
+  gap: 18px;
+}
+
+.two-col {
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+.three-col {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.four-col {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.card {
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(10, 19, 27, 0.78);
+}
+
+.card h3,
+.card h4 {
+  margin-top: 0;
+}
+
+.card p:last-child,
+.card ul:last-child,
+.card ol:last-child {
+  margin-bottom: 0;
+}
+
+.operating-loop {
+  display: grid;
+  gap: 12px;
+}
+
+.loop-step {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.loop-step .number {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: #051016;
+  background: linear-gradient(135deg, var(--cyan), var(--teal));
+}
+
+.notice {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--amber);
+  border-radius: 12px;
+  background: rgba(255, 191, 105, 0.08);
+  color: #f2dbc0;
+}
+
+.demo-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 18px;
+}
+
+.canvas-shell {
+  padding: 14px;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(9, 18, 25, 0.95), rgba(8, 16, 22, 0.96));
+  border: 1px solid var(--line);
+}
+
+#site-canvas {
+  width: 100%;
+  display: block;
+  border-radius: 16px;
+  border: 1px solid rgba(120, 170, 190, 0.18);
+  background:
+    linear-gradient(180deg, rgba(13, 26, 35, 0.92), rgba(9, 19, 27, 0.98));
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+}
+
+.controls {
+  display: grid;
+  gap: 16px;
+}
+
+.control-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid rgba(110, 216, 255, 0.22);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(19, 35, 47, 0.98), rgba(11, 22, 30, 0.98));
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+  font: inherit;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(110, 216, 255, 0.42);
+  background: linear-gradient(180deg, rgba(22, 41, 54, 0.98), rgba(13, 25, 34, 0.98));
+}
+
+button.active {
+  border-color: rgba(57, 208, 182, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(57, 208, 182, 0.28);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metric {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(10, 19, 27, 0.8);
+}
+
+.metric-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.metric-value {
+  margin-top: 8px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.signal-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.signal-line {
+  display: grid;
+  grid-template-columns: 110px 1fr 56px;
+  gap: 12px;
+  align-items: center;
+}
+
+.bar {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(32, 55, 68, 0.7);
+}
+
+.bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: 999px;
+}
+
+.node-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.node-card {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(9, 18, 25, 0.72);
+}
+
+.node-card strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.node-card span {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.log {
+  max-height: 232px;
+  overflow: auto;
+  padding-left: 18px;
+  margin: 0;
+}
+
+.log li {
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+
+.log strong {
+  color: var(--text);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th {
+  color: var(--cyan);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+ol,
+ul {
+  padding-left: 20px;
+}
+
+pre {
+  margin: 0;
+  padding: 16px;
+  border-radius: 14px;
+  overflow: auto;
+  background: rgba(8, 15, 21, 0.92);
+  border: 1px solid var(--line);
+  color: #cce7ee;
+  font-size: 0.88rem;
+}
+
+.footer-note {
+  text-align: center;
+  color: var(--muted);
+  padding: 8px 0 0;
+}
+
+@media (max-width: 1024px) {
+  .two-col,
+  .demo-layout,
+  .three-col,
+  .four-col {
+    grid-template-columns: 1fr;
+  }
+
+  .node-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding-top: 58px;
+  }
+
+  .section {
+    padding: 22px;
+  }
+
+  .metric-grid,
+  .node-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .signal-line {
+    grid-template-columns: 90px 1fr 46px;
+    gap: 8px;
+  }
+}
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">atomicclock-mems / concept page / lawful area awareness</div>
+      <h1>MEMS surveillance system demo: a privacy-preserving area-awareness network</h1>
+      <p>
+        This page shows a buildable sensor-fusion concept for lawful, authorized perimeter, wildlife,
+        and remote-site monitoring. It avoids face recognition, avoids weaponization, and keeps raw
+        audio off the network by default.
+      </p>
+      <div class="badge-row">
+        <div class="badge">Primary use: <strong>authorized site monitoring</strong></div>
+        <div class="badge">Core node cost: <strong>$90 to $180</strong></div>
+        <div class="badge">Main MEMS: <strong>mic + accelerometer + pressure</strong></div>
+        <div class="badge">Optional MEMS: <strong>thermal microbolometer</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sticky-nav">
+    <div class="sticky-nav-inner">
+      <div class="sticky-nav-label">Sections</div>
+      <a href="#overview">Overview</a>
+      <a href="#demo">Live demo</a>
+      <a href="#build">How to build</a>
+      <a href="#mems">Which MEMS are used</a>
+      <a href="#limits">Limits and boundaries</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="section" id="overview">
+      <div class="section-header">
+        <div class="section-kicker">Overview</div>
+        <h2>What this project is</h2>
+        <p class="section-subtitle">
+          A distributed sensor network that fuses passive MEMS sensors to answer one question:
+          what is moving through this zone, where, and with what confidence?
+        </p>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>System concept</h3>
+          <p>
+            Put six to eight low-power nodes around a fence line, trail, utility yard, or remote
+            work site. Each node listens only for coarse signatures: sound envelope, ground vibration,
+            pressure changes, optional local tamper motion, and optional thermal blobs. The node does
+            edge processing locally and sends only features or alerts to a gateway.
+          </p>
+          <p>
+            The gateway correlates time-aligned packets from multiple nodes, estimates the event
+            location, classifies the event at a coarse level, and renders a zone map. In a practical
+            prototype, the useful labels are usually:
+          </p>
+          <ul>
+            <li><strong>person</strong>: periodic acoustic and footfall pattern, moderate vibration, weak magnetic disturbance</li>
+            <li><strong>vehicle</strong>: strong broadband acoustic energy, strong vibration, clear magnetic disturbance</li>
+            <li><strong>animal</strong>: softer, irregular signature with weaker vibration and low magnetic response</li>
+            <li><strong>wind or nuisance</strong>: acoustic change without the expected cross-modal pattern</li>
+            <li><strong>tamper</strong>: strong local IMU spike on a single node rather than a moving track</li>
+          </ul>
+          <div class="notice">
+            Build boundary: the recommended design is for authorized property, infrastructure, and
+            wildlife monitoring. Store features, not raw conversations. Keep the output coarse and
+            non-identifying unless you have a real legal and ethical basis to go further.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Operating loop</h3>
+          <div class="operating-loop">
+            <div class="loop-step">
+              <div class="number">1</div>
+              <div>
+                <strong>Sense locally</strong>
+                <div class="section-subtitle">MEMS mic, accelerometer, pressure sensor, optional gyro and thermal pixel array.</div>
+              </div>
+            </div>
+            <div class="loop-step">
+              <div class="number">2</div>
+              <div>
+                <strong>Extract features</strong>
+                <div class="section-subtitle">RMS, band energy, step periodicity, vibration burst score, pressure transient, thermal occupancy.</div>
+              </div>
+            </div>
+            <div class="loop-step">
+              <div class="number">3</div>
+              <div>
+                <strong>Filter nuisance events</strong>
+                <div class="section-subtitle">Reject wind, rain, fence rattle, or isolated node hits when the multi-sensor pattern does not line up.</div>
+              </div>
+            </div>
+            <div class="loop-step">
+              <div class="number">4</div>
+              <div>
+                <strong>Fuse across nodes</strong>
+                <div class="section-subtitle">Gateway correlates timestamps and weighted node confidence to estimate track and class.</div>
+              </div>
+            </div>
+            <div class="loop-step">
+              <div class="number">5</div>
+              <div>
+                <strong>Render a coarse site picture</strong>
+                <div class="section-subtitle">Zone alert, confidence, track, node health, and last event timeline.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="demo">
+      <div class="section-header">
+        <div class="section-kicker">Live Demo</div>
+        <h2>Interactive sensor-fusion simulation</h2>
+        <p class="section-subtitle">
+          Trigger different event types to see how multiple MEMS nodes produce a fused track and a coarse classification.
+        </p>
+      </div>
+
+      <div class="demo-layout">
+        <div class="canvas-shell">
+          <canvas id="site-canvas" width="920" height="500"></canvas>
+          <div class="legend">
+            <div class="legend-item"><span class="swatch" style="background:#6ed8ff"></span>Sensor node</div>
+            <div class="legend-item"><span class="swatch" style="background:#9be15d"></span>True event track</div>
+            <div class="legend-item"><span class="swatch" style="background:#ffbf69"></span>Fused estimate</div>
+            <div class="legend-item"><span class="swatch" style="background:#ff7f8f"></span>High-alert node</div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="card">
+            <h3>Scenarios</h3>
+            <div class="control-row">
+              <button data-scenario="person">Person</button>
+              <button data-scenario="vehicle">Vehicle</button>
+              <button data-scenario="animal">Animal</button>
+              <button data-scenario="wind">Wind</button>
+              <button data-scenario="tamper">Tamper</button>
+              <button id="reset-demo">Reset</button>
+            </div>
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric">
+              <div class="metric-label">Classifier</div>
+              <div class="metric-value" id="metric-class">Idle</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Confidence</div>
+              <div class="metric-value" id="metric-confidence">0%</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Triggered nodes</div>
+              <div class="metric-value" id="metric-nodes">0</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Alert mode</div>
+              <div class="metric-value" id="metric-alert">Standby</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Sensor contributions</h3>
+            <div class="signal-stack">
+              <div class="signal-line">
+                <div>Acoustic</div>
+                <div class="bar"><div class="bar-fill" id="bar-acoustic" style="background:linear-gradient(90deg,#6ed8ff,#39d0b6)"></div></div>
+                <div class="mono" id="value-acoustic">0.00</div>
+              </div>
+              <div class="signal-line">
+                <div>Vibration</div>
+                <div class="bar"><div class="bar-fill" id="bar-seismic" style="background:linear-gradient(90deg,#9be15d,#39d0b6)"></div></div>
+                <div class="mono" id="value-seismic">0.00</div>
+              </div>
+              <div class="signal-line">
+                <div>Magnetic</div>
+                <div class="bar"><div class="bar-fill" id="bar-magnetic" style="background:linear-gradient(90deg,#ffbf69,#ff8a4c)"></div></div>
+                <div class="mono" id="value-magnetic">0.00</div>
+              </div>
+              <div class="signal-line">
+                <div>Thermal</div>
+                <div class="bar"><div class="bar-fill" id="bar-thermal" style="background:linear-gradient(90deg,#ff7f8f,#ffc1b8)"></div></div>
+                <div class="mono" id="value-thermal">0.00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Node status</h3>
+            <div class="node-grid" id="node-grid"></div>
+          </div>
+
+          <div class="card">
+            <h3>Event log</h3>
+            <ol class="log" id="event-log"></ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="build">
+      <div class="section-header">
+        <div class="section-kicker">Build</div>
+        <h2>How to build a practical prototype</h2>
+        <p class="section-subtitle">
+          Start with one node plus one gateway, prove local feature extraction, then expand to a six-node network.
+        </p>
+      </div>
+
+      <div class="three-col" style="margin-bottom:18px;">
+        <div class="card">
+          <h3>Node hardware</h3>
+          <ul>
+            <li>MCU: ESP32-S3, STM32, or nRF52 class part</li>
+            <li>Digital MEMS microphone on I2S or PDM</li>
+            <li>Low-noise MEMS accelerometer on SPI or I2C</li>
+            <li>MEMS barometer for wind and pressure-transient context</li>
+            <li>Optional gyro for tamper or mounting vibration</li>
+            <li>Optional thermal microbolometer module for non-identifying heat blobs</li>
+            <li>Radio: LoRa for long range or Wi-Fi for short range demo</li>
+            <li>Battery + solar or fixed 12 V supply</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Gateway</h3>
+          <ul>
+            <li>Raspberry Pi or small x86 box</li>
+            <li>LoRa concentrator hat or standard Wi-Fi access point</li>
+            <li>Time alignment and event fusion service</li>
+            <li>Simple dashboard server with map, node health, and timeline</li>
+            <li>Database for feature packets and alerts only</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Software split</h3>
+          <ul>
+            <li><strong>Edge:</strong> denoise, windowing, thresholds, short feature vectors</li>
+            <li><strong>Fusion:</strong> cross-node time correlation and weighted centroid estimate</li>
+            <li><strong>UI:</strong> recent alerts, heat zones, uptime, battery, and nuisance rate</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:18px;">
+        <h3>Recommended build sequence</h3>
+        <ol>
+          <li><strong>Build one node on the bench.</strong> Bring up mic, accelerometer, and barometer. Log data locally first.</li>
+          <li><strong>Create edge features.</strong> Compute 250 ms windows of audio RMS, band energy, vibration RMS, pressure delta, and IMU tamper flags.</li>
+          <li><strong>Do not stream raw audio by default.</strong> Send only feature vectors and alerts.</li>
+          <li><strong>Label a small dataset.</strong> Walk a person past the node, roll a cart or vehicle nearby, generate wind or fan noise, and record nuisance cases.</li>
+          <li><strong>Add a second node.</strong> Verify that the same event appears on both nodes with a time offset and different amplitude.</li>
+          <li><strong>Add a gateway.</strong> Fuse packets inside a 1 to 3 second window and compute a coarse location estimate.</li>
+          <li><strong>Expand to six nodes.</strong> Place them around the site perimeter or a path corridor.</li>
+          <li><strong>Add the dashboard.</strong> Show zone map, event type, confidence, node battery, last communication, and nuisance rejection stats.</li>
+          <li><strong>Only then consider thermal.</strong> A thermal MEMS module helps with confirmation but raises cost and integration effort.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="section-kicker">Implementation</div>
+        <h2>BOM and firmware layout</h2>
+        <p class="section-subtitle">
+          A compact parts list plus the minimum edge and gateway logic needed to make the demo architecture real.
+        </p>
+      </div>
+
+      <div class="table-wrap" style="margin-bottom:18px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Part</th>
+              <th>Example choices</th>
+              <th>Role</th>
+              <th>Prototype note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MCU</td>
+              <td>ESP32-S3, STM32H7, nRF5340</td>
+              <td>Sampling, local DSP, packet generation</td>
+              <td>ESP32-S3 is the easiest demo option</td>
+            </tr>
+            <tr>
+              <td>Digital MEMS mic</td>
+              <td>TDK ICS-43434, ST MP34DT06J</td>
+              <td>Footsteps, engine noise, fence rattle, broadband activity</td>
+              <td>Mount behind an acoustic vent with wind mesh</td>
+            </tr>
+            <tr>
+              <td>MEMS accelerometer</td>
+              <td>ST LIS2DW12, ADXL355 for better vibration work</td>
+              <td>Footfalls, ground coupling, pole or fence vibration</td>
+              <td>Mechanical mounting matters more than firmware at first</td>
+            </tr>
+            <tr>
+              <td>MEMS pressure sensor</td>
+              <td>Bosch BMP390, Infineon DPS310</td>
+              <td>Wind context, enclosure health, nuisance rejection</td>
+              <td>Useful for filtering false positives caused by gusts</td>
+            </tr>
+            <tr>
+              <td>Optional MEMS gyro</td>
+              <td>ICM-42688-P, BMI270</td>
+              <td>Node tamper, mounting motion, pole shake</td>
+              <td>Helpful when nodes are mounted on structures</td>
+            </tr>
+            <tr>
+              <td>Optional thermal MEMS module</td>
+              <td>FLIR Lepton 3.5 class module</td>
+              <td>Heat-blob confirmation without facial detail</td>
+              <td>Use only if you need a stronger confirmation channel</td>
+            </tr>
+            <tr>
+              <td>Radio</td>
+              <td>LoRa SX1262 or Wi-Fi</td>
+              <td>Packet transport</td>
+              <td>Not a MEMS part, but essential for the network</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>Simple edge firmware sketch</h3>
+<pre><code>loop every 250 ms:
+  mic_window = read_audio_samples()
+  imu_window = read_accel_samples()
+  pressure = read_barometer()
+
+  features = {
+    audio_rms,
+    audio_band_low,
+    audio_band_mid,
+    step_periodicity,
+    vibration_rms,
+    vibration_burst_score,
+    pressure_delta,
+    tamper_flag
+  }
+
+  local_score = rules_or_small_model(features)
+
+  if local_score &gt; threshold:
+    send_packet({
+      node_id,
+      timestamp,
+      features,
+      local_score,
+      battery,
+      temperature
+    })</code></pre>
+        </div>
+
+        <div class="card">
+          <h3>Simple gateway fusion sketch</h3>
+<pre><code>collect packets over 1 to 3 second window
+group by overlapping time and compatible class
+
+for each event cluster:
+  estimate location = weighted centroid of node scores
+  estimate class = multi-sensor rule set or light model
+  reject if:
+    only one noisy node triggered
+    pressure says strong gust and vibration is absent
+    acoustic energy is high but cross-node timing is inconsistent
+
+publish:
+  class, confidence, location, triggered_nodes, node_health</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mems">
+      <div class="section-header">
+        <div class="section-kicker">MEMS</div>
+        <h2>Which MEMS are used and why</h2>
+        <p class="section-subtitle">
+          The best first prototype uses only a few MEMS parts. Add the expensive ones later.
+        </p>
+      </div>
+
+      <div class="four-col">
+        <div class="card">
+          <h3>Digital MEMS microphone</h3>
+          <p>
+            This is the most important sensor for the first prototype. It gives you activity detection,
+            spectral shape, cadence, and nuisance classification.
+          </p>
+          <p><strong>Use it for:</strong> footsteps, wheels, motors, voices as anonymous activity bands, fence rattle.</p>
+        </div>
+        <div class="card">
+          <h3>MEMS accelerometer</h3>
+          <p>
+            This turns your node or mounting stake into a compact vibration sensor. It is what separates
+            real movement from pure airborne noise.
+          </p>
+          <p><strong>Use it for:</strong> footfall bursts, vehicle rumble, tamper detection, pole vibration.</p>
+        </div>
+        <div class="card">
+          <h3>MEMS pressure sensor</h3>
+          <p>
+            It does not detect people directly very well, but it gives environmental context that helps
+            you reject gusts, enclosure leaks, and weather-driven false alarms.
+          </p>
+          <p><strong>Use it for:</strong> wind filtering, enclosure health, context features.</p>
+        </div>
+        <div class="card">
+          <h3>MEMS thermal microbolometer</h3>
+          <p>
+            This is optional. It raises cost sharply, but it gives a privacy-preserving thermal occupancy
+            channel. You can confirm presence without seeing faces or text.
+          </p>
+          <p><strong>Use it for:</strong> thermal confirmation, night operation, coarse blob tracking.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <h3>Important precision note</h3>
+        <p>
+          Not every useful sensor in a practical system is MEMS. Radios, MCUs, storage, and many
+          magnetometers are microelectronic but not always MEMS in the strict mechanical sense. If you
+          want a clean "mostly MEMS" build, use this stack:
+        </p>
+        <ul>
+          <li><strong>Core MEMS stack:</strong> digital MEMS microphone + MEMS accelerometer + MEMS pressure sensor</li>
+          <li><strong>Optional MEMS stack:</strong> MEMS gyro + MEMS thermal microbolometer</li>
+          <li><strong>Non-MEMS support parts:</strong> MCU, LoRa radio, power management, gateway computer</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="limits">
+      <div class="section-header">
+        <div class="section-kicker">Limits</div>
+        <h2>Where this concept is good and where it is weak</h2>
+      </div>
+
+      <div class="three-col">
+        <div class="card">
+          <h3>Good fits</h3>
+          <ul>
+            <li>Authorized perimeter awareness</li>
+            <li>Utility yards and remote infrastructure</li>
+            <li>Wildlife corridor monitoring</li>
+            <li>Temporary construction or research sites</li>
+            <li>Nuisance filtering before a human reviews the alert</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Weak spots</h3>
+          <ul>
+            <li>High wind, heavy rain, and loose mounting points</li>
+            <li>Dense urban noise with strong reverberation</li>
+            <li>Trying to identify individuals instead of coarse classes</li>
+            <li>Single-node deployments with no fusion</li>
+            <li>Expecting thermal without paying the power and cost penalty</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Recommended boundaries</h3>
+          <ul>
+            <li>Feature-only telemetry by default</li>
+            <li>No hidden recording of conversations</li>
+            <li>Post signage on monitored property</li>
+            <li>Keep classifications coarse and auditable</li>
+            <li>Use a review step before any consequential action</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="footer-note">
+        If you want to turn this into a repo module next, the clean path is:
+        <span class="mono">10_sensor_node</span>, <span class="mono">11_fusion_gateway</span>,
+        and <span class="mono">12_site_dashboard</span>.
+      </p>
+    </section>
+  </main>
+  <script>
+  const canvas = document.getElementById("site-canvas");
+  const ctx = canvas.getContext("2d");
+
+  const nodes = [
+    { id: "N1", x: 110, y: 92, battery: 93 },
+    { id: "N2", x: 460, y: 78, battery: 88 },
+    { id: "N3", x: 805, y: 112, battery: 90 },
+    { id: "N4", x: 808, y: 382, battery: 86 },
+    { id: "N5", x: 455, y: 415, battery: 92 },
+    { id: "N6", x: 120, y: 372, battery: 89 }
+  ];
+
+  const scenarios = {
+    person: {
+      label: "Person",
+      color: "#9be15d",
+      duration: 11,
+      path: [[60, 320], [220, 265], [410, 240], [620, 255], [830, 290]],
+      base: { acoustic: 0.52, seismic: 0.45, magnetic: 0.08, thermal: 0.35 },
+      alert: "Observe"
+    },
+    vehicle: {
+      label: "Vehicle",
+      color: "#ffbf69",
+      duration: 8.5,
+      path: [[40, 370], [200, 335], [400, 310], [610, 300], [860, 286]],
+      base: { acoustic: 0.88, seismic: 0.82, magnetic: 0.62, thermal: 0.58 },
+      alert: "Track"
+    },
+    animal: {
+      label: "Animal",
+      color: "#7dcfff",
+      duration: 9.5,
+      path: [[90, 160], [250, 205], [420, 180], [605, 150], [780, 165]],
+      base: { acoustic: 0.34, seismic: 0.24, magnetic: 0.04, thermal: 0.27 },
+      alert: "Log"
+    },
+    wind: {
+      label: "Wind / foliage",
+      color: "#8fa7b3",
+      duration: 8,
+      path: [[120, 240], [280, 220], [450, 235], [640, 215], [810, 228]],
+      base: { acoustic: 0.55, seismic: 0.08, magnetic: 0.01, thermal: 0.05 },
+      alert: "Reject"
+    },
+    tamper: {
+      label: "Local tamper",
+      color: "#ff7f8f",
+      duration: 6,
+      path: [[105, 88], [116, 100], [103, 84], [108, 96]],
+      base: { acoustic: 0.42, seismic: 0.92, magnetic: 0.03, thermal: 0.12 },
+      alert: "Inspect"
+    }
+  };
+
+  const ui = {
+    metricClass: document.getElementById("metric-class"),
+    metricConfidence: document.getElementById("metric-confidence"),
+    metricNodes: document.getElementById("metric-nodes"),
+    metricAlert: document.getElementById("metric-alert"),
+    acoustic: document.getElementById("bar-acoustic"),
+    seismic: document.getElementById("bar-seismic"),
+    magnetic: document.getElementById("bar-magnetic"),
+    thermal: document.getElementById("bar-thermal"),
+    valueAcoustic: document.getElementById("value-acoustic"),
+    valueSeismic: document.getElementById("value-seismic"),
+    valueMagnetic: document.getElementById("value-magnetic"),
+    valueThermal: document.getElementById("value-thermal"),
+    nodeGrid: document.getElementById("node-grid"),
+    eventLog: document.getElementById("event-log")
+  };
+
+  let activeScenario = null;
+  let scenarioStart = 0;
+  let lastTick = 0;
+  let truePosition = null;
+  let estimatePosition = null;
+  let nodeSignals = nodes.map(() => ({ acoustic: 0, seismic: 0, magnetic: 0, thermal: 0, total: 0 }));
+  let historyTrack = [];
+  let estimateTrack = [];
+  let lastAnnouncement = "";
+
+  function seedNodeGrid() {
+    ui.nodeGrid.innerHTML = "";
+    nodes.forEach((node) => {
+      const tile = document.createElement("div");
+      tile.className = "node-card";
+      tile.id = `tile-${node.id}`;
+      tile.innerHTML = `<strong>${node.id}</strong><span>idle / battery ${node.battery}%</span>`;
+      ui.nodeGrid.appendChild(tile);
+    });
+  }
+
+  function logEvent(text) {
+    const entry = document.createElement("li");
+    const now = new Date();
+    const stamp = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    entry.innerHTML = `<strong>${stamp}</strong> ${text}`;
+    ui.eventLog.prepend(entry);
+    while (ui.eventLog.children.length > 8) {
+      ui.eventLog.removeChild(ui.eventLog.lastChild);
+    }
+  }
+
+  function setScenario(name) {
+    activeScenario = scenarios[name];
+    scenarioStart = performance.now();
+    lastAnnouncement = "";
+    historyTrack = [];
+    estimateTrack = [];
+    document.querySelectorAll("[data-scenario]").forEach((button) => {
+      button.classList.toggle("active", button.dataset.scenario === name);
+    });
+    logEvent(`Started <strong>${activeScenario.label}</strong> simulation.`);
+  }
+
+  function resetDemo() {
+    activeScenario = null;
+    truePosition = null;
+    estimatePosition = null;
+    historyTrack = [];
+    estimateTrack = [];
+    lastAnnouncement = "";
+    nodeSignals = nodes.map(() => ({ acoustic: 0, seismic: 0, magnetic: 0, thermal: 0, total: 0 }));
+    document.querySelectorAll("[data-scenario]").forEach((button) => button.classList.remove("active"));
+    updateMetrics({
+      label: "Idle",
+      confidence: 0,
+      nodes: 0,
+      alert: "Standby",
+      acoustic: 0,
+      seismic: 0,
+      magnetic: 0,
+      thermal: 0
+    });
+    updateNodeTiles([]);
+  }
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function samplePath(path, t) {
+    if (path.length === 1) {
+      return { x: path[0][0], y: path[0][1] };
+    }
+    const scaled = t * (path.length - 1);
+    const idx = Math.min(path.length - 2, Math.floor(scaled));
+    const local = scaled - idx;
+    return {
+      x: lerp(path[idx][0], path[idx + 1][0], local),
+      y: lerp(path[idx][1], path[idx + 1][1], local)
+    };
+  }
+
+  function clamp01(value) {
+    return Math.max(0, Math.min(1, value));
+  }
+
+  function distance(a, b) {
+    const dx = a.x - b.x;
+    const dy = a.y - b.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function computeSignals(now) {
+    if (!activeScenario) {
+      return null;
+    }
+
+    const elapsed = (now - scenarioStart) / 1000;
+    const progress = Math.min(elapsed / activeScenario.duration, 1);
+    truePosition = samplePath(activeScenario.path, progress);
+    historyTrack.push({ ...truePosition });
+    if (historyTrack.length > 60) historyTrack.shift();
+
+    const triggered = [];
+    let acoustic = 0;
+    let seismic = 0;
+    let magnetic = 0;
+    let thermal = 0;
+    let totalWeight = 0;
+    let weightedX = 0;
+    let weightedY = 0;
+
+    nodeSignals = nodes.map((node, index) => {
+      const d = distance(truePosition, node);
+      const reach = 1 / (1 + (d / 145) * (d / 145));
+      const pulse = 0.88 + 0.12 * Math.sin((elapsed * 4.2) + index);
+      const local = {
+        acoustic: clamp01(activeScenario.base.acoustic * reach * pulse + (index % 3) * 0.01),
+        seismic: clamp01(activeScenario.base.seismic * reach * (0.84 + 0.16 * Math.cos(elapsed * 3.8 + index))),
+        magnetic: clamp01(activeScenario.base.magnetic * reach * (0.92 + 0.08 * Math.sin(elapsed * 2.4 + index * 0.4))),
+        thermal: clamp01(activeScenario.base.thermal * reach * (0.95 + 0.05 * Math.cos(elapsed * 1.8 + index)))
+      };
+
+      if (activeScenario === scenarios.tamper) {
+        local.seismic = index === 0 ? clamp01(0.9 + 0.08 * Math.sin(elapsed * 7)) : local.seismic * 0.15;
+        local.acoustic = index === 0 ? clamp01(0.45 + 0.1 * Math.sin(elapsed * 5)) : local.acoustic * 0.2;
+      }
+
+      const total = 0.34 * local.acoustic + 0.34 * local.seismic + 0.18 * local.magnetic + 0.14 * local.thermal;
+      acoustic += local.acoustic;
+      seismic += local.seismic;
+      magnetic += local.magnetic;
+      thermal += local.thermal;
+
+      if (total > 0.18) {
+        triggered.push({ id: node.id, total });
+        const w = total + 0.001;
+        totalWeight += w;
+        weightedX += node.x * w;
+        weightedY += node.y * w;
+      }
+
+      return { ...local, total };
+    });
+
+    estimatePosition = totalWeight > 0
+      ? { x: weightedX / totalWeight, y: weightedY / totalWeight }
+      : null;
+
+    if (estimatePosition) {
+      estimateTrack.push({ ...estimatePosition });
+      if (estimateTrack.length > 60) estimateTrack.shift();
+    }
+
+    const avgAcoustic = acoustic / nodes.length;
+    const avgSeismic = seismic / nodes.length;
+    const avgMagnetic = magnetic / nodes.length;
+    const avgThermal = thermal / nodes.length;
+
+    const classes = [
+      {
+        name: "Vehicle",
+        score: 1.35 * avgSeismic + 1.1 * avgMagnetic + 0.9 * avgAcoustic + 0.35 * avgThermal
+      },
+      {
+        name: "Person",
+        score: 1.1 * avgAcoustic + 1.0 * avgSeismic + 0.6 * avgThermal - 0.25 * avgMagnetic
+      },
+      {
+        name: "Animal",
+        score: 0.8 * avgAcoustic + 0.55 * avgSeismic + 0.55 * avgThermal - 0.18 * avgMagnetic
+      },
+      {
+        name: "Wind / nuisance",
+        score: 1.05 * avgAcoustic + 0.25 * avgThermal - 0.55 * avgSeismic - 0.4 * avgMagnetic
+      },
+      {
+        name: "Local tamper",
+        score: (triggered.length <= 2 ? 1.4 : 0.4) * avgSeismic + 0.3 * avgAcoustic - 0.2 * avgMagnetic
+      }
+    ].sort((a, b) => b.score - a.score);
+
+    const top = classes[0];
+    const runnerUp = classes[1];
+    const spread = Math.max(0, top.score - runnerUp.score);
+    const confidence = clamp01(0.28 + spread * 0.62 + Math.min(triggered.length / 6, 0.28));
+
+    const alert = top.name === "Wind / nuisance"
+      ? "Reject"
+      : top.name === "Local tamper"
+        ? "Inspect"
+        : activeScenario.alert;
+
+    const announcement = `${top.name}:${Math.round(confidence * 100)}:${triggered.length}`;
+    if (announcement !== lastAnnouncement && (now - lastTick) > 900) {
+      logEvent(`Classifier now says <strong>${top.name}</strong> with <strong>${Math.round(confidence * 100)}%</strong> confidence across <strong>${triggered.length}</strong> nodes.`);
+      lastAnnouncement = announcement;
+      lastTick = now;
+    }
+
+    if (progress >= 1) {
+      logEvent(`Scenario <strong>${activeScenario.label}</strong> completed. Last state: <strong>${top.name}</strong> at <strong>${Math.round(confidence * 100)}%</strong> confidence.`);
+      activeScenario = null;
+      document.querySelectorAll("[data-scenario]").forEach((button) => button.classList.remove("active"));
+    }
+
+    return {
+      label: top.name,
+      confidence,
+      nodes: triggered.length,
+      alert,
+      acoustic: avgAcoustic,
+      seismic: avgSeismic,
+      magnetic: avgMagnetic,
+      thermal: avgThermal,
+      triggered
+    };
+  }
+  </script>
+  <script>
+  function updateMetrics(state) {
+    ui.metricClass.textContent = state.label;
+    ui.metricConfidence.textContent = `${Math.round(state.confidence * 100)}%`;
+    ui.metricNodes.textContent = state.nodes;
+    ui.metricAlert.textContent = state.alert;
+
+    const pairs = [
+      ["acoustic", state.acoustic],
+      ["seismic", state.seismic],
+      ["magnetic", state.magnetic],
+      ["thermal", state.thermal]
+    ];
+
+    pairs.forEach(([key, value]) => {
+      ui[key].style.width = `${Math.round(value * 100)}%`;
+      ui[`value${key.charAt(0).toUpperCase()}${key.slice(1)}`].textContent = value.toFixed(2);
+    });
+  }
+
+  function updateNodeTiles(triggered) {
+    const activeMap = new Map(triggered.map((item) => [item.id, item.total]));
+    nodes.forEach((node, index) => {
+      const tile = document.getElementById(`tile-${node.id}`);
+      const total = nodeSignals[index] ? nodeSignals[index].total : 0;
+      const active = activeMap.has(node.id);
+      tile.style.borderColor = active ? "rgba(255, 127, 143, 0.5)" : "rgba(120, 170, 190, 0.22)";
+      tile.style.background = active ? "rgba(44, 18, 25, 0.72)" : "rgba(9, 18, 25, 0.72)";
+      tile.innerHTML = `<strong>${node.id}</strong><span>${active ? `score ${total.toFixed(2)}` : "idle"} / battery ${node.battery}%</span>`;
+    });
+  }
+
+  function drawGrid() {
+    ctx.save();
+    ctx.strokeStyle = "rgba(130, 167, 182, 0.08)";
+    ctx.lineWidth = 1;
+    for (let x = 40; x < canvas.width; x += 60) {
+      ctx.beginPath();
+      ctx.moveTo(x, 40);
+      ctx.lineTo(x, canvas.height - 40);
+      ctx.stroke();
+    }
+    for (let y = 40; y < canvas.height; y += 60) {
+      ctx.beginPath();
+      ctx.moveTo(40, y);
+      ctx.lineTo(canvas.width - 40, y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawSite() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawGrid();
+
+    ctx.save();
+    ctx.strokeStyle = "rgba(110, 216, 255, 0.25)";
+    ctx.lineWidth = 2;
+    ctx.setLineDash([8, 8]);
+    ctx.strokeRect(72, 72, canvas.width - 144, canvas.height - 144);
+    ctx.restore();
+
+    ctx.fillStyle = "rgba(110, 216, 255, 0.12)";
+    ctx.fillRect(120, 138, 680, 210);
+
+    ctx.fillStyle = "rgba(13, 24, 30, 0.96)";
+    ctx.fillRect(310, 188, 305, 110);
+    ctx.strokeStyle = "rgba(110, 216, 255, 0.18)";
+    ctx.strokeRect(310, 188, 305, 110);
+    ctx.fillStyle = "#d4e9ef";
+    ctx.font = "600 16px Bahnschrift SemiCondensed, Aptos Display, sans-serif";
+    ctx.fillText("AUTHORIZED MONITORING ZONE", 344, 227);
+    ctx.font = "13px Aptos, Segoe UI, sans-serif";
+    ctx.fillStyle = "#90a9b5";
+    ctx.fillText("Feature-only telemetry. Raw audio disabled by default.", 331, 252);
+    ctx.fillText("Use case: utility yard, wildlife trail, research site.", 339, 274);
+
+    ctx.fillStyle = "rgba(57, 208, 182, 0.18)";
+    ctx.fillRect(102, 395, 170, 52);
+    ctx.fillStyle = "#cde9eb";
+    ctx.fillText("Gateway + dashboard", 130, 426);
+
+    nodes.forEach((node, index) => {
+      const signal = nodeSignals[index] || { total: 0 };
+      const radius = 10 + signal.total * 20;
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = signal.total > 0.18 ? "rgba(255, 127, 143, 0.86)" : "rgba(110, 216, 255, 0.95)";
+      ctx.arc(node.x, node.y, 9, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.strokeStyle = signal.total > 0.18 ? "rgba(255, 127, 143, 0.3)" : "rgba(110, 216, 255, 0.16)";
+      ctx.lineWidth = 2;
+      ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.fillStyle = "#e5f0f3";
+      ctx.font = "600 14px Cascadia Mono, Consolas, monospace";
+      ctx.fillText(node.id, node.x - 14, node.y - 18);
+      ctx.restore();
+    });
+
+    if (historyTrack.length > 1) {
+      ctx.save();
+      ctx.strokeStyle = "rgba(155, 225, 93, 0.75)";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      historyTrack.forEach((point, index) => {
+        if (index === 0) ctx.moveTo(point.x, point.y);
+        else ctx.lineTo(point.x, point.y);
+      });
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    if (estimateTrack.length > 1) {
+      ctx.save();
+      ctx.strokeStyle = "rgba(255, 191, 105, 0.82)";
+      ctx.setLineDash([6, 4]);
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      estimateTrack.forEach((point, index) => {
+        if (index === 0) ctx.moveTo(point.x, point.y);
+        else ctx.lineTo(point.x, point.y);
+      });
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    if (truePosition) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = activeScenario ? activeScenario.color : "#9be15d";
+      ctx.arc(truePosition.x, truePosition.y, 9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    if (estimatePosition) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = "#ffbf69";
+      ctx.arc(estimatePosition.x, estimatePosition.y, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(255, 191, 105, 0.42)";
+      ctx.arc(estimatePosition.x, estimatePosition.y, 20, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function animate(now) {
+    const state = computeSignals(now);
+    if (state) {
+      updateMetrics(state);
+      updateNodeTiles(state.triggered);
+    }
+    drawSite();
+    requestAnimationFrame(animate);
+  }
+
+  document.querySelectorAll("[data-scenario]").forEach((button) => {
+    button.addEventListener("click", () => setScenario(button.dataset.scenario));
+  });
+
+  document.getElementById("reset-demo").addEventListener("click", () => {
+    logEvent("Demo reset.");
+    resetDemo();
+  });
+
+  seedNodeGrid();
+  resetDemo();
+  logEvent("Dashboard ready. Choose a scenario to run the MEMS fusion demo.");
+  requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

@@ -20,6 +20,8 @@ from matplotlib.lines import Line2D
 import warnings
 warnings.filterwarnings('ignore')
 
+plt.rcParams['font.family'] = 'DejaVu Sans'
+
 # ─────────────────────────────────────────────────────────────────────────────
 # CHIP DIMENSIONS (from Phase 1 simulation targets)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -42,22 +44,24 @@ PT_TRACE_W             = 0.05              # Pt heater trace width
 # ─────────────────────────────────────────────────────────────────────────────
 # COLOR PALETTE
 # ─────────────────────────────────────────────────────────────────────────────
-BG          = '#050510'
-GLASS_C     = '#00c8ff'
-SI_C        = '#1c2333'
-SI_TOP_C    = '#252d42'
-RB_C        = '#9933ff'
-VCSEL_C     = '#ff3300'
-VCSEL_GW    = '#ff8800'
-QWP_C       = '#f0e8c0'
-PD_C        = '#003388'
-PT_C        = '#ffd700'
-PKG_C       = '#b8a898'
-PKG_DARK    = '#8a7a6a'
-BEAM_C      = '#00ff88'
-LABEL_C     = '#e0e8ff'
-DIM_C       = '#ffcc44'
-ACCENT      = '#00ccff'
+BG          = '#050812'
+GLASS_C     = '#63d6ff'
+SI_C        = '#1a2232'
+SI_TOP_C    = '#263047'
+RB_C        = '#8b72f6'
+VCSEL_C     = '#ff8452'
+VCSEL_GW    = '#ffcb70'
+QWP_C       = '#cfd7e2'
+PD_C        = '#6ea8ff'
+PT_C        = '#ffbd62'
+PKG_C       = '#8c7e69'
+PKG_DARK    = '#5d5448'
+BEAM_C      = '#71e3ff'
+LABEL_C     = '#e7eefb'
+DIM_C       = '#ffbd62'
+ACCENT      = '#62d5ff'
+MUTED_C     = '#93a6c3'
+GOOD_C      = '#8be6b8'
 
 # ─────────────────────────────────────────────────────────────────────────────
 # HELPER: Draw a 3D box as Poly3DCollection
@@ -127,19 +131,23 @@ ax_title.set_facecolor(BG)
 ax_title.axis('off')
 
 ax_title.text(0.5, 0.65,
-    'CSAC MEMS  —  CHIP-SCALE ATOMIC CLOCK',
+    'CSAC MEMS  //  PHASE 1 ARCHITECTURE SHEET',
     ha='center', va='center', fontsize=28, fontweight='bold', color='white',
     transform=ax_title.transAxes,
-    path_effects=[pe.withStroke(linewidth=6, foreground='#0033aa')])
+    path_effects=[pe.withStroke(linewidth=6, foreground='#10284d')])
 
 ax_title.text(0.5, 0.05,
-    'Rb-87  •  CPT Architecture  •  MEMS Vapor Cell  •  Defense-Grade Timing  •  ADEV < 5×10⁻¹⁰ @ 1s',
-    ha='center', va='center', fontsize=12, color='#88aadd',
+    'Simulated physics complete  •  concept package geometry  •  not a fabrication release drawing',
+    ha='center', va='center', fontsize=12, color=MUTED_C,
     transform=ax_title.transAxes)
 
 # gradient line under title
 x_line = np.linspace(0.02, 0.98, 300)
-colors_line = plt.cm.cool(np.linspace(0, 1, 300))
+colors_line = np.linspace(
+    np.array([0x62, 0xD5, 0xFF]) / 255.0,
+    np.array([0xFF, 0xBD, 0x62]) / 255.0,
+    300
+)
 for i in range(len(x_line)-1):
     ax_title.plot([x_line[i], x_line[i+1]], [-0.25, -0.25],
                    color=colors_line[i], linewidth=2.5,
@@ -466,37 +474,31 @@ ax_xsec.set_ylim(-0.08, 0.75)
 ax_spec = fig.add_subplot(gs[1, 2], facecolor=BG)
 ax_spec.set_facecolor(BG)
 ax_spec.axis('off')
-ax_spec.set_title('CHIP SPECIFICATIONS', color=ACCENT,
+ax_spec.set_title('PROGRAM SNAPSHOT', color=ACCENT,
                    fontsize=13, fontweight='bold', pad=6)
 
 specs = [
-    ('DIMENSIONS', None, '#00ccff'),
-    ('  Cell die',            '3.0 × 3.0 × 1.6 mm',    'white'),
-    ('  Optical stack',       '3.0 × 3.0 × 3.9 mm',    'white'),
-    ('  LCC package',         '8.0 × 8.0 × 5.0 mm',    '#ffcc44'),
-    ('  Cavity diameter',     'ø 1.5 mm',               'white'),
-    ('  Cavity depth',        '1.0 mm',                 'white'),
+    ('STATUS', None, ACCENT),
+    ('  Wave status',         'All 10 simulation modules passed',    GOOD_C),
+    ('  Design maturity',     'Physics validated; package still concept', '#ffbd62'),
+    ('  Confidence',          'Simulated + inferred, not tape-out ready', MUTED_C),
     ('', None, None),
-    ('PHYSICS', None, '#00ccff'),
+    ('PHYSICS', None, ACCENT),
     ('  Atomic species',      'Rb-87',                  'white'),
-    ('  Transition',          'D1 line  794.979 nm',    '#ff8800'),
-    ('  Hyperfine reference', '6,834,682,610.904 Hz',   '#ff8800'),
-    ('  Modulation freq',     '3,417,341,305 Hz',       'white'),
-    ('  Buffer gas',          'N₂  30–75 Torr',         '#88aaff'),
-    ('  Cell temperature',    '85°C  ± 0.01°C',         'white'),
+    ('  Transition',          'D1 line 794.979 nm',     '#ffbd62'),
+    ('  Hyperfine reference', '6,834,682,610.904 Hz',   'white'),
+    ('  Cell temperature',    '85°C nominal',           MUTED_C),
     ('', None, None),
-    ('PERFORMANCE', None, '#00ccff'),
-    ('  ADEV @ τ=1s',         '< 5×10⁻¹⁰',             '#00ff88'),
-    ('  ADEV @ τ=1hr',        '< 1×10⁻¹¹',             '#00ff88'),
-    ('  CPT linewidth',       '< 5 kHz',                'white'),
-    ('  CPT contrast',        '> 3%',                   'white'),
-    ('  Power (total)',        '< 150 mW',               'white'),
-    ('  Heater power',        '< 100 mW',               'white'),
+    ('PERFORMANCE (SIMULATED)', None, ACCENT),
+    ('  ADEV @ τ=1 s',        '8.84×10⁻¹²',             GOOD_C),
+    ('  ADEV @ τ=1 hr',       '1.78×10⁻¹³',             GOOD_C),
+    ('  Total power',         '123.8 mW',               'white'),
+    ('  Startup time',        '78.5 s',                 'white'),
     ('', None, None),
-    ('BENCHMARK vs SA65', None, '#00ccff'),
-    ('  Volume reduction',    '~15×  (0.32 vs 5 cm³)',  '#ffcc44'),
-    ('  ADEV target',         'comparable to SA65',     '#ffcc44'),
-    ('  Architecture',        'MEMS CPT (patent clear)', '#00ff88'),
+    ('PACKAGE (CONCEPT)', None, ACCENT),
+    ('  Die',                 '3 × 3 mm',               'white'),
+    ('  LCC package',         '8 × 8 × 5 mm envelope',  '#ffbd62'),
+    ('  Volume delta vs SA65','~15× smaller package volume', '#ffbd62'),
 ]
 
 y_s = 0.97
@@ -512,7 +514,7 @@ for label, value, col in specs:
                          color=col, linewidth=0.6, alpha=0.4)
         y_s -= 0.042
     else:
-        ax_spec.text(0.04, y_s, label, fontsize=9.5, color='#aabbcc',
+        ax_spec.text(0.04, y_s, label, fontsize=9.5, color=MUTED_C,
                      transform=ax_spec.transAxes, va='top')
         ax_spec.text(0.54, y_s, value, fontsize=9.5, color=col,
                      transform=ax_spec.transAxes, va='top', fontweight='bold',
@@ -561,13 +563,13 @@ ax_size.text(17, 30-coin_r-2.5, '€ coin  ø23mm', ha='center',
 sa65_w = 35.6 * CSCALE
 sa65_h = 36.4 * CSCALE
 draw_comp_rect(ax_size, 70, 30, sa65_w, sa65_h,
-               '#443322', 0.7, 'Microchip SA65', '35.6×36.4×11.4mm\n17 cm³')
+               '#3d3227', 0.72, 'Microchip SA65', 'production reference\n17 cm³')
 
 # Our chip package (8 × 8mm)
 pkg_w = PKG_W * CSCALE
 pkg_h = PKG_D * CSCALE
 draw_comp_rect(ax_size, 70, 30, pkg_w, pkg_h,
-               '#003366', 0.85, 'OUR CHIP\n(package)', '8×8×5mm\n0.32 cm³')
+               '#10324c', 0.88, 'CSAC PACKAGE\n(concept)', '8×8×5mm\n0.32 cm³')
 
 # Our cell die (3 × 3mm) — shown inside package position
 die_w = 3.0 * CSCALE
@@ -667,10 +669,8 @@ ax_flow.annotate('', xy=(84, 36), xytext=(80, 20),
 # ─────────────────────────────────────────────────────────────────────────────
 
 fig.text(0.5, 0.01,
-    'CSAC MEMS  •  Rb-87 CPT Atomic Clock  •  Glass–Si–Glass MEMS Stack  '
-    '•  Anodic Bonding  •  CPT Servo Lock  '
-    '•  ADEV < 5×10⁻¹⁰ @ 1s  •  8×8×5mm Package',
-    ha='center', fontsize=9, color='#445566', style='italic')
+    'Phase 1 metrics shown here are simulated. Package dimensions and industrial layout are concept-level visualizations.',
+    ha='center', fontsize=9, color='#5f738f', style='italic')
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SAVE
@@ -679,4 +679,4 @@ fig.text(0.5, 0.01,
 plt.savefig('chip_3d_view.png', dpi=160, bbox_inches='tight',
             facecolor=BG, edgecolor='none')
 print("Saved: chip_3d_view.png")
-plt.show()
+plt.close(fig)

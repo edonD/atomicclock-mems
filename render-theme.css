@@ -1,0 +1,297 @@
+:root {
+  --render-bg: #050812;
+  --render-bg-2: #09101d;
+  --render-panel: rgba(8, 13, 24, 0.82);
+  --render-panel-2: rgba(11, 18, 34, 0.9);
+  --render-border: rgba(122, 174, 255, 0.22);
+  --render-border-strong: rgba(117, 221, 255, 0.48);
+  --render-text: #ecf3ff;
+  --render-muted: #98a9c7;
+  --render-accent: #62d5ff;
+  --render-accent-warm: #ffbe71;
+  --render-shadow: 0 28px 60px rgba(0, 0, 0, 0.42);
+  --render-display-font: "Bahnschrift SemiCondensed", "Aptos Display",
+    "Segoe UI Variable Display", "Segoe UI", Arial, sans-serif;
+  --render-body-font: "Aptos", "Segoe UI Variable Text", "Segoe UI", Arial,
+    sans-serif;
+  --render-mono-font: "Cascadia Mono", "Consolas", "SFMono-Regular", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(85, 163, 255, 0.12), transparent 34%),
+    radial-gradient(circle at 84% 12%, rgba(92, 224, 255, 0.08), transparent 28%),
+    linear-gradient(180deg, #08111f 0%, #04070d 64%, #020408 100%);
+  color: var(--render-text);
+  font-family: var(--render-body-font);
+}
+
+canvas {
+  display: block;
+}
+
+.control-panel,
+.cp {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 12;
+  width: min(var(--render-panel-width, 320px), calc(100vw - 40px));
+  padding: 16px 16px 18px;
+  border: 1px solid var(--render-border);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(13, 22, 40, 0.92), rgba(8, 12, 22, 0.78)),
+    linear-gradient(135deg, rgba(98, 189, 255, 0.08), transparent 36%);
+  backdrop-filter: blur(14px) saturate(120%);
+  box-shadow: var(--render-shadow);
+}
+
+.control-panel::before,
+.cp::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.14),
+    rgba(98, 213, 255, 0.14),
+    rgba(255, 190, 113, 0.08)
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.control-panel h2,
+.cp h2 {
+  margin: 0 0 12px;
+  font-family: var(--render-display-font);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #d6e7ff;
+}
+
+.control-grid,
+.cg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 12px;
+}
+
+.control-field,
+.cf {
+  display: grid;
+  gap: 6px;
+}
+
+.control-field.wide,
+.cf.w {
+  grid-column: 1 / -1;
+}
+
+.control-field label,
+.cf label {
+  font-family: var(--render-mono-font);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--render-muted);
+}
+
+.control-field input[type="color"],
+.cf input[type="color"] {
+  width: 100%;
+  height: 38px;
+  border: 1px solid rgba(168, 198, 255, 0.18);
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.control-field input[type="text"],
+.cf input[type="text"] {
+  width: 100%;
+  height: 39px;
+  padding: 0 12px;
+  border: 1px solid rgba(168, 198, 255, 0.18);
+  border-radius: 12px;
+  background: rgba(9, 15, 27, 0.96);
+  color: var(--render-text);
+  font-family: var(--render-body-font);
+  font-size: 14px;
+  outline: none;
+}
+
+.control-field input[type="text"]:focus,
+.cf input[type="text"]:focus {
+  border-color: rgba(98, 213, 255, 0.56);
+  box-shadow: 0 0 0 3px rgba(98, 213, 255, 0.12);
+}
+
+.control-field input[type="range"],
+.cf input[type="range"] {
+  width: 100%;
+  accent-color: var(--render-accent);
+}
+
+.control-field output,
+.cf output {
+  font-family: var(--render-mono-font);
+  font-size: 10px;
+  color: #d9e7ff;
+  text-align: right;
+}
+
+.control-row,
+.cr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel-divider,
+.dv {
+  height: 1px;
+  margin: 12px 0;
+  background: linear-gradient(
+    90deg,
+    rgba(98, 213, 255, 0),
+    rgba(98, 213, 255, 0.5),
+    rgba(255, 190, 113, 0.16),
+    rgba(98, 213, 255, 0)
+  );
+}
+
+.export-actions,
+.ea {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.export-actions button,
+.ea button {
+  height: 40px;
+  border: 1px solid rgba(145, 197, 255, 0.22);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(26, 41, 73, 0.96), rgba(10, 16, 29, 0.98)),
+    linear-gradient(135deg, rgba(98, 213, 255, 0.12), transparent);
+  color: var(--render-text);
+  font-family: var(--render-mono-font);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.export-actions button:hover,
+.ea button:hover {
+  border-color: var(--render-border-strong);
+  background:
+    linear-gradient(180deg, rgba(35, 58, 100, 0.98), rgba(12, 21, 39, 0.98)),
+    linear-gradient(135deg, rgba(98, 213, 255, 0.18), rgba(255, 190, 113, 0.06));
+}
+
+.render-hud {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 11;
+  display: grid;
+  gap: 8px;
+  max-width: min(560px, calc(100vw - 400px));
+  pointer-events: none;
+}
+
+.render-kicker,
+.render-status {
+  width: fit-content;
+  padding: 6px 10px;
+  border: 1px solid rgba(120, 206, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(7, 12, 24, 0.7);
+  font-family: var(--render-mono-font);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.render-kicker {
+  color: #9eb6d8;
+}
+
+.render-status {
+  color: #dff4ff;
+  border-color: rgba(255, 190, 113, 0.32);
+}
+
+.render-title {
+  margin: 0;
+  font-family: var(--render-display-font);
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 0.92;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.32);
+}
+
+.render-meta,
+.render-note {
+  margin: 0;
+  max-width: 46ch;
+  color: #c7d7f0;
+  font-size: 14px;
+  line-height: 1.45;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+}
+
+.render-note {
+  color: #8ea1c0;
+}
+
+@media (max-width: 980px) {
+  .render-hud {
+    top: auto;
+    bottom: 20px;
+    max-width: min(calc(100vw - 40px), 620px);
+  }
+}
+
+@media (max-width: 700px) {
+  .control-panel,
+  .cp {
+    width: min(calc(100vw - 40px), 380px);
+  }
+
+  .render-hud {
+    right: 20px;
+    left: 20px;
+  }
+
+  .render-title {
+    font-size: clamp(22px, 8vw, 34px);
+  }
+}

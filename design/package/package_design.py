@@ -17,6 +17,23 @@ import numpy as np
 # Output directory: same folder as this script
 OUT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+BG = "#050812"
+PANEL = "#0b1321"
+TEXT = "#e8effb"
+MUTED = "#93a6c3"
+ACCENT = "#62d5ff"
+THERMAL = "#ffbd62"
+OUTLINE = "#21334d"
+CERAMIC = "#8c7e69"
+CERAMIC_EDGE = "#5d5448"
+DIE_FILL = "#20334d"
+DIE_EDGE = "#62d5ff"
+CAVITY_FILL = "#5b284f"
+CAVITY_EDGE = "#c19be5"
+PAD_FILL = "#8d7557"
+PAD_EDGE = "#d2af78"
+BOND = "#ffbd62"
+
 # ── helpers ──────────────────────────────────────────────────────────────────
 
 def save(fig, name):
@@ -32,8 +49,8 @@ def save(fig, name):
 
 def draw_lcc20():
     fig, ax = plt.subplots(figsize=(10, 10))
-    fig.patch.set_facecolor('#F8F8F8')
-    ax.set_facecolor('#F0F0F0')
+    fig.patch.set_facecolor(BG)
+    ax.set_facecolor(PANEL)
     ax.set_aspect('equal')
 
     PKG  = 7.0          # package body mm
@@ -47,8 +64,8 @@ def draw_lcc20():
     # package outline centred at origin
     half = PKG / 2
     pkg_rect = patches.Rectangle((-half, -half), PKG, PKG,
-                                  linewidth=2, edgecolor='#222222',
-                                  facecolor='#D4C89A', zorder=2)
+                                  linewidth=2, edgecolor=CERAMIC_EDGE,
+                                  facecolor=CERAMIC, zorder=2)
     ax.add_patch(pkg_rect)
 
     # ── castellated pads ──────────────────────────────────────────────────────
@@ -58,8 +75,8 @@ def draw_lcc20():
     # We'll label them per convention: 1=top-left going CW
     # Standard LCC-20: pin 1 top-left, go CW → left side, bottom side, right side, top side
 
-    pad_color   = '#B0B0B0'
-    pad_border  = '#555555'
+    pad_color   = PAD_FILL
+    pad_border  = PAD_EDGE
 
     # compute pad centre positions (5 per side, pitch 1.2 mm, centred on each side)
     def side_centres(n, pitch, side_len):
@@ -114,23 +131,23 @@ def draw_lcc20():
     # ── die attach area (dashed) ──────────────────────────────────────────────
     da_half = DIE_AT / 2
     die_attach = patches.Rectangle((-da_half, -da_half), DIE_AT, DIE_AT,
-                                    linewidth=1.2, edgecolor='#888888',
+                                    linewidth=1.2, edgecolor='#5c6f8a',
                                     facecolor='none', linestyle='--', zorder=4)
     ax.add_patch(die_attach)
 
     # ── die outline (solid blue) ──────────────────────────────────────────────
     die_half = DIE / 2
     die_rect = patches.Rectangle((-die_half, -die_half), DIE, DIE,
-                                  linewidth=2, edgecolor='#1A4DCC',
-                                  facecolor='#C8D8FF', zorder=5)
+                                  linewidth=2, edgecolor=DIE_EDGE,
+                                  facecolor=DIE_FILL, zorder=5)
     ax.add_patch(die_rect)
 
     # ── cavity window (yellow circle) ─────────────────────────────────────────
     cav = patches.Circle((0, 0), 0.75, linewidth=1.5,
-                          edgecolor='#AA8800', facecolor='#FFE066', zorder=6)
+                          edgecolor=CAVITY_EDGE, facecolor=CAVITY_FILL, zorder=6)
     ax.add_patch(cav)
     ax.text(0, 0, 'cavity', ha='center', va='center',
-            fontsize=7, color='#5A4000', zorder=7, style='italic')
+            fontsize=7, color='#f2d9ff', zorder=7, style='italic')
 
     # ── 8 die bond pads along bottom edge of die ─────────────────────────────
     # bottom edge: y = -die_half, 8 pads evenly spaced
@@ -144,8 +161,8 @@ def draw_lcc20():
     for i, bx in enumerate(bond_xs):
         bpad = patches.Rectangle((bx - DIE_PAD_SIZE / 2, bond_y_die - DIE_PAD_SIZE / 2),
                                   DIE_PAD_SIZE, DIE_PAD_SIZE,
-                                  linewidth=0.8, edgecolor='#AA7700',
-                                  facecolor='#FFD700', zorder=7)
+                                  linewidth=0.8, edgecolor=PAD_EDGE,
+                                  facecolor=THERMAL, zorder=7)
         ax.add_patch(bpad)
 
     # ── pad label assignment ──────────────────────────────────────────────────
@@ -176,7 +193,7 @@ def draw_lcc20():
     for pin in range(1, 21):
         cx, cy = pad_rects[pin]
         label  = signal_map.get(pin, 'NC')
-        color  = '#CC2200' if label != 'NC' else '#555555'
+        color  = THERMAL if label != 'NC' else MUTED
         fsize  = 6.5 if label != 'NC' else 5.5
 
         # direction outward from package centre
@@ -219,7 +236,7 @@ def draw_lcc20():
         bx_arr = (1 - t_vals)**2 * x0 + 2 * (1 - t_vals) * t_vals * cpx + t_vals**2 * x1
         by_arr = (1 - t_vals)**2 * y0 + 2 * (1 - t_vals) * t_vals * cpy + t_vals**2 * y1
 
-        ax.plot(bx_arr, by_arr, color='#CC8800', linewidth=1.2,
+        ax.plot(bx_arr, by_arr, color=BOND, linewidth=1.2,
                 zorder=6, alpha=0.85)
 
     # ── pin 1 marker ─────────────────────────────────────────────────────────
@@ -229,53 +246,56 @@ def draw_lcc20():
     triangle = mpatches.Polygon([[tri_x, tri_y],
                              [tri_x + 0.35, tri_y],
                              [tri_x, tri_y - 0.35]],
-                            closed=True, facecolor='#CC2200',
-                            edgecolor='#880000', zorder=9)
+                            closed=True, facecolor=THERMAL,
+                            edgecolor='#8f5e1e', zorder=9)
     ax.add_patch(triangle)
     ax.text(tri_x + 0.55, tri_y - 0.05, 'Pin 1', fontsize=7,
-            color='#CC2200', va='center', zorder=9, fontweight='bold')
+            color=THERMAL, va='center', zorder=9, fontweight='bold')
 
     # ── scale bar ─────────────────────────────────────────────────────────────
     sb_x0, sb_y = -half + 0.2, -half - 1.7
-    ax.plot([sb_x0, sb_x0 + 1.0], [sb_y, sb_y], 'k-', linewidth=2, zorder=9)
-    ax.plot([sb_x0, sb_x0],       [sb_y - 0.1, sb_y + 0.1], 'k-', linewidth=2)
-    ax.plot([sb_x0 + 1.0, sb_x0 + 1.0], [sb_y - 0.1, sb_y + 0.1], 'k-', linewidth=2)
+    ax.plot([sb_x0, sb_x0 + 1.0], [sb_y, sb_y], color=TEXT, linewidth=2, zorder=9)
+    ax.plot([sb_x0, sb_x0],       [sb_y - 0.1, sb_y + 0.1], color=TEXT, linewidth=2)
+    ax.plot([sb_x0 + 1.0, sb_x0 + 1.0], [sb_y - 0.1, sb_y + 0.1], color=TEXT, linewidth=2)
     ax.text(sb_x0 + 0.5, sb_y - 0.25, '1 mm', ha='center', va='top',
-            fontsize=8, zorder=9)
+            fontsize=8, zorder=9, color=TEXT)
 
     # ── dimension annotations ─────────────────────────────────────────────────
     # package width
     ax.annotate('', xy=(half, -half - 1.1), xytext=(-half, -half - 1.1),
-                arrowprops=dict(arrowstyle='<->', color='#333333', lw=1.2))
+                arrowprops=dict(arrowstyle='<->', color=ACCENT, lw=1.2))
     ax.text(0, -half - 1.25, '7.0 mm', ha='center', va='top',
-            fontsize=8, color='#333333')
+            fontsize=8, color=ACCENT)
 
     # die width
     ax.annotate('', xy=(die_half, die_half + 0.5), xytext=(-die_half, die_half + 0.5),
-                arrowprops=dict(arrowstyle='<->', color='#1A4DCC', lw=1.0))
+                arrowprops=dict(arrowstyle='<->', color=ACCENT, lw=1.0))
     ax.text(0, die_half + 0.62, '3.0 mm die', ha='center', va='bottom',
-            fontsize=7.5, color='#1A4DCC')
+            fontsize=7.5, color=ACCENT)
 
     # ── legend ────────────────────────────────────────────────────────────────
     legend_items = [
-        patches.Patch(facecolor='#C8D8FF', edgecolor='#1A4DCC', label='Si Die (3.0×3.0 mm)'),
-        patches.Patch(facecolor='#FFE066', edgecolor='#AA8800', label='Cs vapour cavity (ø1.5 mm)'),
-        patches.Patch(facecolor='#D4C89A', edgecolor='#222222', label='LCC-20 ceramic body'),
+        patches.Patch(facecolor=DIE_FILL, edgecolor=DIE_EDGE, label='Si Die (3.0×3.0 mm)'),
+        patches.Patch(facecolor=CAVITY_FILL, edgecolor=CAVITY_EDGE, label='Cs vapour cavity (ø1.5 mm)'),
+        patches.Patch(facecolor=CERAMIC, edgecolor=CERAMIC_EDGE, label='LCC-20 ceramic body'),
         patches.Patch(facecolor=pad_color,  edgecolor=pad_border, label='Castellated pad'),
-        mlines.Line2D([], [], color='#CC8800', linewidth=1.5, label='Bond wire'),
+        mlines.Line2D([], [], color=BOND, linewidth=1.5, label='Bond wire'),
     ]
     ax.legend(handles=legend_items, loc='upper right',
-              fontsize=7, framealpha=0.9, edgecolor='#AAAAAA')
+              fontsize=7, framealpha=0.9, edgecolor=OUTLINE,
+              facecolor=PANEL, labelcolor=TEXT)
 
     # ── axes ──────────────────────────────────────────────────────────────────
     margin = 2.4
     ax.set_xlim(-half - margin, half + margin)
     ax.set_ylim(-half - margin, half + margin)
-    ax.set_xlabel('mm', fontsize=9)
-    ax.set_ylabel('mm', fontsize=9)
-    ax.set_title('CSAC-1  LCC-20 Package — Top View', fontsize=13, fontweight='bold', pad=12)
-    ax.grid(True, linestyle=':', linewidth=0.5, color='#CCCCCC', zorder=0)
-    ax.tick_params(labelsize=8)
+    ax.set_xlabel('mm', fontsize=9, color=MUTED)
+    ax.set_ylabel('mm', fontsize=9, color=MUTED)
+    ax.set_title('CSAC-1  LCC-20 Package - Top View', fontsize=13, fontweight='bold', pad=12, color=TEXT)
+    ax.text(0, half + 1.15, 'Concept package sheet with the same palette as the architecture graphics.',
+            ha='center', va='bottom', fontsize=8, color=MUTED)
+    ax.grid(True, linestyle=':', linewidth=0.5, color='#1d2b42', zorder=0)
+    ax.tick_params(labelsize=8, colors=MUTED)
 
     fig.tight_layout()
     save(fig, 'lcc20_package.png')
@@ -287,8 +307,8 @@ def draw_lcc20():
 
 def draw_cross_section():
     fig, ax = plt.subplots(figsize=(12, 6))
-    fig.patch.set_facecolor('#F8F8F8')
-    ax.set_facecolor('#FFFFFF')
+    fig.patch.set_facecolor(BG)
+    ax.set_facecolor(PANEL)
     ax.set_aspect('equal')
 
     # ── layer stack (bottom → top) ────────────────────────────────────────────
@@ -297,14 +317,14 @@ def draw_cross_section():
     X0 = 0.0  # left edge
 
     layers = [
-        ('PCB Substrate\n(FR-4 / AlN)',     '#AAAAAA', 1.50, None),
-        ('Solder Paste\n(SAC305)',           '#C8C8C8', 0.15, '//'),
-        ('LCC Ceramic Body\n(Al₂O₃)',        '#D4C89A', 1.50, None),
-        ('Die Attach Epoxy\n(low outgas)',   '#E87020', 0.10, None),
-        ('Si Die\n(3×3 mm)',                '#5577CC', 0.50, None),
-        ('Ar/N₂ Fill\n(cavity atmosphere)', '#D8EEFF', 0.60, None),
-        ('Glass Lid / Window\n(borosilicate)','#B8EEF8', 0.30, '\\\\'),
-        ('Metal Lid\n(Kovar hermetic seal)', '#666666', 0.30, '..'),
+        ('PCB Substrate\n(FR-4 / AlN)',      '#6d737c', 1.50, None),
+        ('Solder Paste\n(SAC305)',           '#8b9099', 0.15, '//'),
+        ('LCC Ceramic Body\n(Al2O3)',        CERAMIC, 1.50, None),
+        ('Die Attach Epoxy\n(low outgas)',   '#71452a', 0.10, None),
+        ('Si Die\n(3x3 mm)',                 DIE_FILL, 0.50, None),
+        ('Ar/N2 Fill\n(cavity atmosphere)',  '#3e2346', 0.60, None),
+        ('Glass Lid / Window\n(borosilicate)', '#6ed4ff', 0.30, '\\\\'),
+        ('Metal Lid\n(Kovar hermetic seal)', '#505965', 0.30, '..'),
     ]
 
     y_cur = 0.0
@@ -313,7 +333,7 @@ def draw_cross_section():
     for label, color, thick, hatch in layers:
         rect = patches.FancyBboxPatch((X0, y_cur), W, thick,
                                        boxstyle='square,pad=0',
-                                       linewidth=1.0, edgecolor='#333333',
+                                       linewidth=1.0, edgecolor=OUTLINE,
                                        facecolor=color, hatch=hatch,
                                        zorder=3)
         ax.add_patch(rect)
@@ -330,12 +350,12 @@ def draw_cross_section():
     cav_h = layers[4][2] + layers[5][2]           # die + Ar fill
     cav_x = X0 + (W - cav_w) / 2
     cav_rect = patches.Rectangle((cav_x, die_y), cav_w, cav_h,
-                                   linewidth=1.2, edgecolor='#4488CC',
-                                   facecolor='#EEF8FF', zorder=4)
+                                   linewidth=1.2, edgecolor=CAVITY_EDGE,
+                                   facecolor=CAVITY_FILL, zorder=4)
     ax.add_patch(cav_rect)
     ax.text(cav_x + cav_w / 2, die_y + cav_h / 2,
             'Cs vapour\ncavity', ha='center', va='center',
-            fontsize=7, color='#224488', zorder=5, style='italic')
+            fontsize=7, color='#f2d9ff', zorder=5, style='italic')
 
     # ── layer labels (right side) ─────────────────────────────────────────────
     label_x = X0 + W + 0.2
@@ -343,18 +363,18 @@ def draw_cross_section():
     for (label, color, thick, _), yc in zip(layers, layer_centres):
         ax.text(label_x, yc, label,
                 ha='left', va='center', fontsize=7.5,
-                color='#111111', zorder=6,
+                color=TEXT, zorder=6,
                 bbox=dict(boxstyle='round,pad=0.15', facecolor=color,
-                           edgecolor='#555555', alpha=0.85, linewidth=0.7))
+                           edgecolor=OUTLINE, alpha=0.9, linewidth=0.7))
         # leader line
         ax.plot([X0 + W, label_x - 0.05], [yc, yc],
-                color='#888888', linewidth=0.6, linestyle=':', zorder=5)
+                color=MUTED, linewidth=0.6, linestyle=':', zorder=5)
         y_cur2 += thick
 
     # ── dimension arrows (left side) ─────────────────────────────────────────
     arrow_x = -1.6
 
-    def dim_arrow(y_bot, y_top, label, x=arrow_x, color='#333333'):
+    def dim_arrow(y_bot, y_top, label, x=arrow_x, color=TEXT):
         ax.annotate('', xy=(x, y_top), xytext=(x, y_bot),
                     arrowprops=dict(arrowstyle='<->', color=color,
                                    lw=1.1, mutation_scale=8))
@@ -363,14 +383,14 @@ def draw_cross_section():
                 rotation=90)
 
     # total height
-    dim_arrow(0, total_height, f'Total\n{total_height:.2f} mm', x=-1.0, color='#111111')
+    dim_arrow(0, total_height, f'Total\n{total_height:.2f} mm', x=-1.0, color=TEXT)
 
     # die height
     die_top = die_y + layers[4][2]
-    dim_arrow(die_y, die_top, f'Die\n{layers[4][2]:.2f} mm', x=-1.9, color='#1A4DCC')
+    dim_arrow(die_y, die_top, f'Die\n{layers[4][2]:.2f} mm', x=-1.9, color=ACCENT)
 
     # cavity depth
-    dim_arrow(die_y, die_y + cav_h, f'Cavity\n{cav_h:.2f} mm', x=-2.7, color='#228844')
+    dim_arrow(die_y, die_y + cav_h, f'Cavity\n{cav_h:.2f} mm', x=-2.7, color=THERMAL)
 
     # ── material / thickness callouts on layers ───────────────────────────────
     y_cur3 = 0.0
@@ -378,18 +398,22 @@ def draw_cross_section():
         ax.text(X0 + W / 2, y_cur3 + thick / 2,
                 f'{thick*1000:.0f} µm',
                 ha='center', va='center', fontsize=6.5,
-                color='#333333', zorder=6, alpha=0.7,
+                color=TEXT, zorder=6, alpha=0.72,
                 fontweight='bold')
         y_cur3 += thick
 
     # ── axes ──────────────────────────────────────────────────────────────────
     ax.set_xlim(-3.2, X0 + W + 4.5)
     ax.set_ylim(-0.4, total_height + 0.5)
-    ax.set_xlabel('Width (mm)', fontsize=9)
-    ax.set_ylabel('Height (mm)', fontsize=9)
+    ax.set_xlabel('Width (mm)', fontsize=9, color=MUTED)
+    ax.set_ylabel('Height (mm)', fontsize=9, color=MUTED)
     ax.set_title('CSAC-1 Package Cross-Section', fontsize=13,
-                 fontweight='bold', pad=12)
-    ax.tick_params(labelsize=8)
+                 fontweight='bold', pad=12, color=TEXT)
+    ax.text(0.02, 0.98, 'CONCEPT PACKAGE STACK', transform=ax.transAxes,
+            ha='left', va='top', fontsize=8, color=TEXT,
+            bbox=dict(boxstyle='round,pad=0.25,rounding_size=0.18',
+                      facecolor=PANEL, edgecolor=ACCENT, linewidth=1.0))
+    ax.tick_params(labelsize=8, colors=MUTED)
 
     # x-ticks only at package edges
     ax.set_xticks([X0, X0 + W])

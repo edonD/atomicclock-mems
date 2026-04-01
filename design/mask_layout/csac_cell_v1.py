@@ -372,26 +372,36 @@ print(f"SVG preview       : {SVG_OUT}")
 # ---------------------------------------------------------------------------
 # PNG PREVIEW via matplotlib
 # ---------------------------------------------------------------------------
-fig, ax = plt.subplots(figsize=(8, 8), facecolor="#1a1a2e")
-ax.set_facecolor("#1a1a2e")
+fig, ax = plt.subplots(figsize=(8, 8), facecolor="#050812")
+ax.set_facecolor("#0b1321")
 ax.set_aspect("equal")
 ax.set_xlim(-50, DIE_W + 50)
 ax.set_ylim(-50, DIE_H + 50)
-ax.set_title("CSAC_V1 — Mask Layout Preview", color="white", fontsize=13, pad=10)
-ax.tick_params(colors="white")
+ax.set_title("CSAC_V1 - Mask Layout Preview", color="#e8effb", fontsize=13, pad=10)
+ax.text(
+    0.5,
+    1.01,
+    "Concept process view using the same architecture palette as the package and chip sheets.",
+    transform=ax.transAxes,
+    ha="center",
+    va="bottom",
+    fontsize=8,
+    color="#93a6c3",
+)
+ax.tick_params(colors="#93a6c3")
 for spine in ax.spines.values():
-    spine.set_edgecolor("#555555")
+    spine.set_edgecolor("#21334d")
 
 # Colour map for matplotlib rendering
 MPL_COLORS = {
-    0:            ("#888888", "none",    0.5,  1.5),   # die outline
-    L_CAVITY:     ("#3399ff", "#3399ff", 0.50, 0.8),
-    L_PT_HEATER:  ("#ff3333", "#ff3333", 0.75, 0.8),
-    L_PT_RTD:     ("#ff8800", "#ff8800", 0.75, 0.8),
-    L_BOND_RING:  ("#33cc55", "#33cc55", 0.55, 0.8),
+    0:            ("#6c7d94", "none",    0.5,  1.5),   # die outline
+    L_CAVITY:     ("#62d5ff", "#62d5ff", 0.42, 0.8),
+    L_PT_HEATER:  ("#ff9e52", "#ff9e52", 0.75, 0.8),
+    L_PT_RTD:     ("#ffbd62", "#ffbd62", 0.78, 0.8),
+    L_BOND_RING:  ("#5f8b6c", "#5f8b6c", 0.50, 0.8),
     L_DICING:     ("#666666", "none",    1.0,  1.5),
-    L_OPTICAL_WIN:("#ffee44", "#ffee44", 0.30, 0.5),
-    L_LABELS:     ("#ffffff", "#ffffff", 0.85, 0.0),
+    L_OPTICAL_WIN:("#8b72f6", "#8b72f6", 0.22, 0.5),
+    L_LABELS:     ("#e8effb", "#e8effb", 0.85, 0.0),
 }
 
 # Collect all polygons from cell, render by layer
@@ -418,27 +428,27 @@ for lay in render_order:
 
 # Legend
 legend_entries = [
-    mpatches.Patch(color="#3399ff", alpha=0.6, label="L1 CAVITY (DRIE)"),
-    mpatches.Patch(color="#ff3333", alpha=0.8, label="L2 PT_HEATER"),
-    mpatches.Patch(color="#ff8800", alpha=0.8, label="L3 PT_RTD"),
-    mpatches.Patch(color="#33cc55", alpha=0.65, label="L4 BOND_RING"),
+    mpatches.Patch(color="#62d5ff", alpha=0.5, label="L1 CAVITY (DRIE)"),
+    mpatches.Patch(color="#ff9e52", alpha=0.8, label="L2 PT_HEATER"),
+    mpatches.Patch(color="#ffbd62", alpha=0.8, label="L3 PT_RTD"),
+    mpatches.Patch(color="#5f8b6c", alpha=0.65, label="L4 BOND_RING"),
     mpatches.Patch(color="#666666", alpha=0.7, label="L5 DICING"),
-    mpatches.Patch(color="#ffee44", alpha=0.45, label="L6 OPTICAL_WIN"),
-    mpatches.Patch(color="#ffffff", alpha=0.85, label="L10 LABELS/PADS"),
+    mpatches.Patch(color="#8b72f6", alpha=0.35, label="L6 OPTICAL_WIN"),
+    mpatches.Patch(color="#e8effb", alpha=0.85, label="L10 LABELS/PADS"),
 ]
 ax.legend(handles=legend_entries, loc="upper right",
-          facecolor="#333355", edgecolor="#888888",
-          labelcolor="white", fontsize=8, framealpha=0.85)
+          facecolor="#0f1a2c", edgecolor="#21334d",
+          labelcolor="#e8effb", fontsize=8, framealpha=0.92)
 
 # Dimension annotations
 ax.annotate("", xy=(DIE_W, -35), xytext=(0, -35),
-            arrowprops=dict(arrowstyle="<->", color="white", lw=1.2))
-ax.text(DIE_W / 2, -42, "3000 um", ha="center", va="top", color="white", fontsize=8)
+            arrowprops=dict(arrowstyle="<->", color="#62d5ff", lw=1.2))
+ax.text(DIE_W / 2, -42, "3000 um", ha="center", va="top", color="#62d5ff", fontsize=8)
 
 ax.annotate("", xy=(DIE_W + 35, DIE_H), xytext=(DIE_W + 35, 0),
-            arrowprops=dict(arrowstyle="<->", color="white", lw=1.2))
+            arrowprops=dict(arrowstyle="<->", color="#62d5ff", lw=1.2))
 ax.text(DIE_W + 40, DIE_H / 2, "3000 um", ha="left", va="center",
-        color="white", fontsize=8, rotation=90)
+        color="#62d5ff", fontsize=8, rotation=90)
 
 plt.tight_layout()
 plt.savefig(PNG_OUT, dpi=200, facecolor=fig.get_facecolor())

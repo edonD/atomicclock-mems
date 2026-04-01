@@ -3,122 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>CSAC-1 | nanotech</title>
+<link rel="stylesheet" href="./render-theme.css">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: #000000;
-    font-family: "Segoe UI", Arial, sans-serif;
-  }
-  canvas { display: block; }
-  .control-panel {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    z-index: 10;
-    width: min(320px, calc(100vw - 36px));
-    padding: 14px;
-    border: 1px solid rgba(124, 169, 255, 0.25);
-    border-radius: 16px;
-    background: rgba(6, 10, 20, 0.82);
-    backdrop-filter: blur(10px);
-    color: #e8f1ff;
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38);
-  }
-  .control-panel h2 {
-    margin-bottom: 10px;
-    font-size: 13px;
-    letter-spacing: 0.14em;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #b7d8ff;
-  }
-  .control-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 12px;
-  }
-  .control-field {
-    display: grid;
-    gap: 6px;
-  }
-  .control-field.wide {
-    grid-column: 1 / -1;
-  }
-  .control-field label {
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #95a9c9;
-  }
-  .control-field input[type="color"] {
-    width: 100%;
-    height: 38px;
-    border: 1px solid rgba(164, 198, 255, 0.18);
-    border-radius: 10px;
-    background: transparent;
-    cursor: pointer;
-  }
-  .control-field input[type="text"] {
-    width: 100%;
-    height: 38px;
-    padding: 0 12px;
-    border: 1px solid rgba(164, 198, 255, 0.18);
-    border-radius: 10px;
-    background: rgba(10, 16, 29, 0.9);
-    color: #eaf3ff;
-    outline: none;
-  }
-  .control-field input[type="range"] {
-    width: 100%;
-    accent-color: #5fbfff;
-  }
-  .control-field output {
-    font-size: 11px;
-    color: #cce1ff;
-    text-align: right;
-  }
-  .control-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-  }
-  .panel-divider {
-    height: 1px;
-    margin: 12px 0;
-    background: linear-gradient(90deg, rgba(95, 191, 255, 0), rgba(95, 191, 255, 0.42), rgba(95, 191, 255, 0));
-  }
-  .export-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 12px;
-  }
-  .export-actions button {
-    height: 40px;
-    border: 1px solid rgba(138, 189, 255, 0.22);
-    border-radius: 12px;
-    background: linear-gradient(180deg, rgba(27, 42, 74, 0.95), rgba(11, 18, 33, 0.95));
-    color: #eaf3ff;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
-  }
-  .export-actions button:hover {
-    border-color: rgba(126, 205, 255, 0.44);
-    background: linear-gradient(180deg, rgba(35, 56, 96, 0.98), rgba(13, 23, 42, 0.98));
-  }
+  body { --render-panel-width: 320px; }
 </style>
 </head>
 <body>
 
 <div class="control-panel">
-  <h2>Live Controls</h2>
+  <h2>Render Controls</h2>
   <div class="control-grid">
     <div class="control-field wide">
       <label for="companyName">Company Name</label>
@@ -223,6 +116,110 @@ document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 
+const BRAND_FONT = '"Bahnschrift SemiCondensed", "Aptos Display", "Segoe UI Variable Display", "Segoe UI", Arial, sans-serif';
+const MONO_FONT = '"Cascadia Mono", "Consolas", "SFMono-Regular", monospace';
+
+function paintStripLight(ctx, x, width, alpha, tint) {
+  const strip = ctx.createLinearGradient(x, 0, x + width, 0);
+  strip.addColorStop(0.0, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
+  strip.addColorStop(0.28, `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha * 0.46})`);
+  strip.addColorStop(0.56, `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha})`);
+  strip.addColorStop(0.82, `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha * 0.24})`);
+  strip.addColorStop(1.0, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
+  ctx.fillStyle = strip;
+  ctx.fillRect(x, 0, width, ctx.canvas.height);
+}
+
+function makeBackdropTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 8;
+  canvas.height = 1200;
+  const g = canvas.getContext('2d');
+
+  const gradient = g.createLinearGradient(0, 0, 0, canvas.height);
+  gradient.addColorStop(0.0, '#0d1524');
+  gradient.addColorStop(0.22, '#09101c');
+  gradient.addColorStop(0.58, '#050912');
+  gradient.addColorStop(1.0, '#020409');
+  g.fillStyle = gradient;
+  g.fillRect(0, 0, canvas.width, canvas.height);
+
+  g.fillStyle = 'rgba(255,255,255,0.06)';
+  g.fillRect(0, canvas.height * 0.4, canvas.width, canvas.height * 0.06);
+  g.fillStyle = 'rgba(112,214,255,0.06)';
+  g.fillRect(0, canvas.height * 0.47, canvas.width, canvas.height * 0.03);
+  g.fillStyle = 'rgba(255,190,113,0.03)';
+  g.fillRect(0, canvas.height * 0.52, canvas.width, canvas.height * 0.03);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+function applyStudioEnvironment() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 384;
+  const g = canvas.getContext('2d');
+
+  g.fillStyle = '#5d646d';
+  g.fillRect(0, 0, canvas.width, canvas.height);
+
+  const upper = g.createLinearGradient(0, 0, 0, 228);
+  upper.addColorStop(0.0, '#eef3f8');
+  upper.addColorStop(0.34, '#c5cdd6');
+  upper.addColorStop(1.0, '#707a84');
+  g.fillStyle = upper;
+  g.fillRect(0, 0, canvas.width, 228);
+
+  const lower = g.createLinearGradient(0, 208, 0, canvas.height);
+  lower.addColorStop(0.0, '#323841');
+  lower.addColorStop(1.0, '#070b10');
+  g.fillStyle = lower;
+  g.fillRect(0, 208, canvas.width, canvas.height - 208);
+
+  paintStripLight(g, 86, 132, 0.86, [255, 255, 255]);
+  paintStripLight(g, 362, 64, 0.54, [214, 228, 255]);
+  paintStripLight(g, 742, 128, 0.74, [255, 255, 255]);
+
+  const warmKey = g.createRadialGradient(224, 72, 0, 224, 72, 220);
+  warmKey.addColorStop(0, 'rgba(255,248,238,0.92)');
+  warmKey.addColorStop(1, 'rgba(255,248,238,0)');
+  g.fillStyle = warmKey;
+  g.fillRect(0, 0, canvas.width, canvas.height);
+
+  const coolFill = g.createRadialGradient(844, 128, 0, 844, 128, 212);
+  coolFill.addColorStop(0, 'rgba(176,206,255,0.52)');
+  coolFill.addColorStop(1, 'rgba(176,206,255,0)');
+  g.fillStyle = coolFill;
+  g.fillRect(0, 0, canvas.width, canvas.height);
+
+  const envTexture = new THREE.CanvasTexture(canvas);
+  envTexture.mapping = THREE.EquirectangularReflectionMapping;
+  envTexture.colorSpace = THREE.SRGBColorSpace;
+
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  pmrem.compileEquirectangularShader();
+  scene.environment = pmrem.fromEquirectangular(envTexture).texture;
+  envTexture.dispose();
+  pmrem.dispose();
+}
+
+function mountRenderHud() {
+  const root = document.createElement('div');
+  root.className = 'render-hud';
+  root.innerHTML = `
+    <div class="render-kicker">Concept Surface</div>
+    <h1 class="render-title">Atomic Clock Wordmark Study</h1>
+    <p class="render-meta">Phase 1 simulated physics with an editable industrial concept surface.</p>
+    <div class="render-status">Concept render, not production artwork</div>
+    <p class="render-note">The right-side controls adjust wordmark color, border accent, and studio lighting.</p>
+  `;
+  document.body.appendChild(root);
+}
+
+mountRenderHud();
+
 function roundedRectPath(ctx, x, y, w, h, r) {
   const rr = Math.min(r, w * 0.5, h * 0.5);
   ctx.beginPath();
@@ -238,30 +235,7 @@ function roundedRectPath(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-function buildBackdropTexture() {
-  const canvas = document.createElement('canvas');
-  canvas.width = 2;
-  canvas.height = 512;
-  const g = canvas.getContext('2d');
-
-  g.fillStyle = '#000000';
-  g.fillRect(0, 0, canvas.width, canvas.height);
-
-  return new THREE.CanvasTexture(canvas);
-}
-
-scene.background = buildBackdropTexture();
-
-function paintStripLight(ctx, x, width, alpha, tint) {
-  const strip = ctx.createLinearGradient(x, 0, x + width, 0);
-  strip.addColorStop(0.00, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
-  strip.addColorStop(0.25, `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha * 0.5})`);
-  strip.addColorStop(0.55, `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha})`);
-  strip.addColorStop(0.80, `rgba(${tint[0]},${tint[1]},${tint[2]},${alpha * 0.28})`);
-  strip.addColorStop(1.00, `rgba(${tint[0]},${tint[1]},${tint[2]},0)`);
-  ctx.fillStyle = strip;
-  ctx.fillRect(x, 0, width, 256);
-}
+scene.background = makeBackdropTexture();
 
 function makeBrushedMetalMaps(size = 1024) {
   const albedo = document.createElement('canvas');
@@ -328,53 +302,7 @@ function makeBrushedMetalMaps(size = 1024) {
   };
 }
 
-{
-  const canvas = document.createElement('canvas');
-  canvas.width = 768;
-  canvas.height = 256;
-  const g = canvas.getContext('2d');
-
-  g.fillStyle = '#5d646d';
-  g.fillRect(0, 0, canvas.width, canvas.height);
-
-  const dome = g.createLinearGradient(0, 0, 0, 160);
-  dome.addColorStop(0.00, '#e7edf4');
-  dome.addColorStop(0.40, '#aeb7c1');
-  dome.addColorStop(1.00, '#636b74');
-  g.fillStyle = dome;
-  g.fillRect(0, 0, canvas.width, 160);
-
-  const floorFade = g.createLinearGradient(0, 156, 0, canvas.height);
-  floorFade.addColorStop(0.00, '#20252c');
-  floorFade.addColorStop(1.00, '#020305');
-  g.fillStyle = floorFade;
-  g.fillRect(0, 156, canvas.width, canvas.height - 156);
-
-  paintStripLight(g, 72, 86, 0.92, [255, 255, 255]);
-  paintStripLight(g, 258, 44, 0.52, [216, 231, 255]);
-  paintStripLight(g, 545, 78, 0.72, [255, 255, 255]);
-
-  const warmKey = g.createRadialGradient(166, 46, 0, 166, 46, 170);
-  warmKey.addColorStop(0, 'rgba(255,251,246,0.95)');
-  warmKey.addColorStop(1, 'rgba(255,251,246,0)');
-  g.fillStyle = warmKey;
-  g.fillRect(0, 0, canvas.width, canvas.height);
-
-  const coolFill = g.createRadialGradient(618, 102, 0, 618, 102, 158);
-  coolFill.addColorStop(0, 'rgba(168,197,255,0.58)');
-  coolFill.addColorStop(1, 'rgba(168,197,255,0)');
-  g.fillStyle = coolFill;
-  g.fillRect(0, 0, canvas.width, canvas.height);
-
-  const envTexture = new THREE.CanvasTexture(canvas);
-  envTexture.mapping = THREE.EquirectangularReflectionMapping;
-  envTexture.colorSpace = THREE.SRGBColorSpace;
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  pmrem.compileEquirectangularShader();
-  scene.environment = pmrem.fromEquirectangular(envTexture).texture;
-  envTexture.dispose();
-  pmrem.dispose();
-}
+applyStudioEnvironment();
 
 const camera = new THREE.PerspectiveCamera(28, window.innerWidth / window.innerHeight, 0.01, 100);
 camera.position.set(2.45, 1.58, 3.25);
@@ -604,7 +532,7 @@ function buildEngravingMaps(theme = designState) {
 
   function drawEngravedText(text, x, y, options = {}) {
     const {
-      font = '600 64px "Segoe UI", Arial, sans-serif',
+      font = `600 64px ${BRAND_FONT}`,
       align = 'left',
       colorFill = accentMuted,
       roughFill = '#dbdbdb',
@@ -653,7 +581,7 @@ function buildEngravingMaps(theme = designState) {
 
   function drawOverlayText(text, x, y, options = {}) {
     const {
-      font = '600 64px "Segoe UI", Arial, sans-serif',
+      font = `600 64px ${BRAND_FONT}`,
       align = 'left',
       fill = accentPrimary,
       stroke = 'rgba(210,245,255,0.72)',
@@ -854,7 +782,7 @@ function buildEngravingMaps(theme = designState) {
   color.restore();
 
   drawEngravedText(companyName, 178, 250, {
-    font: '600 82px "Segoe UI", Arial, sans-serif',
+    font: `600 82px ${BRAND_FONT}`,
     colorFill: accentSecondary,
     roughFill: '#cccccc',
     blur: 1.4
@@ -863,7 +791,7 @@ function buildEngravingMaps(theme = designState) {
   engraveAtomModel(width * 0.5, 448, { scale: 1.08 });
 
   drawEngravedText('ATOMIC', width * 0.5, 760, {
-    font: '700 170px "Segoe UI", Arial, sans-serif',
+    font: `700 170px ${BRAND_FONT}`,
     align: 'center',
     colorFill: accentPrimary,
     roughFill: '#e0e0e0',
@@ -871,7 +799,7 @@ function buildEngravingMaps(theme = designState) {
   });
 
   drawEngravedText('CLOCK', width * 0.5, 905, {
-    font: '700 170px "Segoe UI", Arial, sans-serif',
+    font: `700 170px ${BRAND_FONT}`,
     align: 'center',
     colorFill: accentSecondary,
     roughFill: '#dfdfdf',
@@ -879,15 +807,23 @@ function buildEngravingMaps(theme = designState) {
   });
 
   drawEngravedText('RUBIDIUM MEMS FREQUENCY REFERENCE', width * 0.5, 1038, {
-    font: '600 40px "Segoe UI", Arial, sans-serif',
+    font: `600 38px ${BRAND_FONT}`,
     align: 'center',
     colorFill: '#5a86a0',
     roughFill: '#d4d4d4',
     blur: 1.4
   });
 
+  drawEngravedText('PHASE 1 SIMULATED PHYSICS  //  PHASE 2 PACKAGE CONCEPT', width * 0.5, 1092, {
+    font: `600 24px ${MONO_FONT}`,
+    align: 'center',
+    colorFill: '#7ea7be',
+    roughFill: '#d0d0d0',
+    blur: 0.8
+  });
+
   drawOverlayText(companyName, 178, 250, {
-    font: '600 82px "Segoe UI", Arial, sans-serif',
+    font: `600 82px ${BRAND_FONT}`,
     fill: brandColor,
     stroke: 'rgba(220,250,255,0.50)',
     lineWidth: 1.6
@@ -905,7 +841,7 @@ function buildEngravingMaps(theme = designState) {
   drawOverlayAtomModel(width * 0.5, 448, { scale: 1.08 });
 
   drawOverlayText('ATOMIC', width * 0.5, 760, {
-    font: '700 170px "Segoe UI", Arial, sans-serif',
+    font: `700 170px ${BRAND_FONT}`,
     align: 'center',
     fill: theme.primaryColor,
     stroke: 'rgba(224,249,255,0.84)',
@@ -913,7 +849,7 @@ function buildEngravingMaps(theme = designState) {
   });
 
   drawOverlayText('CLOCK', width * 0.5, 905, {
-    font: '700 170px "Segoe UI", Arial, sans-serif',
+    font: `700 170px ${BRAND_FONT}`,
     align: 'center',
     fill: theme.secondaryColor,
     stroke: 'rgba(226,250,255,0.82)',
@@ -921,11 +857,19 @@ function buildEngravingMaps(theme = designState) {
   });
 
   drawOverlayText('RUBIDIUM MEMS FREQUENCY REFERENCE', width * 0.5, 1038, {
-    font: '600 40px "Segoe UI", Arial, sans-serif',
+    font: `600 38px ${BRAND_FONT}`,
     align: 'center',
     fill: mixHex(theme.primaryColor, theme.secondaryColor, 0.48),
     stroke: 'rgba(220,246,255,0.52)',
     lineWidth: 1.4
+  });
+
+  drawOverlayText('PHASE 1 SIMULATED PHYSICS  //  PHASE 2 PACKAGE CONCEPT', width * 0.5, 1092, {
+    font: `600 24px ${MONO_FONT}`,
+    align: 'center',
+    fill: 'rgba(168, 214, 235, 0.78)',
+    stroke: 'rgba(220,246,255,0.24)',
+    lineWidth: 0.9
   });
 
   color.save();

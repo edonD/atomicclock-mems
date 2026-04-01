@@ -1,383 +1,337 @@
 #!/usr/bin/env python3
 """
-CSAC Chip Cross-Section Diagram
-Shows all layers: silicon, CMOS electronics, Pyrex cavity, Rb vapor, N2, optical path
-
-Author: CSAC team
-Date: 2026-03-30
+Generate the CSAC cross-section and floorplan sheets with a restrained, shared
+visual system.
 """
 
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-from matplotlib.patches import Rectangle, FancyArrowPatch
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, Rectangle
 
 BASE = Path(__file__).parent
 
-fig, ax = plt.subplots(figsize=(16, 10), dpi=150)
-ax.set_xlim(0, 100)
-ax.set_ylim(0, 100)
-ax.set_aspect('equal')
-
-# ─────────────────────────────────────────────────────────────────────────────
-# BACKGROUND
-# ─────────────────────────────────────────────────────────────────────────────
-ax.add_patch(Rectangle((0, 0), 100, 100, facecolor='#0d1117', edgecolor='none'))
-
-# ─────────────────────────────────────────────────────────────────────────────
-# LAYER DESCRIPTIONS (Y-axis = depth from top)
-# ─────────────────────────────────────────────────────────────────────────────
-# Y=85-100: Pyrex 7740 lid (sealed top)
-# Y=70-85:  Rb-87 vapor + N2 buffer gas in sealed cavity (1 mm deep)
-# Y=65-70:  Glass frit seal / anodic bond interface
-# Y=40-65:  Silicon substrate (post-CMOS thinned to ~200 µm) with cavity etched from back
-# Y=20-40:  CMOS metal layers (M1-M4, contact vias)
-# Y=15-20:  Polysilicon + gate oxide
-# Y=0-15:   Si substrate (bulk + well structure)
-
-# ─────────────────────────────────────────────────────────────────────────────
-# 1. TOP PYREX LID
-# ─────────────────────────────────────────────────────────────────────────────
-pyrex_top = Rectangle((5, 85), 90, 15, facecolor='#4a9eff', edgecolor='#1f6feb', linewidth=2)
-ax.add_patch(pyrex_top)
-ax.text(50, 92, 'Pyrex 7740 Lid (sealed top)', ha='center', va='center',
-        fontsize=11, fontweight='bold', color='white')
-ax.text(50, 87.5, 'Optically transparent, thermally matched to Si', ha='center', va='center',
-        fontsize=8, color='#c0d9ff', style='italic')
-
-# ─────────────────────────────────────────────────────────────────────────────
-# 2. OPTICAL CAVITY & VAPOR
-# ─────────────────────────────────────────────────────────────────────────────
-# Rb-87 vapor (red glow)
-vapor = Rectangle((10, 70), 80, 15, facecolor='#6b1515', edgecolor='#ff6b6b', linewidth=1.5, alpha=0.7)
-ax.add_patch(vapor)
-ax.text(50, 77.5, 'Rb-87 Atoms + N₂ Buffer Gas (76.6 Torr)', ha='center', va='center',
-        fontsize=10, fontweight='bold', color='#ffcccc')
-ax.text(50, 72, '≈1 mm³ sealed cavity, ~10¹⁴ atoms/cm³', ha='center', va='center',
-        fontsize=8, color='#ff9999')
-
-# Add atom icons
-for x in [20, 35, 50, 65, 80]:
-    circle = mpatches.Circle((x, 75), 1.2, color='#ff8888', alpha=0.6)
-    ax.add_patch(circle)
-
-# ─────────────────────────────────────────────────────────────────────────────
-# 3. ANODIC BOND INTERFACE
-# ─────────────────────────────────────────────────────────────────────────────
-bond_interface = Rectangle((5, 67.5), 90, 2.5, facecolor='#8b4513', edgecolor='#d4a574', linewidth=2, linestyle='--')
-ax.add_patch(bond_interface)
-ax.text(2, 68.75, 'Anodic Bond\n(350°C, 800V)', ha='right', va='center',
-        fontsize=7, color='#d4a574', fontweight='bold')
-
-# ─────────────────────────────────────────────────────────────────────────────
-# 4. SILICON SUBSTRATE (with CMOS electronics underneath)
-# ─────────────────────────────────────────────────────────────────────────────
-si_bulk = Rectangle((5, 15), 90, 52.5, facecolor='#1a3a52', edgecolor='#4a7ba7', linewidth=2)
-ax.add_patch(si_bulk)
-ax.text(50, 55, 'Silicon Substrate (200 µm thick after thinning)', ha='center', va='center',
-        fontsize=10, fontweight='bold', color='#7fb3d5')
-
-# Cavity outline (DRIE etched from back) — empty space inside Si
-cavity_void = Rectangle((15, 42), 70, 12, facecolor='#0d1117', edgecolor='#ff6b6b', linewidth=2, linestyle=':')
-ax.add_patch(cavity_void)
-ax.text(50, 48, 'Cavity Volume\n(etched via DRIE from backside)', ha='center', va='center',
-        fontsize=8, color='#ff9999', style='italic')
-
-# ─────────────────────────────────────────────────────────────────────────────
-# 5. CMOS ELECTRONICS LAYERS (inside the Si)
-# ─────────────────────────────────────────────────────────────────────────────
-
-# Heater resistor (polysilicon, on top of CMOS)
-heater_left = Rectangle((8, 35), 8, 6, facecolor='#ff6b35', edgecolor='#ff4500', linewidth=1.5)
-ax.add_patch(heater_left)
-ax.text(12, 38, 'Heater\n(polySi)', ha='center', va='center', fontsize=7, color='white', fontweight='bold')
-
-heater_right = Rectangle((84, 35), 8, 6, facecolor='#ff6b35', edgecolor='#ff4500', linewidth=1.5)
-ax.add_patch(heater_right)
-ax.text(88, 38, 'Heater\n(polySi)', ha='center', va='center', fontsize=7, color='white', fontweight='bold')
-
-# Photodiode (n-well/p-substrate junction, center-ish)
-pd_box = Rectangle((46, 28), 8, 5, facecolor='#79c0ff', edgecolor='#1f6feb', linewidth=1.5)
-ax.add_patch(pd_box)
-ax.text(50, 30.5, 'Photo-\ndiode\n(n-well)', ha='center', va='center', fontsize=7, color='white', fontweight='bold')
-
-# VCO (LC-tank with inductors, varactors)
-vco_box = Rectangle((15, 20), 12, 7, facecolor='#a371f7', edgecolor='#7928ca', linewidth=1.5)
-ax.add_patch(vco_box)
-ax.text(21, 23.5, 'VCO\n(LC-tank)\n6.835 GHz', ha='center', va='center', fontsize=7, color='white', fontweight='bold')
-
-# TIA (opamp + feedback resistor)
-tia_box = Rectangle((30, 20), 12, 7, facecolor='#79c0ff', edgecolor='#0969da', linewidth=1.5)
-ax.add_patch(tia_box)
-ax.text(36, 23.5, 'TIA\n(opamp +\nRf = 1MΩ)', ha='center', va='center', fontsize=7, color='white', fontweight='bold')
-
-# Frequency divider (logic gates, counters)
-fdiv_box = Rectangle((45, 20), 12, 7, facecolor='#56d364', edgecolor='#238636', linewidth=1.5)
-ax.add_patch(fdiv_box)
-ax.text(51, 23.5, 'Freq Div\n(÷2³³)\n1 Hz out', ha='center', va='center', fontsize=7, color='white', fontweight='bold')
-
-# PID controller (logic)
-pid_box = Rectangle((60, 20), 12, 7, facecolor='#f78166', edgecolor='#da3633', linewidth=1.5)
-ax.add_patch(pid_box)
-ax.text(66, 23.5, 'PID Loop\n(error,\nintegral)', ha='center', va='center', fontsize=7, color='white', fontweight='bold')
-
-# DAC (resistor ladder or capacitive)
-dac_box = Rectangle((75, 20), 12, 7, facecolor='#ffc300', edgecolor='#d0883e', linewidth=1.5)
-ax.add_patch(dac_box)
-ax.text(81, 23.5, 'DAC\n(10-bit)\nVtune out', ha='center', va='center', fontsize=7, color='white', fontweight='bold')
-
-# ─────────────────────────────────────────────────────────────────────────────
-# 6. SUBSTRATE / BULK
-# ─────────────────────────────────────────────────────────────────────────────
-substrate = Rectangle((5, 0), 90, 15, facecolor='#0a1929', edgecolor='#1f6feb', linewidth=2)
-ax.add_patch(substrate)
-ax.text(50, 7.5, 'Si Bulk / Well Structure + Bond Pads (periphery)', ha='center', va='center',
-        fontsize=9, fontweight='bold', color='#58a6ff')
-
-# Wire bond pads around perimeter
-for x in [8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88]:
-    pad = Rectangle((x-1, 2), 2, 4, facecolor='#d0883e', edgecolor='#ff9944', linewidth=1)
-    ax.add_patch(pad)
-
-# ─────────────────────────────────────────────────────────────────────────────
-# OPTICAL PATH ARROWS
-# ─────────────────────────────────────────────────────────────────────────────
-
-# Incoming laser (from external VCSEL or fiber)
-arrow_in = FancyArrowPatch((2, 77.5), (10, 77.5), mutation_scale=30, color='#ff4444', linewidth=2.5)
-ax.add_patch(arrow_in)
-ax.text(1, 82, 'Laser\ninput\n(780 nm)', ha='right', va='center', fontsize=8, color='#ff8888', fontweight='bold')
-
-# Reflected/scattered light back to photodiode
-arrow_out = FancyArrowPatch((50, 70), (50, 55), mutation_scale=20, color='#ffdd00', linewidth=2, linestyle='--')
-ax.add_patch(arrow_out)
-ax.text(55, 62.5, 'CPT\nabsorption\nvar.', ha='left', va='center', fontsize=8, color='#ffdd00', fontweight='bold')
-
-# ─────────────────────────────────────────────────────────────────────────────
-# SIGNAL FLOW ANNOTATIONS
-# ─────────────────────────────────────────────────────────────────────────────
-
-# Photodiode → TIA
-arrow_pd_tia = FancyArrowPatch((54, 30.5), (42, 27), mutation_scale=15, color='#7fb3d5', linewidth=1.5)
-ax.add_patch(arrow_pd_tia)
-
-# TIA → PID
-arrow_tia_pid = FancyArrowPatch((42, 23.5), (60, 23.5), mutation_scale=15, color='#a371f7', linewidth=1.5)
-ax.add_patch(arrow_tia_pid)
-
-# PID → DAC
-arrow_pid_dac = FancyArrowPatch((72, 23.5), (75, 23.5), mutation_scale=15, color='#f78166', linewidth=1.5)
-ax.add_patch(arrow_pid_dac)
-
-# DAC → VCO
-arrow_dac_vco = FancyArrowPatch((81, 21), (27, 22), mutation_scale=15, color='#ffc300', linewidth=1.5, linestyle=':')
-ax.add_patch(arrow_dac_vco)
-ax.text(55, 20, 'Vtune feedback', ha='center', va='top', fontsize=7, color='#ffc300', style='italic')
-
-# VCO → Laser (external, shown as output)
-arrow_vco_out = FancyArrowPatch((21, 20), (3, 77.5), mutation_scale=15, color='#a371f7', linewidth=2, linestyle=':')
-ax.add_patch(arrow_vco_out)
-ax.text(8, 45, '6.835 GHz\nto EOM\n(external)', ha='right', va='center', fontsize=7, color='#a371f7', fontweight='bold')
-
-# Heater control
-arrow_heater = FancyArrowPatch((66, 23.5), (84, 38), mutation_scale=15, color='#ff6b35', linewidth=1.5, linestyle='-')
-ax.add_patch(arrow_heater)
-ax.text(76, 30, 'Heater\nPWM', ha='center', va='center', fontsize=7, color='#ff6b35', fontweight='bold')
-
-# ─────────────────────────────────────────────────────────────────────────────
-# KEY DIMENSIONS
-# ─────────────────────────────────────────────────────────────────────────────
-
-# Die size annotation
-ax.annotate('', xy=(2, 10), xytext=(2, 80), arrowprops=dict(arrowstyle='<->', color='#58a6ff', lw=2))
-ax.text(0.5, 45, '3.0 mm', rotation=90, ha='right', va='center', fontsize=10, color='#58a6ff', fontweight='bold')
-
-ax.annotate('', xy=(5, 10), xytext=(95, 10), arrowprops=dict(arrowstyle='<->', color='#58a6ff', lw=2))
-ax.text(50, 9, '3.0 mm', ha='center', va='top', fontsize=10, color='#58a6ff', fontweight='bold')
-
-# ─────────────────────────────────────────────────────────────────────────────
-# LEGEND / NOTES
-# ─────────────────────────────────────────────────────────────────────────────
-
-legend_y = 2
-ax.text(50, legend_y - 2, 'Cross-Section View (not to scale) — Shows internal architecture of 3×3 mm CSAC die',
-        ha='center', fontsize=9, color='#8b949e', style='italic', transform=ax.transData)
-
-# Remove axes
-ax.set_xticks([])
-ax.set_yticks([])
-ax.spines['top'].set_visible(False)
-ax.spines['bottom'].set_visible(False)
-ax.spines['left'].set_visible(False)
-ax.spines['right'].set_visible(False)
-
-# Title
-ax.text(50, 99, 'CSAC Chip Architecture — Cross-Section', ha='center', fontsize=16, fontweight='bold', color='#e6edf3')
-ax.text(50, 97, 'Shows integration of optical cavity, Rb vapor, CMOS electronics, and heater on a single 3×3 mm die',
-        ha='center', fontsize=9, color='#8b949e', style='italic')
-
-plt.tight_layout()
-outfile = BASE / 'chip_cross_section.png'
-fig.savefig(str(outfile), dpi=150, facecolor='#0d1117', edgecolor='none', bbox_inches='tight')
-print(f"Cross-section diagram saved: {outfile}")
-plt.close()
-
-# ─────────────────────────────────────────────────────────────────────────────
-# TOP-DOWN FLOORPLAN
-# ─────────────────────────────────────────────────────────────────────────────
-
-fig, ax = plt.subplots(figsize=(14, 14), dpi=150)
-ax.set_xlim(0, 3000)
-ax.set_ylim(0, 3000)
-ax.set_aspect('equal')
-
-# Background
-ax.add_patch(Rectangle((0, 0), 3000, 3000, facecolor='#0d1117', edgecolor='none'))
-
-# Die outline
-die_outline = Rectangle((0, 0), 3000, 3000, facecolor='none', edgecolor='#58a6ff', linewidth=3)
-ax.add_patch(die_outline)
-
-# ─────────────────────────────────────────────────────────────────────────────
-# FUNCTIONAL BLOCKS (top-down layout)
-# ─────────────────────────────────────────────────────────────────────────────
-
-# Cavity (center) — large, occupies ~40% of die area
-cavity = Rectangle((600, 600), 1800, 1800, facecolor='#6b1515', edgecolor='#ff6b6b', linewidth=2, alpha=0.5)
-ax.add_patch(cavity)
-ax.text(1500, 1500, 'Optical Cavity\n(Rb-87 vapor, N₂)\n1.8 mm × 1.8 mm\nDepth: 1 mm',
-        ha='center', va='center', fontsize=12, fontweight='bold', color='#ffcccc')
-
-# Heater traces (on all 4 sides of cavity for uniform heating)
-heater_top = Rectangle((600, 2300), 1800, 200, facecolor='#ff6b35', edgecolor='#ff4500', linewidth=2)
-ax.add_patch(heater_top)
-ax.text(1500, 2400, 'Heater (polySi)', ha='center', va='center', fontsize=9, color='white', fontweight='bold')
-
-heater_bottom = Rectangle((600, 100), 1800, 200, facecolor='#ff6b35', edgecolor='#ff4500', linewidth=2)
-ax.add_patch(heater_bottom)
-ax.text(1500, 200, 'Heater (polySi)', ha='center', va='center', fontsize=9, color='white', fontweight='bold')
-
-heater_left = Rectangle((100, 600), 200, 1800, facecolor='#ff6b35', edgecolor='#ff4500', linewidth=2)
-ax.add_patch(heater_left)
-ax.text(200, 1500, 'Heater', ha='center', va='center', fontsize=8, color='white', fontweight='bold', rotation=90)
-
-heater_right = Rectangle((2700, 600), 200, 1800, facecolor='#ff6b35', edgecolor='#ff4500', linewidth=2)
-ax.add_patch(heater_right)
-ax.text(2800, 1500, 'Heater', ha='center', va='center', fontsize=8, color='white', fontweight='bold', rotation=90)
-
-# Photodiode (near cavity, for sensing)
-pd = Rectangle((2500, 2500), 300, 300, facecolor='#79c0ff', edgecolor='#1f6feb', linewidth=2)
-ax.add_patch(pd)
-ax.text(2650, 2650, 'PD', ha='center', va='center', fontsize=10, color='white', fontweight='bold')
-
-# VCO (high-frequency, sensitive — away from heater)
-vco = Rectangle((2300, 1800), 400, 400, facecolor='#a371f7', edgecolor='#7928ca', linewidth=2)
-ax.add_patch(vco)
-ax.text(2500, 2000, 'VCO\n6.835\nGHz', ha='center', va='center', fontsize=9, color='white', fontweight='bold')
-
-# TIA (near photodiode, minimize trace length)
-tia = Rectangle((2100, 2500), 300, 300, facecolor='#79c0ff', edgecolor='#0969da', linewidth=2)
-ax.add_patch(tia)
-ax.text(2250, 2650, 'TIA', ha='center', va='center', fontsize=9, color='white', fontweight='bold')
-
-# Frequency divider (logic, low-power, can be anywhere)
-fdiv = Rectangle((100, 2500), 400, 300, facecolor='#56d364', edgecolor='#238636', linewidth=2)
-ax.add_patch(fdiv)
-ax.text(300, 2650, 'Freq Div\n÷2³³', ha='center', va='center', fontsize=9, color='white', fontweight='bold')
-
-# PID controller
-pid = Rectangle((100, 2050), 400, 300, facecolor='#f78166', edgecolor='#da3633', linewidth=2)
-ax.add_patch(pid)
-ax.text(300, 2200, 'PID\nController', ha='center', va='center', fontsize=9, color='white', fontweight='bold')
-
-# DAC (drives VCO, keep close)
-dac = Rectangle((2000, 1300), 300, 300, facecolor='#ffc300', edgecolor='#d0883e', linewidth=2)
-ax.add_patch(dac)
-ax.text(2150, 1450, 'DAC\n10-bit', ha='center', va='center', fontsize=9, color='white', fontweight='bold')
-
-# SPI interface (at edge for bonding)
-spi = Rectangle((100, 1400), 300, 300, facecolor='#79c0ff', edgecolor='#0969da', linewidth=2)
-ax.add_patch(spi)
-ax.text(250, 1550, 'SPI\nI/O', ha='center', va='center', fontsize=9, color='white', fontweight='bold')
-
-# Decoupling capacitors (scattered throughout)
-for (x, y) in [(400, 1000), (1200, 2700), (2400, 500), (500, 500), (2600, 1200)]:
-    cap = Rectangle((x, y), 150, 150, facecolor='#30363d', edgecolor='#484f58', linewidth=1)
-    ax.add_patch(cap)
-    ax.text(x+75, y+75, 'C', ha='center', va='center', fontsize=7, color='#8b949e')
-
-# Wire bond pads (around periphery)
-for x in range(100, 3000, 250):
-    # Top
-    pad_t = Rectangle((x, 2900), 120, 100, facecolor='#d0883e', edgecolor='#ff9944', linewidth=1)
-    ax.add_patch(pad_t)
-    # Bottom
-    pad_b = Rectangle((x, 0), 120, 100, facecolor='#d0883e', edgecolor='#ff9944', linewidth=1)
-    ax.add_patch(pad_b)
-
-for y in range(100, 3000, 250):
-    # Left
-    pad_l = Rectangle((0, y), 100, 120, facecolor='#d0883e', edgecolor='#ff9944', linewidth=1)
-    ax.add_patch(pad_l)
-    # Right
-    pad_r = Rectangle((2900, y), 100, 120, facecolor='#d0883e', edgecolor='#ff9944', linewidth=1)
-    ax.add_patch(pad_r)
-
-# ─────────────────────────────────────────────────────────────────────────────
-# SIGNAL ROUTING (schematic)
-# ─────────────────────────────────────────────────────────────────────────────
-
-# PD → TIA
-ax.plot([2500, 2250], [2500, 2650], 'c--', linewidth=2, alpha=0.6)
-
-# TIA → PID
-ax.plot([2100, 500], [2650, 2200], 'm--', linewidth=2, alpha=0.6)
-
-# PID → DAC
-ax.plot([500, 2000], [2200, 1450], 'r--', linewidth=2, alpha=0.6)
-
-# DAC → VCO
-ax.plot([2150, 2500], [1300, 1800], 'y--', linewidth=2, alpha=0.6)
-
-# VCO → external EOM (laser modulation)
-ax.annotate('6.835 GHz\nto EOM', xy=(2500, 1800), xytext=(2800, 1200),
-            arrowprops=dict(arrowstyle='->', color='#a371f7', lw=2),
-            fontsize=8, color='#a371f7', fontweight='bold')
-
-# Frequency divider output
-ax.annotate('1 Hz out', xy=(500, 2500), xytext=(700, 2200),
-            arrowprops=dict(arrowstyle='->', color='#56d364', lw=2),
-            fontsize=8, color='#56d364', fontweight='bold')
-
-# ─────────────────────────────────────────────────────────────────────────────
-# ANNOTATIONS
-# ─────────────────────────────────────────────────────────────────────────────
-
-ax.text(1500, 3200, 'Top-Down Floorplan — 3×3 mm Die', ha='center', fontsize=14, fontweight='bold', color='#e6edf3')
-ax.text(1500, 3100, 'Shows component placement and signal routing for optimal performance',
-        ha='center', fontsize=9, color='#8b949e', style='italic')
-
-# Dimension labels
-ax.annotate('', xy=(50, 0), xytext=(50, 3000), arrowprops=dict(arrowstyle='<->', color='#58a6ff', lw=2))
-ax.text(0, 1500, '3 mm', rotation=90, ha='right', va='center', fontsize=11, color='#58a6ff', fontweight='bold')
-
-ax.annotate('', xy=(0, 50), xytext=(3000, 50), arrowprops=dict(arrowstyle='<->', color='#58a6ff', lw=2))
-ax.text(1500, 10, '3 mm', ha='center', fontsize=11, color='#58a6ff', fontweight='bold')
-
-# Remove axes
-ax.set_xticks([])
-ax.set_yticks([])
-ax.spines['top'].set_visible(False)
-ax.spines['bottom'].set_visible(False)
-ax.spines['left'].set_visible(False)
-ax.spines['right'].set_visible(False)
-
-plt.tight_layout()
-outfile = BASE / 'chip_floorplan.png'
-fig.savefig(str(outfile), dpi=150, facecolor='#0d1117', edgecolor='none', bbox_inches='tight')
-print(f"Floorplan diagram saved: {outfile}")
-plt.close()
-
-print("\n[OK] Both diagrams created:")
-print("   - chip_cross_section.png")
-print("   - chip_floorplan.png")
+BG = "#050812"
+PANEL = "#0b1321"
+PANEL_ALT = "#0f1a2c"
+OUTLINE = "#21334d"
+TEXT = "#e8effb"
+MUTED = "#93a6c3"
+ACCENT = "#62d5ff"
+OPTICAL = "#73e3ff"
+THERMAL = "#ffbd62"
+RF = "#8b72f6"
+STACK_GLASS = "#6ed4ff"
+STACK_GAS = "#5b284f"
+STACK_BOND = "#7b6756"
+STACK_SI = "#1f2a3d"
+STACK_VOID = "#08111d"
+PAD = "#b6925f"
+GOOD = "#8be6b8"
+
+
+def setup_ax(ax, xlim, ylim):
+    ax.set_xlim(*xlim)
+    ax.set_ylim(*ylim)
+    ax.set_facecolor(BG)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+
+def add_badge(ax, x, y, text, edge=ACCENT, fill=PANEL_ALT, color=TEXT):
+    ax.text(
+        x,
+        y,
+        text,
+        ha="left",
+        va="center",
+        fontsize=8,
+        color=color,
+        fontweight="bold",
+        bbox=dict(
+            boxstyle="round,pad=0.35,rounding_size=0.18",
+            facecolor=fill,
+            edgecolor=edge,
+            linewidth=1.0,
+        ),
+    )
+
+
+def add_title(ax, title, subtitle):
+    ax.text(8, 96, title, fontsize=19, fontweight="bold", color=TEXT, ha="left")
+    ax.text(8, 91.5, subtitle, fontsize=10, color=MUTED, ha="left")
+
+
+def add_dim_arrow(ax, x0, y0, x1, y1, label, color):
+    ax.annotate(
+        "",
+        xy=(x1, y1),
+        xytext=(x0, y0),
+        arrowprops=dict(arrowstyle="<->", color=color, lw=1.6),
+    )
+    ax.text(
+        (x0 + x1) * 0.5,
+        (y0 + y1) * 0.5,
+        label,
+        ha="center",
+        va="center",
+        fontsize=9,
+        color=color,
+        fontweight="bold",
+        bbox=dict(
+            boxstyle="round,pad=0.2,rounding_size=0.12",
+            facecolor=BG,
+            edgecolor="none",
+            alpha=0.9,
+        ),
+    )
+
+
+def block(ax, xy, wh, label, sublabel, edge, face=PANEL_ALT):
+    x, y = xy
+    w, h = wh
+    ax.add_patch(
+        FancyBboxPatch(
+            (x, y),
+            w,
+            h,
+            boxstyle="round,pad=0.3,rounding_size=0.65",
+            facecolor=face,
+            edgecolor=edge,
+            linewidth=1.4,
+        )
+    )
+    ax.text(x + w * 0.5, y + h * 0.62, label, ha="center", va="center",
+            fontsize=9, color=TEXT, fontweight="bold")
+    ax.text(x + w * 0.5, y + h * 0.28, sublabel, ha="center", va="center",
+            fontsize=7, color=MUTED)
+
+
+def generate_cross_section():
+    fig, ax = plt.subplots(figsize=(16, 10), dpi=150)
+    fig.patch.set_facecolor(BG)
+    setup_ax(ax, (0, 100), (0, 100))
+
+    ax.add_patch(
+        FancyBboxPatch(
+            (4, 6),
+            92,
+            86,
+            boxstyle="round,pad=0.6,rounding_size=1.4",
+            facecolor=PANEL,
+            edgecolor=OUTLINE,
+            linewidth=1.2,
+        )
+    )
+
+    add_title(
+        ax,
+        "CSAC Internal Cross-Section",
+        "One sheet, one palette: optical path, thermal control, and mixed-signal stack.",
+    )
+    add_badge(ax, 69, 96.5, "SIMULATED INTERNAL ARCHITECTURE")
+
+    x0 = 12
+    w = 64
+    layers = [
+        ("Glass lid", 82, 9, STACK_GLASS),
+        ("Rb-87 + N2 cavity", 68, 14, STACK_GAS),
+        ("Anodic bond", 64.7, 3.3, STACK_BOND),
+        ("Silicon substrate", 20, 44.7, STACK_SI),
+        ("Pad ring / bulk", 10, 10, "#101a28"),
+    ]
+
+    for name, y, h, color in layers:
+        ax.add_patch(Rectangle((x0, y), w, h, facecolor=color, edgecolor=OUTLINE, linewidth=1.1))
+        ax.text(x0 + w + 3.2, y + h * 0.5, name, ha="left", va="center",
+                fontsize=9, color=TEXT if color != STACK_BOND else "#e3d6c5", fontweight="bold")
+
+    ax.text(x0 + w * 0.5, 86.3, "Borosilicate lid / optical entry window",
+            ha="center", va="center", fontsize=10, color=TEXT, fontweight="bold")
+    ax.text(x0 + w * 0.5, 74.2, "Atomic vapor cavity", ha="center", va="center",
+            fontsize=11, color="#f2d9ff", fontweight="bold")
+    ax.text(x0 + w * 0.5, 70.4, "Rb-87 vapor, N2 buffer gas, 1 mm class cavity depth",
+            ha="center", va="center", fontsize=8.4, color="#d6afd8")
+    ax.text(x0 + w * 0.5, 42.2, "Thinned silicon platform with heater, photodiode, and control electronics",
+            ha="center", va="center", fontsize=10, color="#bdd2ef", fontweight="bold")
+
+    cavity = Rectangle((26, 43), 36, 11.5, facecolor=STACK_VOID, edgecolor="#ab89d1",
+                       linewidth=1.3, linestyle=(0, (2, 2)))
+    ax.add_patch(cavity)
+    ax.text(44, 48.7, "Back-etched cavity volume", ha="center", va="center",
+            fontsize=8.5, color="#c9afeb", style="italic")
+
+    for cx in [20, 32, 44, 56, 68]:
+        ax.add_patch(Circle((cx, 75), 1.2, facecolor="#f4b1c8", edgecolor="none", alpha=0.65))
+
+    heater_color = "#ff9e52"
+    ax.add_patch(Rectangle((14.4, 32), 6.8, 5.8, facecolor="#3a2417", edgecolor=heater_color, linewidth=1.2))
+    ax.add_patch(Rectangle((66.8, 32), 6.8, 5.8, facecolor="#3a2417", edgecolor=heater_color, linewidth=1.2))
+    ax.text(17.8, 34.9, "Heater", ha="center", va="center", fontsize=7.8, color=THERMAL, fontweight="bold")
+    ax.text(70.2, 34.9, "Heater", ha="center", va="center", fontsize=7.8, color=THERMAL, fontweight="bold")
+
+    block(ax, (17, 17.5), (11, 8.2), "VCO", "6.835 GHz", RF)
+    block(ax, (31, 17.5), (11, 8.2), "TIA", "photodiode readout", ACCENT)
+    block(ax, (45, 17.5), (11, 8.2), "Divider", "1 Hz / servo clocks", GOOD)
+    block(ax, (59, 17.5), (11, 8.2), "PID", "lock + heater control", THERMAL)
+    block(ax, (38.3, 28), (7.4, 5.5), "PD", "780 nm sense", ACCENT)
+
+    beam = FancyArrowPatch((10, 75), (26, 75), arrowstyle="-|>", mutation_scale=22,
+                           linewidth=2.4, color=OPTICAL)
+    ax.add_patch(beam)
+    ax.text(8.2, 79.4, "Laser input", ha="right", va="center", fontsize=9,
+            color=OPTICAL, fontweight="bold")
+
+    through = FancyArrowPatch((44, 84.5), (44, 55), arrowstyle="-|>", mutation_scale=18,
+                              linewidth=2.2, color=OPTICAL)
+    ax.add_patch(through)
+    ax.text(46.2, 69.6, "Optical path", ha="left", va="center", fontsize=8.5,
+            color=OPTICAL, fontweight="bold")
+
+    sense = FancyArrowPatch((42, 30.6), (42, 25.7), arrowstyle="-|>", mutation_scale=14,
+                            linewidth=1.8, color=ACCENT)
+    ax.add_patch(sense)
+    ax.text(44.1, 28.4, "Absorption signal", ha="left", va="center", fontsize=7.8, color=ACCENT)
+
+    ax.add_patch(FancyArrowPatch((42, 21.6), (59, 21.6), arrowstyle="-|>", mutation_scale=14,
+                                 linewidth=1.7, color=ACCENT))
+    ax.add_patch(FancyArrowPatch((64.5, 21.6), (28.2, 20.6), arrowstyle="-|>", mutation_scale=14,
+                                 linewidth=1.7, color=THERMAL, linestyle="--"))
+    ax.text(52.3, 15.3, "Frequency correction loop", ha="center", va="center",
+            fontsize=7.8, color=THERMAL)
+
+    ax.add_patch(FancyArrowPatch((64.5, 22.8), (70.2, 37), arrowstyle="-|>", mutation_scale=14,
+                                 linewidth=1.6, color=THERMAL))
+    ax.text(67.5, 30.6, "Heater drive", ha="center", va="center", fontsize=7.6, color=THERMAL)
+
+    add_dim_arrow(ax, 8, 10, 8, 82, "3.0 mm die span", ACCENT)
+    add_dim_arrow(ax, 12, 8, 76, 8, "3.0 mm", ACCENT)
+    add_dim_arrow(ax, 84, 68, 84, 82, "1.0 mm cavity", THERMAL)
+
+    pad_positions = [15, 22, 29, 36, 43, 50, 57, 64, 71]
+    for px in pad_positions:
+        ax.add_patch(Rectangle((px - 0.9, 12.3), 1.8, 3.5, facecolor=PAD, edgecolor="#d2af78", linewidth=0.8))
+
+    ax.text(44, 8.8,
+            "Phase 1 values are simulated. Package dimensions and subsystem placement are concept-level.",
+            ha="center", va="center", fontsize=8.5, color=MUTED, style="italic")
+
+    outfile = BASE / "chip_cross_section.png"
+    fig.savefig(outfile, dpi=150, facecolor=BG, edgecolor="none", bbox_inches="tight")
+    plt.close(fig)
+    print(f"Cross-section diagram saved: {outfile}")
+
+
+def generate_floorplan():
+    fig, ax = plt.subplots(figsize=(14, 14), dpi=150)
+    fig.patch.set_facecolor(BG)
+    setup_ax(ax, (0, 100), (0, 100))
+
+    ax.add_patch(
+        FancyBboxPatch(
+            (4, 4),
+            92,
+            92,
+            boxstyle="round,pad=0.8,rounding_size=1.4",
+            facecolor=PANEL,
+            edgecolor=OUTLINE,
+            linewidth=1.2,
+        )
+    )
+
+    add_title(
+        ax,
+        "CSAC Top-Down Floorplan",
+        "Reduced color entropy: neutral blocks, one optical accent, one thermal accent, one RF accent.",
+    )
+    add_badge(ax, 72, 96.5, "PLACEMENT STUDY / CONCEPT")
+
+    die = Rectangle((8, 8), 84, 84, facecolor="#08111c", edgecolor=ACCENT, linewidth=1.8)
+    ax.add_patch(die)
+
+    cavity = FancyBboxPatch((24, 24), 52, 52, boxstyle="round,pad=0.5,rounding_size=1.2",
+                            facecolor=STACK_GAS, edgecolor="#b38ce2", linewidth=1.4, alpha=0.95)
+    ax.add_patch(cavity)
+    ax.text(50, 52, "Optical cavity", ha="center", va="center", fontsize=14, color=TEXT, fontweight="bold")
+    ax.text(50, 46.8, "Rb-87 vapor + N2", ha="center", va="center", fontsize=10, color="#d8bce9")
+    ax.text(50, 42.2, "1.8 x 1.8 mm class envelope", ha="center", va="center", fontsize=8.6, color=MUTED)
+
+    heater_edge = "#ff9e52"
+    heaters = [
+        Rectangle((24, 77), 52, 6.5, facecolor="#312114", edgecolor=heater_edge, linewidth=1.3),
+        Rectangle((24, 16.5), 52, 6.5, facecolor="#312114", edgecolor=heater_edge, linewidth=1.3),
+        Rectangle((16.5, 24), 6.5, 52, facecolor="#312114", edgecolor=heater_edge, linewidth=1.3),
+        Rectangle((77, 24), 6.5, 52, facecolor="#312114", edgecolor=heater_edge, linewidth=1.3),
+    ]
+    for rect in heaters:
+        ax.add_patch(rect)
+    ax.text(50, 80.2, "Heater ring", ha="center", va="center", fontsize=9, color=THERMAL, fontweight="bold")
+
+    block(ax, (71.5, 60), (12, 10), "VCO", "isolated RF island", RF)
+    block(ax, (66, 44), (10.5, 8.5), "DAC", "varactor tune", THERMAL)
+    block(ax, (71.5, 76.5), (10, 8), "TIA", "close to photodiode", ACCENT)
+    block(ax, (84, 76.5), (8, 8), "PD", "optical sense", ACCENT)
+    block(ax, (12, 76.5), (12, 8), "Divider", "timebase outputs", GOOD)
+    block(ax, (12, 60), (12, 8), "PID", "servo + heater", THERMAL)
+    block(ax, (8.8, 43), (8.7, 10), "SPI", "edge I/O", ACCENT)
+
+    for cx, cy in [(22, 22), (36, 86), (80, 22), (84, 37), (18, 37)]:
+        ax.add_patch(Rectangle((cx, cy), 3.4, 3.4, facecolor="#151f2d", edgecolor="#405068", linewidth=0.8))
+        ax.text(cx + 1.7, cy + 1.7, "C", ha="center", va="center", fontsize=7, color=MUTED)
+
+    for x in range(10, 90, 8):
+        ax.add_patch(Rectangle((x, 92), 3.8, 3, facecolor=PAD, edgecolor="#d2af78", linewidth=0.7))
+        ax.add_patch(Rectangle((x, 5), 3.8, 3, facecolor=PAD, edgecolor="#d2af78", linewidth=0.7))
+    for y in range(10, 90, 8):
+        ax.add_patch(Rectangle((5, y), 3, 3.8, facecolor=PAD, edgecolor="#d2af78", linewidth=0.7))
+        ax.add_patch(Rectangle((92, y), 3, 3.8, facecolor=PAD, edgecolor="#d2af78", linewidth=0.7))
+
+    ax.add_patch(FancyArrowPatch((88, 80), (80, 80), arrowstyle="-|>", mutation_scale=16,
+                                 linewidth=1.9, color=ACCENT))
+    ax.add_patch(FancyArrowPatch((71.5, 80), (24, 64), arrowstyle="-|>", mutation_scale=14,
+                                 linewidth=1.5, color=ACCENT, linestyle="--"))
+    ax.add_patch(FancyArrowPatch((24, 64), (66, 48), arrowstyle="-|>", mutation_scale=14,
+                                 linewidth=1.5, color=THERMAL, linestyle="--"))
+    ax.add_patch(FancyArrowPatch((71.2, 48), (77.5, 60), arrowstyle="-|>", mutation_scale=14,
+                                 linewidth=1.4, color=RF))
+    ax.text(57, 33.5, "Optical sense path", fontsize=8.4, color=ACCENT)
+    ax.text(50.5, 28.5, "Servo and heater feedback", fontsize=8.4, color=THERMAL)
+
+    add_dim_arrow(ax, 8, 6, 92, 6, "3 mm die", ACCENT)
+    add_dim_arrow(ax, 6, 8, 6, 92, "3 mm", ACCENT)
+
+    legend_x = 72
+    ax.add_patch(
+        FancyBboxPatch(
+            (70.5, 10),
+            22,
+            16,
+            boxstyle="round,pad=0.5,rounding_size=1.1",
+            facecolor=PANEL_ALT,
+            edgecolor=OUTLINE,
+            linewidth=1.0,
+        )
+    )
+    ax.text(72.5, 22.7, "Legend", fontsize=9.5, color=TEXT, fontweight="bold")
+    ax.text(72.5, 19.0, "Cyan  = optical / readout", fontsize=8, color=ACCENT)
+    ax.text(72.5, 15.7, "Amber = thermal / control", fontsize=8, color=THERMAL)
+    ax.text(72.5, 12.4, "Violet = RF island", fontsize=8, color=RF)
+
+    ax.text(50, 2.5,
+            "Placement and routing remain conceptual; shown here to communicate hierarchy, not final routing density.",
+            ha="center", va="center", fontsize=8.3, color=MUTED, style="italic")
+
+    outfile = BASE / "chip_floorplan.png"
+    fig.savefig(outfile, dpi=150, facecolor=BG, edgecolor="none", bbox_inches="tight")
+    plt.close(fig)
+    print(f"Floorplan diagram saved: {outfile}")
+
+
+if __name__ == "__main__":
+    generate_cross_section()
+    generate_floorplan()
+    print("\n[OK] Both diagrams created:")
+    print("   - chip_cross_section.png")
+    print("   - chip_floorplan.png")
