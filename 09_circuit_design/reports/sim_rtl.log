@@ -1,0 +1,21 @@
+VCD info: dumpfile build/tb_csac_digital_top.vcd opened for output.
+PASS: Test 1 - Reset holds outputs low
+PASS: Test 1 - Reset deasserts cleanly
+PASS: Test 2 - setpoint outputs zero correction
+PASS: Test 3 - PID responds to positive error
+PASS: Test 4 - PID integral accumulates
+PASS: Test 5 - Lock asserts at setpoint
+PASS: Test 6 - Lock deasserts on large error
+PASS: Test 7 - Heater on when cold
+PASS: Test 8 - Heater off when hot
+PASS: Test 9 - 1 Hz counter increments
+PASS: Test 10 - SPI reads status byte
+  DEBUG PRE-READ: photo_adc=123 hold_reg[17:10]=123 data_dst[17:10]=50 photo_adc_s=50
+  DEBUG: SPI read addr=0x07, got=123, expect=123
+  DEBUG POST-READ: hold_reg[17:10]=123 data_dst[17:10]=123 photo_adc_s=123 tx_data=0 addr_latch=0
+PASS: Test 11 - SPI reads photo_adc via CDC
+
+========================================
+  ALL 11 TESTS PASSED
+========================================
+

@@ -1,0 +1,342 @@
+
+27. Printing statistics.
+
+=== $paramod$18b93113afd5e95091b6118f8450d434eb1927df\pid_controller ===
+
+   Number of wires:                278
+   Number of wire bits:            320
+   Number of public wires:           8
+   Number of public wire bits:      50
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                308
+     sky130_fd_sc_hd__a211oi_1       1
+     sky130_fd_sc_hd__a21o_1         2
+     sky130_fd_sc_hd__a21oi_1       19
+     sky130_fd_sc_hd__a31oi_1        2
+     sky130_fd_sc_hd__a41oi_1        1
+     sky130_fd_sc_hd__and2_0         4
+     sky130_fd_sc_hd__and3b_1        1
+     sky130_fd_sc_hd__clkinv_1      23
+     sky130_fd_sc_hd__dfrtp_1       29
+     sky130_fd_sc_hd__dfstp_2        1
+     sky130_fd_sc_hd__lpflow_inputiso1p_1      1
+     sky130_fd_sc_hd__lpflow_isobufsrc_1      9
+     sky130_fd_sc_hd__maj3_1        30
+     sky130_fd_sc_hd__mux2_1         9
+     sky130_fd_sc_hd__mux2i_1        2
+     sky130_fd_sc_hd__nand2_1       13
+     sky130_fd_sc_hd__nand2b_1       4
+     sky130_fd_sc_hd__nand3_1        7
+     sky130_fd_sc_hd__nand4_1        1
+     sky130_fd_sc_hd__nor2_1        14
+     sky130_fd_sc_hd__nor3_1         2
+     sky130_fd_sc_hd__nor3b_1        2
+     sky130_fd_sc_hd__o211ai_1      11
+     sky130_fd_sc_hd__o21a_1         3
+     sky130_fd_sc_hd__o21ai_0       18
+     sky130_fd_sc_hd__o21ba_1        1
+     sky130_fd_sc_hd__o22ai_1        1
+     sky130_fd_sc_hd__o31ai_1        2
+     sky130_fd_sc_hd__or3_1          1
+     sky130_fd_sc_hd__xnor2_1       73
+     sky130_fd_sc_hd__xnor3_1        3
+     sky130_fd_sc_hd__xor2_1        18
+
+   Chip area for module '$paramod$18b93113afd5e95091b6118f8450d434eb1927df\pid_controller': 2785.171200
+
+=== $paramod$74022849048c4ca2c8ecba9bfd9e4131fdde2054\cdc_bus_sync ===
+
+   Number of wires:                 89
+   Number of wire bits:            314
+   Number of public wires:          12
+   Number of public wire bits:     237
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                233
+     $paramod\cdc_sync2\STAGES=s32'00000000000000000000000000000010      1
+     sky130_fd_sc_hd__dfrtp_1      154
+     sky130_fd_sc_hd__mux2_1        76
+     sky130_fd_sc_hd__xor2_1         2
+
+   Area for cell type $paramod\cdc_sync2\STAGES=s32'00000000000000000000000000000010 is unknown!
+
+   Chip area for module '$paramod$74022849048c4ca2c8ecba9bfd9e4131fdde2054\cdc_bus_sync': 4727.033600
+
+=== $paramod$7cf0fe596977cff7b278c78abdd480924a4e1e5b\freq_divider ===
+
+   Number of wires:                 50
+   Number of wire bits:            146
+   Number of public wires:           8
+   Number of public wire bits:      40
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                110
+     sky130_fd_sc_hd__a21oi_1        3
+     sky130_fd_sc_hd__a31oi_1        7
+     sky130_fd_sc_hd__and4_1         2
+     sky130_fd_sc_hd__clkinv_1      10
+     sky130_fd_sc_hd__dfrtp_1       35
+     sky130_fd_sc_hd__lpflow_isobufsrc_1      8
+     sky130_fd_sc_hd__nand2_1        7
+     sky130_fd_sc_hd__nand4_1        5
+     sky130_fd_sc_hd__nor2_1         8
+     sky130_fd_sc_hd__nor4_1         3
+     sky130_fd_sc_hd__xnor2_1       15
+     sky130_fd_sc_hd__xor2_1         7
+
+   Chip area for module '$paramod$7cf0fe596977cff7b278c78abdd480924a4e1e5b\freq_divider': 1338.784000
+
+=== $paramod$be25ec696c047e930657739635afb7f0ca015d5d\lock_detector ===
+
+   Number of wires:                 34
+   Number of wire bits:             45
+   Number of public wires:           6
+   Number of public wire bits:      17
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 33
+     sky130_fd_sc_hd__a211oi_1       1
+     sky130_fd_sc_hd__a21oi_1        4
+     sky130_fd_sc_hd__a2bb2oi_1      1
+     sky130_fd_sc_hd__a31o_1         1
+     sky130_fd_sc_hd__a31oi_1        3
+     sky130_fd_sc_hd__a41oi_1        2
+     sky130_fd_sc_hd__clkinv_1       1
+     sky130_fd_sc_hd__dfrtp_1        5
+     sky130_fd_sc_hd__lpflow_isobufsrc_1      1
+     sky130_fd_sc_hd__nand2_1        3
+     sky130_fd_sc_hd__nand3_1        3
+     sky130_fd_sc_hd__nand4_1        2
+     sky130_fd_sc_hd__nor2b_1        1
+     sky130_fd_sc_hd__nor3_1         2
+     sky130_fd_sc_hd__o21ai_0        2
+     sky130_fd_sc_hd__o22ai_1        1
+
+   Chip area for module '$paramod$be25ec696c047e930657739635afb7f0ca015d5d\lock_detector': 287.776000
+
+=== $paramod$c6166734c642cd312e3c542551ce5a5c4f55a478\thermal_controller ===
+
+   Number of wires:                 39
+   Number of wire bits:             55
+   Number of public wires:           5
+   Number of public wire bits:      21
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 42
+     sky130_fd_sc_hd__a21o_1         1
+     sky130_fd_sc_hd__a21oi_1        3
+     sky130_fd_sc_hd__a31oi_1        1
+     sky130_fd_sc_hd__and3_1         2
+     sky130_fd_sc_hd__clkinv_1       7
+     sky130_fd_sc_hd__dfrtp_1        8
+     sky130_fd_sc_hd__lpflow_isobufsrc_1      1
+     sky130_fd_sc_hd__nand2_1        2
+     sky130_fd_sc_hd__nand3_1        1
+     sky130_fd_sc_hd__nand3b_1       2
+     sky130_fd_sc_hd__nand4_1        1
+     sky130_fd_sc_hd__nor2_1         1
+     sky130_fd_sc_hd__o21ai_0        2
+     sky130_fd_sc_hd__o21bai_1       1
+     sky130_fd_sc_hd__o22ai_1        6
+     sky130_fd_sc_hd__or3_1          1
+     sky130_fd_sc_hd__xnor2_1        2
+
+   Chip area for module '$paramod$c6166734c642cd312e3c542551ce5a5c4f55a478\thermal_controller': 390.374400
+
+=== $paramod\cdc_sync2\STAGES=s32'00000000000000000000000000000010 ===
+
+   Number of wires:                  5
+   Number of wire bits:              6
+   Number of public wires:           5
+   Number of public wire bits:       6
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     sky130_fd_sc_hd__dfrtp_1        2
+
+   Chip area for module '$paramod\cdc_sync2\STAGES=s32'00000000000000000000000000000010': 50.048000
+
+=== $paramod\reset_sync\STAGES=s32'00000000000000000000000000000010 ===
+
+   Number of wires:                  4
+   Number of wire bits:              5
+   Number of public wires:           4
+   Number of public wire bits:       5
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     sky130_fd_sc_hd__dfrtp_1        2
+
+   Chip area for module '$paramod\reset_sync\STAGES=s32'00000000000000000000000000000010': 50.048000
+
+=== $paramod\spi_slave\DATA_WIDTH=s32'00000000000000000000000000001000 ===
+
+   Number of wires:                 18
+   Number of wire bits:             57
+   Number of public wires:          11
+   Number of public wire bits:      34
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 41
+     sky130_fd_sc_hd__a21oi_1        1
+     sky130_fd_sc_hd__a31oi_1        1
+     sky130_fd_sc_hd__dfrtp_1       18
+     sky130_fd_sc_hd__lpflow_isobufsrc_1      9
+     sky130_fd_sc_hd__mux2_1         7
+     sky130_fd_sc_hd__nand3_1        1
+     sky130_fd_sc_hd__nor2_1         3
+     sky130_fd_sc_hd__xnor2_1        1
+
+   Chip area for module '$paramod\spi_slave\DATA_WIDTH=s32'00000000000000000000000000001000': 621.846400
+
+=== csac_digital_top ===
+
+   Number of wires:                101
+   Number of wire bits:            268
+   Number of public wires:          22
+   Number of public wire bits:     189
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                119
+     $paramod$18b93113afd5e95091b6118f8450d434eb1927df\pid_controller      1
+     $paramod$74022849048c4ca2c8ecba9bfd9e4131fdde2054\cdc_bus_sync      1
+     $paramod$7cf0fe596977cff7b278c78abdd480924a4e1e5b\freq_divider      1
+     $paramod$be25ec696c047e930657739635afb7f0ca015d5d\lock_detector      1
+     $paramod$c6166734c642cd312e3c542551ce5a5c4f55a478\thermal_controller      1
+     $paramod\reset_sync\STAGES=s32'00000000000000000000000000000010      1
+     $paramod\spi_slave\DATA_WIDTH=s32'00000000000000000000000000001000      1
+     sky130_fd_sc_hd__a21oi_1        6
+     sky130_fd_sc_hd__a31oi_1        5
+     sky130_fd_sc_hd__a41oi_1        1
+     sky130_fd_sc_hd__and2_0         2
+     sky130_fd_sc_hd__and3_1         5
+     sky130_fd_sc_hd__and4_1         3
+     sky130_fd_sc_hd__clkinv_1       1
+     sky130_fd_sc_hd__dfrtp_1       32
+     sky130_fd_sc_hd__lpflow_isobufsrc_1      1
+     sky130_fd_sc_hd__nand2_1       12
+     sky130_fd_sc_hd__nand3_1        5
+     sky130_fd_sc_hd__nand4_1        2
+     sky130_fd_sc_hd__nor2_1        12
+     sky130_fd_sc_hd__nor2b_1        2
+     sky130_fd_sc_hd__nor3_1         1
+     sky130_fd_sc_hd__nor4_1         1
+     sky130_fd_sc_hd__o21a_1         1
+     sky130_fd_sc_hd__xnor2_1       11
+     sky130_fd_sc_hd__xor2_1         8
+     spi_regmap                      1
+
+   Area for cell type \spi_regmap is unknown!
+   Area for cell type $paramod\spi_slave\DATA_WIDTH=s32'00000000000000000000000000001000 is unknown!
+   Area for cell type $paramod$74022849048c4ca2c8ecba9bfd9e4131fdde2054\cdc_bus_sync is unknown!
+   Area for cell type $paramod$c6166734c642cd312e3c542551ce5a5c4f55a478\thermal_controller is unknown!
+   Area for cell type $paramod$be25ec696c047e930657739635afb7f0ca015d5d\lock_detector is unknown!
+   Area for cell type $paramod$18b93113afd5e95091b6118f8450d434eb1927df\pid_controller is unknown!
+   Area for cell type $paramod$7cf0fe596977cff7b278c78abdd480924a4e1e5b\freq_divider is unknown!
+   Area for cell type $paramod\reset_sync\STAGES=s32'00000000000000000000000000000010 is unknown!
+
+   Chip area for module '\csac_digital_top': 1276.224000
+
+=== spi_regmap ===
+
+   Number of wires:                 66
+   Number of wire bits:            164
+   Number of public wires:          14
+   Number of public wire bits:     112
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 76
+     sky130_fd_sc_hd__a222oi_1       8
+     sky130_fd_sc_hd__a22oi_1       24
+     sky130_fd_sc_hd__clkinv_1       3
+     sky130_fd_sc_hd__dfrtp_1        8
+     sky130_fd_sc_hd__lpflow_inputiso1p_1      1
+     sky130_fd_sc_hd__lpflow_isobufsrc_1      1
+     sky130_fd_sc_hd__mux2_1         5
+     sky130_fd_sc_hd__mux2i_1        3
+     sky130_fd_sc_hd__nand2_1        5
+     sky130_fd_sc_hd__nand4_1        8
+     sky130_fd_sc_hd__nor3_1         8
+     sky130_fd_sc_hd__nor4_1         1
+     sky130_fd_sc_hd__or4_1          1
+
+   Chip area for module '\spi_regmap': 693.164800
+
+=== design hierarchy ===
+
+   csac_digital_top                  1
+     $paramod$18b93113afd5e95091b6118f8450d434eb1927df\pid_controller      1
+     $paramod$74022849048c4ca2c8ecba9bfd9e4131fdde2054\cdc_bus_sync      1
+       $paramod\cdc_sync2\STAGES=s32'00000000000000000000000000000010      1
+     $paramod$7cf0fe596977cff7b278c78abdd480924a4e1e5b\freq_divider      1
+     $paramod$be25ec696c047e930657739635afb7f0ca015d5d\lock_detector      1
+     $paramod$c6166734c642cd312e3c542551ce5a5c4f55a478\thermal_controller      1
+     $paramod\reset_sync\STAGES=s32'00000000000000000000000000000010      1
+     $paramod\spi_slave\DATA_WIDTH=s32'00000000000000000000000000001000      1
+     spi_regmap                      1
+
+   Number of wires:                684
+   Number of wire bits:           1380
+   Number of public wires:          95
+   Number of public wire bits:     711
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                957
+     sky130_fd_sc_hd__a211oi_1       2
+     sky130_fd_sc_hd__a21o_1         3
+     sky130_fd_sc_hd__a21oi_1       36
+     sky130_fd_sc_hd__a222oi_1       8
+     sky130_fd_sc_hd__a22oi_1       24
+     sky130_fd_sc_hd__a2bb2oi_1      1
+     sky130_fd_sc_hd__a31o_1         1
+     sky130_fd_sc_hd__a31oi_1       19
+     sky130_fd_sc_hd__a41oi_1        4
+     sky130_fd_sc_hd__and2_0         6
+     sky130_fd_sc_hd__and3_1         7
+     sky130_fd_sc_hd__and3b_1        1
+     sky130_fd_sc_hd__and4_1         5
+     sky130_fd_sc_hd__clkinv_1      45
+     sky130_fd_sc_hd__dfrtp_1      293
+     sky130_fd_sc_hd__dfstp_2        1
+     sky130_fd_sc_hd__lpflow_inputiso1p_1      2
+     sky130_fd_sc_hd__lpflow_isobufsrc_1     30
+     sky130_fd_sc_hd__maj3_1        30
+     sky130_fd_sc_hd__mux2_1        97
+     sky130_fd_sc_hd__mux2i_1        5
+     sky130_fd_sc_hd__nand2_1       42
+     sky130_fd_sc_hd__nand2b_1       4
+     sky130_fd_sc_hd__nand3_1       17
+     sky130_fd_sc_hd__nand3b_1       2
+     sky130_fd_sc_hd__nand4_1       19
+     sky130_fd_sc_hd__nor2_1        38
+     sky130_fd_sc_hd__nor2b_1        3
+     sky130_fd_sc_hd__nor3_1        13
+     sky130_fd_sc_hd__nor3b_1        2
+     sky130_fd_sc_hd__nor4_1         5
+     sky130_fd_sc_hd__o211ai_1      11
+     sky130_fd_sc_hd__o21a_1         4
+     sky130_fd_sc_hd__o21ai_0       22
+     sky130_fd_sc_hd__o21ba_1        1
+     sky130_fd_sc_hd__o21bai_1       1
+     sky130_fd_sc_hd__o22ai_1        8
+     sky130_fd_sc_hd__o31ai_1        2
+     sky130_fd_sc_hd__or3_1          2
+     sky130_fd_sc_hd__or4_1          1
+     sky130_fd_sc_hd__xnor2_1      102
+     sky130_fd_sc_hd__xnor3_1        3
+     sky130_fd_sc_hd__xor2_1        35
+
+   Chip area for top module '\csac_digital_top': 12220.470400
+

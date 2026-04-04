@@ -1,0 +1,13 @@
+=== Multi-Corner Synthesis Summary ===
+
+--- TT Corner ---
+   Number of cells:                957
+   Chip area for top module '\csac_digital_top': 12220.470400
+
+--- SS Corner ---
+   Number of cells:                957
+   Chip area for top module '\csac_digital_top': 12220.470400
+
+--- FF Corner ---
+   Number of cells:                957
+   Chip area for top module '\csac_digital_top': 12220.470400

@@ -1,0 +1,49 @@
+# Yosys Synthesis for Gate-Level Simulation — TT corner, test parameters
+# Uses small divider parameters matching the testbench for fast simulation.
+
+# Read RTL
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/reset_sync.v
+read_verilog ../rtl/cdc_sync2.v
+read_verilog ../rtl/cdc_bus_sync.v
+read_verilog ../rtl/freq_divider.v
+read_verilog ../rtl/pid_controller.v
+read_verilog ../rtl/lock_detector.v
+read_verilog ../rtl/thermal_controller.v
+read_verilog ../rtl/spi_slave.v
+read_verilog ../rtl/spi_regmap.v
+read_verilog ../rtl/csac_digital_top.v
+
+# Elaborate with test parameters (matching testbench)
+hierarchy -check -top csac_digital_top \
+    -chparam DIV_WIDTH 10 \
+    -chparam SERVO_BIT 4 \
+    -chparam ONEHZ_BIT 8 \
+    -chparam PID_KP 2 \
+    -chparam PID_KD 3 \
+    -chparam PID_SETPOINT 50 \
+    -chparam LOCK_THRESH 10 \
+    -chparam LOCK_WINDOW 8 \
+    -chparam TEMP_SETPOINT 350 \
+    -chparam TEMP_SHIFT 2 \
+    -chparam CDC_STAGES 2
+
+# High-level synthesis
+proc
+opt
+fsm
+opt
+memory
+opt
+
+# Technology mapping
+techmap
+opt
+
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+opt_clean -purge
+check
+
+write_verilog -noattr ../reports/csac_digital_top_gate.v

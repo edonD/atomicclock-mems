@@ -1,0 +1,30 @@
+# Yosys Common Synthesis Flow — CSAC Digital Top
+# Included by corner-specific scripts. Do not run directly.
+
+# Read RTL
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/reset_sync.v
+read_verilog ../rtl/cdc_sync2.v
+read_verilog ../rtl/cdc_bus_sync.v
+read_verilog ../rtl/freq_divider.v
+read_verilog ../rtl/pid_controller.v
+read_verilog ../rtl/lock_detector.v
+read_verilog ../rtl/thermal_controller.v
+read_verilog ../rtl/spi_slave.v
+read_verilog ../rtl/spi_regmap.v
+read_verilog ../rtl/csac_digital_top.v
+
+# Elaborate
+hierarchy -check -top csac_digital_top
+
+# High-level synthesis
+proc
+opt
+fsm
+opt
+memory
+opt
+
+# Technology mapping
+techmap
+opt
