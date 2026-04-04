@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic MEMS Builder // CSAC Three.js Simulation</title>
+    <style>
+        :root {
+            --bg: #050b10;
+            --panel: rgba(8, 18, 25, 0.84);
+            --border: rgba(146, 212, 255, 0.28);
+            --text: #e7eef2;
+            --muted: #8ea4b0;
+            --accent: #95dcff;
+            --warm: #f5bc7f;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: radial-gradient(circle at top, #1d3040 0%, #0a1219 44%, #020508 100%);
+            color: var(--text);
+            font-family: "Bahnschrift SemiCondensed", "Aptos", "Segoe UI Variable Text", "Segoe UI", sans-serif;
+        }
+
+        #scene {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        #error-banner {
+            position: fixed;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            z-index: 500;
+            width: min(780px, calc(100vw - 32px));
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 143, 132, 0.42);
+            background: rgba(52, 14, 14, 0.94);
+            color: #ffd8d3;
+            font: 13px/1.5 "Segoe UI", sans-serif;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            display: none;
+        }
+
+        .hud {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .panel {
+            position: absolute;
+            pointer-events: auto;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background:
+                linear-gradient(180deg, rgba(18, 34, 46, 0.8), rgba(7, 14, 19, 0.92)),
+                var(--panel);
+            backdrop-filter: blur(16px);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.34),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+        }
+
+        .panel::before {
+            content: "";
+            display: block;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(149, 220, 255, 0), rgba(149, 220, 255, 0.85), rgba(245, 188, 127, 0.36), rgba(149, 220, 255, 0));
+        }
+
+        #titlebar {
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(520px, calc(100vw - 32px));
+            padding: 14px 20px 16px;
+            text-align: center;
+        }
+
+        #titlebar h1 {
+            margin: 0;
+            font-size: clamp(22px, 3vw, 34px);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        #titlebar p {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+
+        #left-panel {
+            left: 18px;
+            top: 18px;
+            width: min(232px, calc(100vw - 36px));
+            padding: 0 14px 14px;
+        }
+
+        #right-panel {
+            right: 18px;
+            top: 18px;
+            width: min(248px, calc(100vw - 36px));
+            padding: 0 14px 14px;
+        }
+
+        #bottom-panel {
+            left: 18px;
+            bottom: 18px;
+            width: min(760px, calc(100vw - 36px));
+            padding: 0 18px 18px;
+            display: none;
+        }
+
+        .section-title {
+            margin: 18px 0 12px;
+            font-size: 12px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .stage-buttons,
+        .pipeline-list,
+        .note-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .control-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .stage-button,
+        .control-button {
+            appearance: none;
+            border-radius: 14px;
+            text-align: left;
+            cursor: pointer;
+            color: var(--text);
+            transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        }
+
+        .stage-button {
+            border: 1px solid rgba(149, 220, 255, 0.16);
+            background: linear-gradient(180deg, rgba(149, 220, 255, 0.08), rgba(149, 220, 255, 0.03));
+            padding: 13px 12px;
+        }
+
+        .control-button {
+            border: 1px solid rgba(245, 188, 127, 0.16);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            padding: 12px;
+        }
+
+        .stage-button:hover,
+        .control-button:hover {
+            transform: translateY(-1px);
+            border-color: rgba(149, 220, 255, 0.48);
+        }
+
+        .stage-button.active {
+            border-color: rgba(149, 220, 255, 0.72);
+            background: linear-gradient(180deg, rgba(149, 220, 255, 0.2), rgba(149, 220, 255, 0.08));
+        }
+
+        .control-button.active {
+            border-color: rgba(245, 188, 127, 0.64);
+            background: linear-gradient(180deg, rgba(245, 188, 127, 0.18), rgba(245, 188, 127, 0.08));
+        }
+
+        .stage-button strong,
+        .control-button strong {
+            display: block;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            margin-bottom: 0;
+        }
+
+        .stage-button span,
+        .control-button span {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.42;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .metric-card,
+        .pipeline-stage {
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .metric-card label {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .metric-card strong {
+            display: block;
+            margin-top: 8px;
+            font-size: 21px;
+            line-height: 1.2;
+        }
+
+        .metric-card small,
+        .pipeline-caption,
+        .note-list div,
+        .footer-line {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        #titlebar p,
+        #left-panel .note-list,
+        .stage-button span,
+        .control-button span,
+        .metric-card small,
+        #pipeline-list,
+        #bottom-panel,
+        #right-panel .section-title:last-of-type {
+            display: none;
+        }
+
+        .pipeline-stage-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 12px;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .pipeline-stage-head strong,
+        .note-list strong,
+        .footer-line strong {
+            color: var(--text);
+        }
+
+        .pipeline-bar {
+            margin-top: 10px;
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .pipeline-bar-fill {
+            width: 100%;
+            height: 100%;
+            transform-origin: left center;
+            background: linear-gradient(90deg, rgba(149, 220, 255, 0.72), rgba(245, 188, 127, 0.86));
+        }
+
+        .footer-line {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        @media (max-width: 1200px) {
+            #titlebar,
+            #left-panel,
+            #right-panel,
+            #bottom-panel {
+                width: calc(100vw - 36px);
+            }
+
+            #left-panel {
+                top: auto;
+                bottom: 285px;
+            }
+
+            #right-panel {
+                top: auto;
+                left: 18px;
+                right: auto;
+                bottom: 18px;
+            }
+
+            #bottom-panel {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="scene"></canvas>
+    <div id="error-banner"></div>
+
+    <div class="hud">
+        <div class="panel" id="titlebar">
+            <h1>Atomic MEMS Clock</h1>
+        </div>
+
+        <div class="panel" id="left-panel">
+            <div class="section-title">Build Stages</div>
+            <div class="stage-buttons">
+                <button class="stage-button active" data-stage="0">
+                    <strong>1. MEMS Stack</strong>
+                    <span>Build the 3x3 mm die, glass caps, silicon cavity, and package cutaway.</span>
+                </button>
+                <button class="stage-button" data-stage="1">
+                    <strong>2. Thermal Control</strong>
+                    <span>Show the Pt heater and RTD bringing the cell to the 85 C operating point.</span>
+                </button>
+                <button class="stage-button" data-stage="2">
+                    <strong>3. Optical Pumping</strong>
+                    <span>Inject the 794.979 nm VCSEL beam and dual sidebands through the vapor cell.</span>
+                </button>
+                <button class="stage-button" data-stage="3">
+                    <strong>4. CPT Dark State</strong>
+                    <span>Make the rubidium cloud form the coherent dark state that creates the clock resonance.</span>
+                </button>
+                <button class="stage-button" data-stage="4">
+                    <strong>5. Locked Output</strong>
+                    <span>Close the servo loop and show the stabilized 10 MHz timing output.</span>
+                </button>
+            </div>
+
+            <div class="section-title">Control</div>
+            <div class="control-buttons">
+                <button class="control-button" id="reset-view-button">
+                    <strong>Reset View</strong>
+                </button>
+                <button class="control-button" id="auto-build-button">
+                    <strong>Auto Build</strong>
+                </button>
+            </div>
+        </div>
+
+        <div class="panel" id="right-panel">
+            <div class="section-title">Device State</div>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <label>Stage</label>
+                    <strong id="stage-label">MEMS Stack</strong>
+                    <small id="stage-subtitle">Stacking the silicon cavity and bonded glass windows inside the package.</small>
+                </div>
+                <div class="metric-card">
+                    <label>Cell Temperature</label>
+                    <strong id="temp-label">25.0 C</strong>
+                    <small>Target operating point: 85 C</small>
+                </div>
+                <div class="metric-card">
+                    <label>Detector Power</label>
+                    <strong id="laser-label">0 uW</strong>
+                    <small>Photodiode power after the vapor cell</small>
+                </div>
+                <div class="metric-card">
+                    <label>Output</label>
+                    <strong id="output-label">Offline</strong>
+                    <small>10 MHz reference appears only after servo lock</small>
+                </div>
+            </div>
+
+            <div class="section-title">Atomic Physics</div>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <label>CPT Linewidth</label>
+                    <strong id="linewidth-label">--</strong>
+                    <small>Spec target: under 5 kHz</small>
+                </div>
+                <div class="metric-card">
+                    <label>CPT Contrast</label>
+                    <strong id="contrast-label">--</strong>
+                    <small>Dark-state transparency depth</small>
+                </div>
+                <div class="metric-card">
+                    <label>Sideband Split</label>
+                    <strong id="sideband-label">0 GHz</strong>
+                    <small>Rb-87 hyperfine spacing target: 6.834682610 GHz</small>
+                </div>
+                <div class="metric-card">
+                    <label>ADEV @ 1 s</label>
+                    <strong id="stability-label">--</strong>
+                    <small>Full-chain simulated stability</small>
+                </div>
+            </div>
+
+            <div class="section-title">Assembly Flow</div>
+            <div class="pipeline-list" id="pipeline-list"></div>
+        </div>
+
+        <div class="panel" id="bottom-panel">
+            <div class="section-title">What You Are Seeing</div>
+            <div class="note-list" id="notes-list"></div>
+            <div class="footer-line">
+                Open this file directly in a browser:
+                <strong>atomic_mems_builder.html</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var module = window.module = { exports: {} };
+        var exports = window.exports = window.module.exports;
+    </script>
+    <script src="../micro-radar-fusion/node_modules/three/build/three.cjs"></script>
+    <script>
+        window.THREE = window.module.exports;
+        delete window.module;
+        delete window.exports;
+    </script>
+    <script src="./atomic_mems_builder.js"></script>
+</body>
+</html>
