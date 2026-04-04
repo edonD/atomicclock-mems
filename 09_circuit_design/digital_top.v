@@ -2,12 +2,16 @@
  * CSAC Digital Control Top Module — SKY130
  *
  * Implements:
- *  - Frequency divider: 6.835 GHz → 1 Hz (decade counters)
- *  - PID servo controller
+ *  - Frequency divider: 6.835 GHz → 1 Hz (binary ÷2^33)
+ *  - PID servo controller (clock-enable architecture)
  *  - SPI slave interface for external MCU
  *  - Thermistor ADC input
  *  - DAC output for VCO tuning voltage
  *  - Watchdog / health monitoring
+ *
+ * All sequential logic uses clk_vco as the single clock domain.
+ * Slower update rates use clock-enable pulses derived from the
+ * divider chain — no gated clocks.
  *
  * Authors: CSAC team
  * Date: 2026-03-29
@@ -24,8 +28,8 @@ module csac_digital_top (
     input wire [9:0] temp_adc,           // 10-bit thermistor reading
 
     // DAC outputs (control)
-    output reg [9:0] dac_vco_tune,       // VCO tuning voltage (10-bit)
-    output reg [7:0] dac_heater_power,   // Heater PWM duty cycle
+    output wire [9:0] dac_vco_tune,      // VCO tuning voltage (10-bit)
+    output wire [7:0] dac_heater_power,  // Heater PWM duty cycle
 
     // SPI interface (external MCU control)
     input wire spi_clk,
@@ -44,93 +48,95 @@ module csac_digital_top (
 );
 
     // ─────────────────────────────────────────────────────────────────────────
-    // DECADE DIVIDER: 6.835 GHz → 1 Hz
+    // FREQUENCY DIVIDER: 6.835 GHz → 1 Hz (binary ÷2^33)
     // ─────────────────────────────────────────────────────────────────────────
-
-    // Divide by stages:
-    //   6.835 GHz ÷ 10 = 683.5 MHz
-    //   ÷ 10 = 68.35 MHz
-    //   ÷ 10 = 6.835 MHz
-    //   ÷ 10 = 683.5 kHz
-    //   ÷ 10 = 68.35 kHz
-    //   ÷ 10 = 6.835 kHz
-    //   ÷ 10 = 683.5 Hz
-    //   ÷ 10 = 68.35 Hz
-    //   ÷ 10 = 6.835 Hz
-    //   ÷ 6.835 ≈ 1 Hz (final trim)
-
-    // In practice, use binary counters + logic (faster than decade):
-    // 6.835 GHz ÷ 2^33 ≈ 1 Hz exactly (since 2^33 = 8,589,934,592)
+    // 2^33 = 8,589,934,592 ≈ 6,834,682,611 (0.26% error, trimmed by servo)
 
     reg [32:0] vco_counter;
-    wire [32:0] vco_next = vco_counter + 1;
 
     always @(posedge clk_vco or negedge reset_n) begin
         if (!reset_n)
-            vco_counter <= 0;
+            vco_counter <= 33'd0;
         else
-            vco_counter <= vco_next;
+            vco_counter <= vco_counter + 1'b1;
     end
 
-    // Extract various rate signals for servo loop
-    wire clk_mhz   = vco_counter[23];  // ~6.8 GHz / 2^24 ≈ 0.4 MHz (close enough)
-    wire clk_khz   = vco_counter[16];  // ~6.8 GHz / 2^17 ≈ 50 kHz
-    wire clk_100hz = vco_counter[26];  // ~6.8 GHz / 2^27 ≈ 50 Hz (for servo updates)
+    // ─────────────────────────────────────────────────────────────────────────
+    // CLOCK ENABLE GENERATION (edge detectors on divider bits)
+    // ─────────────────────────────────────────────────────────────────────────
+    // Instead of using counter bits as clocks (gated clock = bad for synthesis),
+    // detect rising edges and generate single-cycle enable pulses.
 
-    // 1 Hz output: count overflow events on high bits
+    reg vco_bit26_d;  // delayed version of vco_counter[26] (~50 Hz)
+    reg vco_bit32_d;  // delayed version of vco_counter[32] (~1 Hz)
+
+    wire ce_servo = vco_counter[26] & ~vco_bit26_d;  // one clk_vco pulse at ~50 Hz
+    wire ce_1hz   = vco_counter[32] & ~vco_bit32_d;  // one clk_vco pulse at ~1 Hz
+
+    always @(posedge clk_vco or negedge reset_n) begin
+        if (!reset_n) begin
+            vco_bit26_d <= 1'b0;
+            vco_bit32_d <= 1'b0;
+        end else begin
+            vco_bit26_d <= vco_counter[26];
+            vco_bit32_d <= vco_counter[32];
+        end
+    end
+
+    // Heartbeat signal for status byte (toggles at ~50 Hz)
+    wire heartbeat = vco_counter[26];
+
+    // 1 Hz output counter
     always @(posedge clk_vco or negedge reset_n) begin
         if (!reset_n)
-            count_1hz <= 0;
-        else if (vco_counter[32])
-            count_1hz <= count_1hz + 1;  // Increments ~1 Hz
+            count_1hz <= 32'd0;
+        else if (ce_1hz)
+            count_1hz <= count_1hz + 1'b1;
     end
 
     // ─────────────────────────────────────────────────────────────────────────
     // SERVO LOOP: PID Controller
     // ─────────────────────────────────────────────────────────────────────────
 
-    // Goal: minimize photodetector signal error
-    // Error = photo_adc - setpoint (setpoint ≈ ~50 to find dark state)
-
-    localparam SETPOINT = 8'd50;  // Aim for this photodetector level
+    localparam [7:0] SETPOINT = 8'd50;
 
     reg [9:0] pid_integral;
     reg [7:0] pid_last_error;
     wire [7:0] current_error = photo_adc - SETPOINT;
 
-    // PID gains (tuned empirically or from simulation in 07_servo_loop)
-    localparam Kp = 4'd2;   // Proportional gain
-    localparam Ki = 4'd1;   // Integral gain
-    localparam Kd = 4'd3;   // Derivative gain
+    localparam [3:0] Kp = 4'd2;
+    localparam [3:0] Ki = 4'd1;
+    localparam [3:0] Kd = 4'd3;
+
+    // Combinational PID terms
+    wire signed [15:0] prop_term = $signed({1'b0, current_error}) * $signed({1'b0, Kp});
+    wire signed [15:0] int_update = $signed({1'b0, pid_integral}) + ($signed({1'b0, current_error}) >>> 2);
+    wire signed [15:0] deriv_term = ($signed({1'b0, current_error}) - $signed({1'b0, pid_last_error})) * $signed({1'b0, Kd});
+    wire signed [15:0] pid_raw = prop_term + $signed({6'b0, pid_integral}) + deriv_term;
 
     reg [9:0] pid_output;
 
-    always @(posedge clk_100hz or negedge reset_n) begin
+    always @(posedge clk_vco or negedge reset_n) begin
         if (!reset_n) begin
-            pid_integral <= 0;
-            pid_last_error <= 0;
-            pid_output <= 9'd512;  // Midpoint (0.9V ≈ 512 on 10-bit DAC)
-        end else begin
-            // Proportional
-            wire signed [9:0] prop_term = $signed(current_error) * Kp;
+            pid_integral <= 10'd0;
+            pid_last_error <= 8'd0;
+            pid_output <= 10'd512;
+        end else if (ce_servo) begin
+            // Integral with antiwindup
+            if (int_update[15])
+                pid_integral <= 10'd0;
+            else if (int_update > 16'sd1023)
+                pid_integral <= 10'd1023;
+            else
+                pid_integral <= int_update[9:0];
 
-            // Integral (with antiwindup)
-            wire [9:0] integral_update = pid_integral + ($signed(current_error) >> 2);
-            pid_integral <= (integral_update > 10'd1023) ? 10'd1023 :
-                            (integral_update < 10'd0)    ? 10'd0    : integral_update;
-
-            // Derivative
-            wire signed [9:0] deriv_term = ($signed(current_error) - $signed(pid_last_error)) * Kd;
-
-            // Combine
-            wire signed [12:0] pid_raw = $signed({1'b0, prop_term}) +
-                                         $signed({1'b0, pid_integral}) +
-                                         $signed(deriv_term);
-
-            // Saturate to DAC range [0, 1023]
-            pid_output <= (pid_raw > 13'd1023) ? 10'd1023 :
-                          (pid_raw < 13'd0)    ? 10'd0    :
-                          pid_raw[9:0];
+            // Saturate PID output to DAC range [0, 1023]
+            if (pid_raw[15])
+                pid_output <= 10'd0;
+            else if (pid_raw > 16'sd1023)
+                pid_output <= 10'd1023;
+            else
+                pid_output <= pid_raw[9:0];
 
             pid_last_error <= current_error;
         end
@@ -138,25 +144,27 @@ module csac_digital_top (
 
     assign dac_vco_tune = pid_output;
 
-    // Lock detection: if error is small for N consecutive updates, declare lock
-    localparam LOCK_THRESHOLD = 8'd10;
-    localparam LOCK_WINDOW = 4'd8;
+    // ─────────────────────────────────────────────────────────────────────────
+    // LOCK DETECTION
+    // ─────────────────────────────────────────────────────────────────────────
+
+    localparam [7:0] LOCK_THRESHOLD = 8'd10;
+    localparam [3:0] LOCK_WINDOW = 4'd8;
     reg [3:0] lock_counter;
 
-    always @(posedge clk_100hz or negedge reset_n) begin
+    always @(posedge clk_vco or negedge reset_n) begin
         if (!reset_n) begin
-            lock_counter <= 0;
+            lock_counter <= 4'd0;
             valid_lock <= 1'b0;
-        end else begin
-            if (($unsigned(current_error) < LOCK_THRESHOLD) &&
-                ($unsigned(current_error) != 8'hFF)) begin
-                if (lock_counter == LOCK_WINDOW) begin
+        end else if (ce_servo) begin
+            if ((current_error < LOCK_THRESHOLD) &&
+                (current_error != 8'hFF)) begin
+                if (lock_counter == LOCK_WINDOW)
                     valid_lock <= 1'b1;
-                end else begin
-                    lock_counter <= lock_counter + 1;
-                end
+                else
+                    lock_counter <= lock_counter + 1'b1;
             end else begin
-                lock_counter <= 0;
+                lock_counter <= 4'd0;
                 valid_lock <= 1'b0;
             end
         end
@@ -166,23 +174,24 @@ module csac_digital_top (
     // THERMAL CONTROL
     // ─────────────────────────────────────────────────────────────────────────
 
-    // Simple proportional heater control
-    // Target: temp_adc ≈ 350 (≈50°C on a −40…85°C sensor)
-    localparam TEMP_SETPOINT = 10'd350;
+    localparam [9:0] TEMP_SETPOINT = 10'd350;
+
+    wire signed [11:0] temp_error = $signed({2'b0, TEMP_SETPOINT}) -
+                                    $signed({2'b0, temp_adc});
+    wire signed [11:0] heater_raw = temp_error >>> 2;
 
     reg [7:0] heater_pwm;
 
-    always @(posedge clk_100hz or negedge reset_n) begin
+    always @(posedge clk_vco or negedge reset_n) begin
         if (!reset_n)
             heater_pwm <= 8'd0;
-        else begin
-            wire signed [11:0] temp_error = $signed({2'b0, TEMP_SETPOINT}) -
-                                            $signed({2'b0, temp_adc});
-            wire signed [10:0] heater_raw = $signed(temp_error) >> 2;  // Simple proportional
-
-            heater_pwm <= (heater_raw > 11'd255) ? 8'd255 :
-                          (heater_raw < 11'd0)   ? 8'd0   :
-                          heater_raw[7:0];
+        else if (ce_servo) begin
+            if (heater_raw[11])
+                heater_pwm <= 8'd0;
+            else if (heater_raw > 12'sd255)
+                heater_pwm <= 8'd255;
+            else
+                heater_pwm <= heater_raw[7:0];
         end
     end
 
@@ -192,40 +201,27 @@ module csac_digital_top (
     // SPI SLAVE INTERFACE
     // ─────────────────────────────────────────────────────────────────────────
 
-    // Register map (read/write from external MCU):
-    // 0x00: count_1hz[31:24]
-    // 0x01: count_1hz[23:16]
-    // 0x02: count_1hz[15:8]
-    // 0x03: count_1hz[7:0]
-    // 0x04: status_byte (R/O)
-    // 0x05: dac_vco_tune[9:2] (R/W)
-    // 0x06: dac_heater_power (R/W)
-    // 0x07: photo_adc (R/O)
-    // 0x08: temp_adc[9:2] (R/O)
-
     reg [7:0] spi_addr_latch;
     reg [7:0] spi_data_out;
     wire [7:0] spi_data_in;
+    wire spi_rx_valid;
 
-    // Simple SPI decoder (teacher-level implementation)
     spi_slave spi_inst (
         .sclk(spi_clk),
         .mosi(spi_mosi),
         .miso(spi_miso),
         .cs_n(spi_cs),
+        .reset_n(reset_n),
         .data_in(spi_data_out),
         .data_out(spi_data_in),
         .rx_valid(spi_rx_valid)
     );
 
-    always @(posedge spi_clk or negedge spi_cs) begin
-        if (!spi_cs)
+    always @(posedge spi_clk or negedge reset_n) begin
+        if (!reset_n)
             spi_addr_latch <= 8'h00;
-        else if (spi_rx_valid) begin
-            // First byte = address, second byte = data
-            // Simplified: alternate between address and data
-            // Real: use a small FSM or protocol framing
-        end
+        else if (!spi_cs && spi_rx_valid)
+            spi_addr_latch <= spi_data_in;
     end
 
     // Read multiplexer
@@ -236,7 +232,7 @@ module csac_digital_top (
             8'h02: spi_data_out = count_1hz[15:8];
             8'h03: spi_data_out = count_1hz[7:0];
             8'h04: spi_data_out = status_byte;
-            8'h05: spi_data_out = {dac_vco_tune[9:2]};
+            8'h05: spi_data_out = dac_vco_tune[9:2];
             8'h06: spi_data_out = dac_heater_power;
             8'h07: spi_data_out = photo_adc;
             8'h08: spi_data_out = temp_adc[9:2];
@@ -252,14 +248,14 @@ module csac_digital_top (
         valid_lock,           // [7] = Servo locked
         1'b0,                 // [6] = Reserved
         1'b0,                 // [5] = Reserved
-        clk_100hz,            // [4] = Heartbeat (toggles)
+        heartbeat,            // [4] = Heartbeat (toggles at ~50 Hz)
         pid_integral[9:6]     // [3:0] = Integral accumulator (diagnostic)
     };
 
 endmodule
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SPI SLAVE SUBMODULE (stub)
+// SPI SLAVE — fully synchronous (no async load)
 // ─────────────────────────────────────────────────────────────────────────────
 
 module spi_slave (
@@ -267,25 +263,30 @@ module spi_slave (
     input wire mosi,
     output wire miso,
     input wire cs_n,
+    input wire reset_n,
     input wire [7:0] data_in,
     output wire [7:0] data_out,
     output wire rx_valid
 );
 
-    // Simplified SPI: shift in 8 bits, shift out 8 bits
     reg [7:0] rx_shift, tx_shift;
     reg [2:0] bit_count;
-    wire bit_clk_edge = sclk;  // Simplified; real design uses edge detection
 
-    always @(posedge bit_clk_edge or posedge cs_n) begin
-        if (cs_n) begin
-            bit_count <= 0;
+    always @(posedge sclk or negedge reset_n) begin
+        if (!reset_n) begin
+            bit_count <= 3'd0;
+            tx_shift <= 8'd0;
+            rx_shift <= 8'd0;
+        end else if (cs_n) begin
+            // Idle: preload TX shift register
+            bit_count <= 3'd0;
             tx_shift <= data_in;
-            rx_shift <= 0;
+            rx_shift <= 8'd0;
         end else begin
+            // Active transfer
             rx_shift <= {rx_shift[6:0], mosi};
             tx_shift <= {tx_shift[6:0], 1'b0};
-            bit_count <= bit_count + 1;
+            bit_count <= bit_count + 1'b1;
         end
     end
 

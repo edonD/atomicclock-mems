@@ -1,0 +1,41 @@
+# Yosys Synthesis Script for CSAC Digital Top — SKY130
+# Synthesizes digital_top.v → gate-level netlist using SKY130 standard cells
+
+# Read RTL
+read_verilog digital_top.v
+
+# Elaborate top module
+hierarchy -check -top csac_digital_top
+
+# High-level synthesis passes
+proc
+opt
+fsm
+opt
+memory
+opt
+
+# Technology mapping
+techmap
+opt
+
+# Map flip-flops to SKY130 DFF cells
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+# Map combinational logic to SKY130 cells (ABC logic synthesis)
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+# Clean up
+opt_clean -purge
+
+# Reports
+stat -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+# Check for issues
+check
+
+# Write outputs
+write_verilog -noattr digital_top_synth.v
+write_json digital_top_synth.json
+
+# Done
