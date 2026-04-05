@@ -18,7 +18,7 @@ The readout IC is a mixed-signal design on a 3x3 mm die with the following block
 
 | Block | Function | Status |
 |-------|----------|--------|
-| **VCO** | 6.835 GHz LC-tank oscillator, cross-coupled NMOS, varactor tuning | SPICE netlist exists |
+| **VCO** | 6.835 GHz LC-tank oscillator, cross-coupled NMOS, varactor tuning | **Validated** — 6.834 GHz, 1.57 mW, all specs met ([details](vco_design/README.md)) |
 | **TIA** | Transimpedance amplifier, 1 MOhm gain, photodiode readout | SPICE netlist exists |
 | **10-bit DAC** | Drives VCO tuning voltage (0-1.8V) | Not yet designed |
 | **8-bit DAC** | Drives heater PWM power | Not yet designed |
