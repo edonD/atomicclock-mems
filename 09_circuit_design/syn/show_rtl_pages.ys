@@ -1,0 +1,92 @@
+# Professional RTL-level schematics — one per module
+# Shows architectural building blocks: adders, muxes, registers, comparators
+# NOT gate-level — this is what you present in design reviews
+
+# ── Page 1: Top Level (structural) ─────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/reset_sync.v
+read_verilog ../rtl/cdc_sync2.v
+read_verilog ../rtl/cdc_bus_sync.v
+read_verilog ../rtl/freq_divider.v
+read_verilog ../rtl/pid_controller.v
+read_verilog ../rtl/lock_detector.v
+read_verilog ../rtl/thermal_controller.v
+read_verilog ../rtl/spi_slave.v
+read_verilog ../rtl/spi_regmap.v
+read_verilog ../rtl/csac_digital_top.v
+hierarchy -check -top csac_digital_top
+proc; opt
+show -format dot -prefix ../reports/page1_top_level -width -colors 2 -stretch csac_digital_top
+
+design -reset
+
+# ── Page 2: Frequency Divider ──────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/freq_divider.v
+hierarchy -check -top freq_divider -chparam DIV_WIDTH 8 -chparam SERVO_BIT 4 -chparam ONEHZ_BIT 6
+proc; opt
+show -format dot -prefix ../reports/page2_freq_divider -width -colors 2 -stretch
+
+design -reset
+
+# ── Page 3: PID Controller ─────────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/pid_controller.v
+hierarchy -check -top pid_controller
+proc; opt
+show -format dot -prefix ../reports/page3_pid_controller -width -colors 2 -stretch
+
+design -reset
+
+# ── Page 4: Lock Detector ──────────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/lock_detector.v
+hierarchy -check -top lock_detector
+proc; opt
+show -format dot -prefix ../reports/page4_lock_detector -width -colors 2 -stretch
+
+design -reset
+
+# ── Page 5: Thermal Controller ─────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/thermal_controller.v
+hierarchy -check -top thermal_controller
+proc; opt
+show -format dot -prefix ../reports/page5_thermal_ctrl -width -colors 2 -stretch
+
+design -reset
+
+# ── Page 6: SPI Slave ──────────────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/spi_slave.v
+hierarchy -check -top spi_slave
+proc; opt
+show -format dot -prefix ../reports/page6_spi_slave -width -colors 2 -stretch
+
+design -reset
+
+# ── Page 7: SPI Register Map ──────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/spi_regmap.v
+hierarchy -check -top spi_regmap
+proc; opt
+show -format dot -prefix ../reports/page7_spi_regmap -width -colors 2 -stretch
+
+design -reset
+
+# ── Page 8: CDC Bus Synchronizer ──────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/cdc_sync2.v
+read_verilog ../rtl/cdc_bus_sync.v
+hierarchy -check -top cdc_bus_sync -chparam WIDTH 8
+proc; opt
+show -format dot -prefix ../reports/page8_cdc_bus_sync -width -colors 2 -stretch
+
+design -reset
+
+# ── Page 9: Reset Synchronizer ────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/reset_sync.v
+hierarchy -check -top reset_sync
+proc; opt
+show -format dot -prefix ../reports/page9_reset_sync -width -colors 2 -stretch

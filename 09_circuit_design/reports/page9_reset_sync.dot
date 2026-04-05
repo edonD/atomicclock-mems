@@ -1,0 +1,21 @@
+digraph "reset_sync" {
+label="reset_sync";
+rankdir="LR";
+remincross=true;
+n1 [ shape=octagon, label="clk", color="black", fontcolor="black" ];
+n2 [ shape=octagon, label="rst_async_n", color="black", fontcolor="black" ];
+n3 [ shape=octagon, label="rst_sync_n", color="black", fontcolor="black" ];
+n4 [ shape=diamond, label="sync_chain", color="black", fontcolor="black" ];
+{ rank="source"; n1; n2;}
+{ rank="sink"; n3;}
+c9 [ shape=record, label="{{<p5> ARST|<p6> CLK|<p7> D}|$401\n$adff|{<p8> Q}}",  ];
+x0 [ shape=record, style=rounded, label="<s1> 0:0 - 1:1 |1 -&gt; 0:0 ", colorscheme="dark28", color="8", fontcolor="8" ];
+x0:e -> c9:p7:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, colorscheme="dark28", color="8", fontcolor="8", style="setlinewidth(3)", label="<2>"];
+x1 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 ", colorscheme="dark28", color="8", fontcolor="8" ];
+n1:e -> c9:p6:w [colorscheme="dark28", color="4", fontcolor="4", label=""];
+n2:e -> c9:p5:w [colorscheme="dark28", color="6", fontcolor="6", label=""];
+x1:e -> n3:w [colorscheme="dark28", color="5", fontcolor="5", label=""];
+c9:p8:e -> n4:w [colorscheme="dark28", color="2", fontcolor="2", style="setlinewidth(3)", label="<2>"];
+n4:e -> x0:s1:w [colorscheme="dark28", color="2", fontcolor="2", label=""];
+n4:e -> x1:s0:w [colorscheme="dark28", color="2", fontcolor="2", label=""];
+}

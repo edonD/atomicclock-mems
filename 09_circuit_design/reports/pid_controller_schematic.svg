@@ -1,0 +1,1310 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:s="https://github.com/nturley/netlistsvg" width="1542" height="1443">
+  <style>svg {
+    stroke:#000;
+    fill:none;
+  }
+  text {
+    fill:#000;
+    stroke:none;
+    font-size:10px;
+    font-weight: bold;
+    font-family: "Courier New", monospace;
+  }
+  .nodelabel {
+    text-anchor: middle;
+  }
+  .inputPortLabel {
+    text-anchor: end;
+  }
+  .splitjoinBody {
+    fill:#000;
+  }</style>
+  <g s:type="generic" transform="translate(660,110)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1734">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1734" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1734"/>
+  </g>
+  <g s:type="generic" transform="translate(954,110)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1735">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1735" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1735"/>
+  </g>
+  <g s:type="generic" transform="translate(1248,110)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1736">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1736" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1736"/>
+  </g>
+  <g s:type="generic" transform="translate(12,133)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1737">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1737" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1737"/>
+  </g>
+  <g s:type="generic" transform="translate(306,133)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1738">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1738" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1738"/>
+  </g>
+  <g s:type="generic" transform="translate(600,133)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1739">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1739" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1739"/>
+  </g>
+  <g s:type="generic" transform="translate(894,133)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1740">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1740" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1740"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,133)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1741">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1741" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1741"/>
+  </g>
+  <g s:type="generic" transform="translate(12,156)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1742">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1742" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1742"/>
+  </g>
+  <g s:type="generic" transform="translate(306,156)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1743">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1743" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1743"/>
+  </g>
+  <g s:type="generic" transform="translate(600,156)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1744">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1744" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1744"/>
+  </g>
+  <g s:type="generic" transform="translate(894,156)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1745">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1745" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1745"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,156)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1746">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1746" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1746"/>
+  </g>
+  <g s:type="generic" transform="translate(12,179)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1747">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1747" s:attribute="ref">sky130_fd_sc_hd__or3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1747"/>
+  </g>
+  <g s:type="generic" transform="translate(306,179)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1748">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1748" s:attribute="ref">sky130_fd_sc_hd__nand3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1748"/>
+  </g>
+  <g s:type="generic" transform="translate(600,179)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1749">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1749" s:attribute="ref">sky130_fd_sc_hd__a31oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1749"/>
+  </g>
+  <g s:type="generic" transform="translate(894,179)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1750">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1750" s:attribute="ref">sky130_fd_sc_hd__nand2b_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1750"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,179)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1751">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1751" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1751"/>
+  </g>
+  <g s:type="generic" transform="translate(12,202)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1752">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1752" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1752"/>
+  </g>
+  <g s:type="generic" transform="translate(306,202)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1753">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1753" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1753"/>
+  </g>
+  <g s:type="generic" transform="translate(600,202)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1754">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1754" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1754"/>
+  </g>
+  <g s:type="generic" transform="translate(894,202)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1755">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1755" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1755"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,202)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1756">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1756" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1756"/>
+  </g>
+  <g s:type="generic" transform="translate(12,225)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1757">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1757" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1757"/>
+  </g>
+  <g s:type="generic" transform="translate(306,225)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1758">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1758" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1758"/>
+  </g>
+  <g s:type="generic" transform="translate(600,225)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1759">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1759" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1759"/>
+  </g>
+  <g s:type="generic" transform="translate(894,225)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1760">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1760" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1760"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,225)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1761">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1761" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1761"/>
+  </g>
+  <g s:type="generic" transform="translate(12,248)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1762">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1762" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1762"/>
+  </g>
+  <g s:type="generic" transform="translate(306,248)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1763">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1763" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1763"/>
+  </g>
+  <g s:type="generic" transform="translate(600,248)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1764">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1764" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1764"/>
+  </g>
+  <g s:type="generic" transform="translate(894,248)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1765">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1765" s:attribute="ref">sky130_fd_sc_hd__and2_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1765"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,248)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1766">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1766" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1766"/>
+  </g>
+  <g s:type="generic" transform="translate(12,271)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1767">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1767" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1767"/>
+  </g>
+  <g s:type="generic" transform="translate(306,271)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1768">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1768" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1768"/>
+  </g>
+  <g s:type="generic" transform="translate(600,271)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1769">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1769" s:attribute="ref">sky130_fd_sc_hd__and2_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1769"/>
+  </g>
+  <g s:type="generic" transform="translate(894,271)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1770">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1770" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1770"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,271)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1771">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1771" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1771"/>
+  </g>
+  <g s:type="generic" transform="translate(12,294)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1772">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1772" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1772"/>
+  </g>
+  <g s:type="generic" transform="translate(306,294)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1773">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1773" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1773"/>
+  </g>
+  <g s:type="generic" transform="translate(600,294)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1774">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1774" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1774"/>
+  </g>
+  <g s:type="generic" transform="translate(894,294)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1775">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1775" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1775"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,294)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1776">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1776" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1776"/>
+  </g>
+  <g s:type="generic" transform="translate(12,317)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1777">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1777" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1777"/>
+  </g>
+  <g s:type="generic" transform="translate(306,317)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1778">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1778" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1778"/>
+  </g>
+  <g s:type="generic" transform="translate(600,317)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1779">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1779" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1779"/>
+  </g>
+  <g s:type="generic" transform="translate(894,317)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1780">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1780" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1780"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,317)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1781">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1781" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1781"/>
+  </g>
+  <g s:type="generic" transform="translate(12,340)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1782">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1782" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1782"/>
+  </g>
+  <g s:type="generic" transform="translate(306,340)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1783">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1783" s:attribute="ref">sky130_fd_sc_hd__nand3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1783"/>
+  </g>
+  <g s:type="generic" transform="translate(600,340)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1784">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1784" s:attribute="ref">sky130_fd_sc_hd__and2_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1784"/>
+  </g>
+  <g s:type="generic" transform="translate(894,340)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1785">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1785" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1785"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,340)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1786">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1786" s:attribute="ref">sky130_fd_sc_hd__a211oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1786"/>
+  </g>
+  <g s:type="generic" transform="translate(12,363)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1787">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1787" s:attribute="ref">sky130_fd_sc_hd__lpflow_inputiso1p_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1787"/>
+  </g>
+  <g s:type="generic" transform="translate(306,363)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1788">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1788" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1788"/>
+  </g>
+  <g s:type="generic" transform="translate(600,363)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1789">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1789" s:attribute="ref">sky130_fd_sc_hd__o31ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1789"/>
+  </g>
+  <g s:type="generic" transform="translate(894,363)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1790">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1790" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1790"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,363)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1791">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1791" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1791"/>
+  </g>
+  <g s:type="generic" transform="translate(12,386)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1792">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1792" s:attribute="ref">sky130_fd_sc_hd__o31ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1792"/>
+  </g>
+  <g s:type="generic" transform="translate(306,386)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1793">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1793" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1793"/>
+  </g>
+  <g s:type="generic" transform="translate(600,386)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1794">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1794" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1794"/>
+  </g>
+  <g s:type="generic" transform="translate(894,386)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1795">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1795" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1795"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,386)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1796">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1796" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1796"/>
+  </g>
+  <g s:type="generic" transform="translate(12,409)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1797">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1797" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1797"/>
+  </g>
+  <g s:type="generic" transform="translate(306,409)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1798">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1798" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1798"/>
+  </g>
+  <g s:type="generic" transform="translate(600,409)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1799">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1799" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1799"/>
+  </g>
+  <g s:type="generic" transform="translate(894,409)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1800">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1800" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1800"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,409)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1801">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1801" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1801"/>
+  </g>
+  <g s:type="generic" transform="translate(12,432)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1802">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1802" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1802"/>
+  </g>
+  <g s:type="generic" transform="translate(306,432)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1803">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1803" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1803"/>
+  </g>
+  <g s:type="generic" transform="translate(600,432)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1804">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1804" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1804"/>
+  </g>
+  <g s:type="generic" transform="translate(894,432)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1805">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1805" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1805"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,432)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1806">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1806" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1806"/>
+  </g>
+  <g s:type="generic" transform="translate(12,455)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1807">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1807" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1807"/>
+  </g>
+  <g s:type="generic" transform="translate(306,455)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1808">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1808" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1808"/>
+  </g>
+  <g s:type="generic" transform="translate(600,455)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1809">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1809" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1809"/>
+  </g>
+  <g s:type="generic" transform="translate(894,455)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1810">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1810" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1810"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,455)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1811">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1811" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1811"/>
+  </g>
+  <g s:type="generic" transform="translate(12,478)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1812">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1812" s:attribute="ref">sky130_fd_sc_hd__o21a_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1812"/>
+  </g>
+  <g s:type="generic" transform="translate(306,478)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1813">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1813" s:attribute="ref">sky130_fd_sc_hd__mux2i_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1813"/>
+  </g>
+  <g s:type="generic" transform="translate(600,478)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1814">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1814" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1814"/>
+  </g>
+  <g s:type="generic" transform="translate(894,478)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1815">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1815" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1815"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,478)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1816">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1816" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1816"/>
+  </g>
+  <g s:type="generic" transform="translate(12,501)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1817">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1817" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1817"/>
+  </g>
+  <g s:type="generic" transform="translate(306,501)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1818">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1818" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1818"/>
+  </g>
+  <g s:type="generic" transform="translate(600,501)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1819">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1819" s:attribute="ref">sky130_fd_sc_hd__a21o_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1819"/>
+  </g>
+  <g s:type="generic" transform="translate(894,501)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1820">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1820" s:attribute="ref">sky130_fd_sc_hd__mux2i_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1820"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,501)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1821">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1821" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1821"/>
+  </g>
+  <g s:type="generic" transform="translate(12,524)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1822">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1822" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1822"/>
+  </g>
+  <g s:type="generic" transform="translate(306,524)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1823">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1823" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1823"/>
+  </g>
+  <g s:type="generic" transform="translate(600,524)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1824">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1824" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1824"/>
+  </g>
+  <g s:type="generic" transform="translate(894,524)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1825">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1825" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1825"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,524)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1826">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1826" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1826"/>
+  </g>
+  <g s:type="generic" transform="translate(12,547)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1827">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1827" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1827"/>
+  </g>
+  <g s:type="generic" transform="translate(306,547)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1828">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1828" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1828"/>
+  </g>
+  <g s:type="generic" transform="translate(600,547)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1829">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1829" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1829"/>
+  </g>
+  <g s:type="generic" transform="translate(894,547)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1830">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1830" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1830"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,547)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1831">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1831" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1831"/>
+  </g>
+  <g s:type="generic" transform="translate(12,570)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1832">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1832" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1832"/>
+  </g>
+  <g s:type="generic" transform="translate(306,570)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1833">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1833" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1833"/>
+  </g>
+  <g s:type="generic" transform="translate(600,570)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1834">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1834" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1834"/>
+  </g>
+  <g s:type="generic" transform="translate(894,570)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1835">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1835" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1835"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,570)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1836">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1836" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1836"/>
+  </g>
+  <g s:type="generic" transform="translate(12,593)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1837">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1837" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1837"/>
+  </g>
+  <g s:type="generic" transform="translate(306,593)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1838">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1838" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1838"/>
+  </g>
+  <g s:type="generic" transform="translate(600,593)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1839">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1839" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1839"/>
+  </g>
+  <g s:type="generic" transform="translate(894,593)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1840">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1840" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1840"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,593)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1841">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1841" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1841"/>
+  </g>
+  <g s:type="generic" transform="translate(12,616)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1842">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1842" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1842"/>
+  </g>
+  <g s:type="generic" transform="translate(306,616)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1843">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1843" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1843"/>
+  </g>
+  <g s:type="generic" transform="translate(600,616)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1844">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1844" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1844"/>
+  </g>
+  <g s:type="generic" transform="translate(894,616)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1845">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1845" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1845"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,616)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1846">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1846" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1846"/>
+  </g>
+  <g s:type="generic" transform="translate(12,639)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1847">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1847" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1847"/>
+  </g>
+  <g s:type="generic" transform="translate(306,639)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1848">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1848" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1848"/>
+  </g>
+  <g s:type="generic" transform="translate(600,639)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1849">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1849" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1849"/>
+  </g>
+  <g s:type="generic" transform="translate(894,639)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1850">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1850" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1850"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,639)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1851">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1851" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1851"/>
+  </g>
+  <g s:type="generic" transform="translate(12,662)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1852">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1852" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1852"/>
+  </g>
+  <g s:type="generic" transform="translate(306,662)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1853">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1853" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1853"/>
+  </g>
+  <g s:type="generic" transform="translate(600,662)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1854">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1854" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1854"/>
+  </g>
+  <g s:type="generic" transform="translate(894,662)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1855">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1855" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1855"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,662)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1856">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1856" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1856"/>
+  </g>
+  <g s:type="generic" transform="translate(12,685)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1857">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1857" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1857"/>
+  </g>
+  <g s:type="generic" transform="translate(306,685)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1858">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1858" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1858"/>
+  </g>
+  <g s:type="generic" transform="translate(600,685)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1859">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1859" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1859"/>
+  </g>
+  <g s:type="generic" transform="translate(894,685)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1860">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1860" s:attribute="ref">sky130_fd_sc_hd__and2_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1860"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,685)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1861">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1861" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1861"/>
+  </g>
+  <g s:type="generic" transform="translate(12,708)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1862">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1862" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1862"/>
+  </g>
+  <g s:type="generic" transform="translate(306,708)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1863">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1863" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1863"/>
+  </g>
+  <g s:type="generic" transform="translate(600,708)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1864">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1864" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1864"/>
+  </g>
+  <g s:type="generic" transform="translate(894,708)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1865">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1865" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1865"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,708)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1866">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1866" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1866"/>
+  </g>
+  <g s:type="generic" transform="translate(12,731)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1867">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1867" s:attribute="ref">sky130_fd_sc_hd__a21o_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1867"/>
+  </g>
+  <g s:type="generic" transform="translate(306,731)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1868">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1868" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1868"/>
+  </g>
+  <g s:type="generic" transform="translate(600,731)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1869">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1869" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1869"/>
+  </g>
+  <g s:type="generic" transform="translate(894,731)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1870">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1870" s:attribute="ref">sky130_fd_sc_hd__nor3b_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1870"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,731)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1871">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1871" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1871"/>
+  </g>
+  <g s:type="generic" transform="translate(12,754)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1872">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1872" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1872"/>
+  </g>
+  <g s:type="generic" transform="translate(306,754)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1873">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1873" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1873"/>
+  </g>
+  <g s:type="generic" transform="translate(600,754)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1874">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1874" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1874"/>
+  </g>
+  <g s:type="generic" transform="translate(894,754)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1875">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1875" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1875"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,754)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1876">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1876" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1876"/>
+  </g>
+  <g s:type="generic" transform="translate(12,777)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1877">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1877" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1877"/>
+  </g>
+  <g s:type="generic" transform="translate(306,777)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1878">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1878" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1878"/>
+  </g>
+  <g s:type="generic" transform="translate(600,777)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1879">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1879" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1879"/>
+  </g>
+  <g s:type="generic" transform="translate(894,777)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1880">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1880" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1880"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,777)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1881">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1881" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1881"/>
+  </g>
+  <g s:type="generic" transform="translate(12,800)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1882">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1882" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1882"/>
+  </g>
+  <g s:type="generic" transform="translate(306,800)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1883">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1883" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1883"/>
+  </g>
+  <g s:type="generic" transform="translate(600,800)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1884">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1884" s:attribute="ref">sky130_fd_sc_hd__nand3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1884"/>
+  </g>
+  <g s:type="generic" transform="translate(894,800)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1885">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1885" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1885"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,800)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1886">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1886" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1886"/>
+  </g>
+  <g s:type="generic" transform="translate(12,823)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1887">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1887" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1887"/>
+  </g>
+  <g s:type="generic" transform="translate(306,823)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1888">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1888" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1888"/>
+  </g>
+  <g s:type="generic" transform="translate(600,823)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1889">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1889" s:attribute="ref">sky130_fd_sc_hd__nand3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1889"/>
+  </g>
+  <g s:type="generic" transform="translate(894,823)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1890">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1890" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1890"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,823)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1891">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1891" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1891"/>
+  </g>
+  <g s:type="generic" transform="translate(12,846)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1892">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1892" s:attribute="ref">sky130_fd_sc_hd__nand2b_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1892"/>
+  </g>
+  <g s:type="generic" transform="translate(306,846)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1893">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1893" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1893"/>
+  </g>
+  <g s:type="generic" transform="translate(600,846)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1894">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1894" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1894"/>
+  </g>
+  <g s:type="generic" transform="translate(894,846)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1895">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1895" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1895"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,846)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1896">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1896" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1896"/>
+  </g>
+  <g s:type="generic" transform="translate(12,869)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1897">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1897" s:attribute="ref">sky130_fd_sc_hd__nand3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1897"/>
+  </g>
+  <g s:type="generic" transform="translate(306,869)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1898">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1898" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1898"/>
+  </g>
+  <g s:type="generic" transform="translate(600,869)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1899">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1899" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1899"/>
+  </g>
+  <g s:type="generic" transform="translate(894,869)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1900">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1900" s:attribute="ref">sky130_fd_sc_hd__nand4_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1900"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,869)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1901">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1901" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1901"/>
+  </g>
+  <g s:type="generic" transform="translate(12,892)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1902">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1902" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1902"/>
+  </g>
+  <g s:type="generic" transform="translate(306,892)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1903">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1903" s:attribute="ref">sky130_fd_sc_hd__nand3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1903"/>
+  </g>
+  <g s:type="generic" transform="translate(600,892)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1904">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1904" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1904"/>
+  </g>
+  <g s:type="generic" transform="translate(894,892)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1905">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1905" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1905"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,892)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1906">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1906" s:attribute="ref">sky130_fd_sc_hd__nand2b_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1906"/>
+  </g>
+  <g s:type="generic" transform="translate(12,915)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1907">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1907" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1907"/>
+  </g>
+  <g s:type="generic" transform="translate(306,915)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1908">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1908" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1908"/>
+  </g>
+  <g s:type="generic" transform="translate(600,915)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1909">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1909" s:attribute="ref">sky130_fd_sc_hd__nand3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1909"/>
+  </g>
+  <g s:type="generic" transform="translate(894,915)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1910">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1910" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1910"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,915)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1911">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1911" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1911"/>
+  </g>
+  <g s:type="generic" transform="translate(12,938)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1912">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1912" s:attribute="ref">sky130_fd_sc_hd__nand2b_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1912"/>
+  </g>
+  <g s:type="generic" transform="translate(306,938)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1913">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1913" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1913"/>
+  </g>
+  <g s:type="generic" transform="translate(600,938)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1914">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1914" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1914"/>
+  </g>
+  <g s:type="generic" transform="translate(894,938)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1915">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1915" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1915"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,938)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1916">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1916" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1916"/>
+  </g>
+  <g s:type="generic" transform="translate(12,961)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1917">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1917" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1917"/>
+  </g>
+  <g s:type="generic" transform="translate(306,961)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1918">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1918" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1918"/>
+  </g>
+  <g s:type="generic" transform="translate(600,961)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1919">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1919" s:attribute="ref">sky130_fd_sc_hd__and3b_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1919"/>
+  </g>
+  <g s:type="generic" transform="translate(894,961)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1920">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1920" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1920"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,961)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1921">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1921" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1921"/>
+  </g>
+  <g s:type="generic" transform="translate(12,984)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1922">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1922" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1922"/>
+  </g>
+  <g s:type="generic" transform="translate(306,984)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1923">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1923" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1923"/>
+  </g>
+  <g s:type="generic" transform="translate(600,984)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1924">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1924" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1924"/>
+  </g>
+  <g s:type="generic" transform="translate(894,984)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1925">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1925" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1925"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,984)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1926">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1926" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1926"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1007)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1927">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1927" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1927"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1007)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1928">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1928" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1928"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1007)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1929">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1929" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1929"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1007)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1930">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1930" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1930"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1007)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1931">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1931" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1931"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1030)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1932">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1932" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1932"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1030)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1933">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1933" s:attribute="ref">sky130_fd_sc_hd__a41oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1933"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1030)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1934">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1934" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1934"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1030)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1935">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1935" s:attribute="ref">sky130_fd_sc_hd__nor3b_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1935"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1030)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1936">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1936" s:attribute="ref">sky130_fd_sc_hd__o21a_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1936"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1053)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1937">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1937" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1937"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1053)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1938">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1938" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1938"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1053)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1939">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1939" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1939"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1053)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1940">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1940" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1940"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1053)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1941">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1941" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1941"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1076)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1942">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1942" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1942"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1076)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1943">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1943" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1943"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1076)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1944">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1944" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1944"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1076)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1945">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1945" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1945"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1076)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1946">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1946" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1946"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1099)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1947">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1947" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1947"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1099)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1948">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1948" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1948"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1099)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1949">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1949" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1949"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1099)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1950">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1950" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1950"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1099)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1951">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1951" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1951"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1122)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1952">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1952" s:attribute="ref">sky130_fd_sc_hd__a31oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1952"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1122)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1953">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1953" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1953"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1122)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1954">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1954" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1954"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1122)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1955">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1955" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1955"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1122)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1956">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1956" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1956"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1145)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1957">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1957" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1957"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1145)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1958">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1958" s:attribute="ref">sky130_fd_sc_hd__xnor3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1958"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1145)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1959">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1959" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1959"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1145)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1960">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1960" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1960"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1145)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1961">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1961" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1961"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1168)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1962">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1962" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1962"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1168)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1963">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1963" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1963"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1168)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1964">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1964" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1964"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1168)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1965">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1965" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1965"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1168)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1966">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1966" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1966"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1191)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1967">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1967" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1967"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1191)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1968">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1968" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1968"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1191)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1969">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1969" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1969"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1191)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1970">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1970" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1970"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1191)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1971">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1971" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1971"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1214)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1972">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1972" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1972"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1214)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1973">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1973" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1973"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1214)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1974">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1974" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1974"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1214)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1975">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1975" s:attribute="ref">sky130_fd_sc_hd__maj3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1975"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1214)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1976">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1976" s:attribute="ref">sky130_fd_sc_hd__nor3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1976"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1237)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1977">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1977" s:attribute="ref">sky130_fd_sc_hd__nor3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1977"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1237)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1978">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1978" s:attribute="ref">sky130_fd_sc_hd__o21ba_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1978"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1237)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1979">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1979" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1979"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1237)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1980">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1980" s:attribute="ref">sky130_fd_sc_hd__o21a_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1980"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1237)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1981">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1981" s:attribute="ref">sky130_fd_sc_hd__o22ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1981"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1260)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1982">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1982" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1982"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1260)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1983">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1983" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1983"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1260)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1984">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1984" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1984"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1260)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1985">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1985" s:attribute="ref">sky130_fd_sc_hd__xnor3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1985"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1260)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1986">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1986" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1986"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1283)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1987">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1987" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1987"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1283)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1988">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1988" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1988"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1283)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1989">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1989" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1989"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1283)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1990">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1990" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1990"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1283)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1991">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1991" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1991"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1306)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1992">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1992" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1992"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1306)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1993">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1993" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1993"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1306)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1994">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1994" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1994"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1306)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1995">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1995" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1995"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1306)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1996">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1996" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1996"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1329)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1997">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1997" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1997"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1329)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1998">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1998" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1998"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1329)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1999">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1999" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$1999"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1329)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2000">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2000" s:attribute="ref">sky130_fd_sc_hd__xnor3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2000"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1329)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2001">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2001" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2001"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1352)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2002">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2002" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2002"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1352)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2003">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2003" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2003"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1352)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2004">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2004" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2004"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1352)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2005">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2005" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2005"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1352)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2006">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2006" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2006"/>
+  </g>
+  <g s:type="generic" transform="translate(12,1375)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2007">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2007" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2007"/>
+  </g>
+  <g s:type="generic" transform="translate(306,1375)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2008">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2008" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2008"/>
+  </g>
+  <g s:type="generic" transform="translate(600,1375)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2009">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2009" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2009"/>
+  </g>
+  <g s:type="generic" transform="translate(894,1375)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2010">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2010" s:attribute="ref">sky130_fd_sc_hd__o211ai_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2010"/>
+  </g>
+  <g s:type="generic" transform="translate(1188,1375)" s:width="30" s:height="40" id="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2011">
+    <text x="15" y="-4" class="nodelabel cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2011" s:attribute="ref">sky130_fd_sc_hd__o21ai_0</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$1733$auto$blifparse.cc:386:parse_blif$2011"/>
+  </g>
+  <g s:type="generic" transform="translate(192,22)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$110">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$110" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$110"/>
+  </g>
+  <g s:type="generic" transform="translate(354,22)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$111">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$111" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$111"/>
+  </g>
+  <g s:type="generic" transform="translate(516,22)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$112">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$112" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$112"/>
+  </g>
+  <g s:type="generic" transform="translate(678,22)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$113">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$113" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$113"/>
+  </g>
+  <g s:type="generic" transform="translate(840,22)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$114">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$114" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$114"/>
+  </g>
+  <g s:type="generic" transform="translate(1002,22)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$115">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$115" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$115"/>
+  </g>
+  <g s:type="generic" transform="translate(1164,22)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$116">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$116" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$116"/>
+  </g>
+  <g s:type="generic" transform="translate(1326,22)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$117">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$117" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$117"/>
+  </g>
+  <g s:type="generic" transform="translate(12,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$118">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$118" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$118"/>
+  </g>
+  <g s:type="generic" transform="translate(174,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$119">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$119" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$119"/>
+  </g>
+  <g s:type="generic" transform="translate(336,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$120">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$120" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$120"/>
+  </g>
+  <g s:type="generic" transform="translate(498,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$203">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$203" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$203"/>
+  </g>
+  <g s:type="generic" transform="translate(660,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$204">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$204" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$204"/>
+  </g>
+  <g s:type="generic" transform="translate(822,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$205">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$205" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$205"/>
+  </g>
+  <g s:type="generic" transform="translate(984,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$206">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$206" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$206"/>
+  </g>
+  <g s:type="generic" transform="translate(1146,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$207">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$207" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$207"/>
+  </g>
+  <g s:type="generic" transform="translate(1308,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$208">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$208" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$208"/>
+  </g>
+  <g s:type="generic" transform="translate(12,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$209">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$209" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$209"/>
+  </g>
+  <g s:type="generic" transform="translate(174,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$210">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$210" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$210"/>
+  </g>
+  <g s:type="generic" transform="translate(336,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$211">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$211" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$211"/>
+  </g>
+  <g s:type="generic" transform="translate(498,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$212">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$212" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$212"/>
+  </g>
+  <g s:type="generic" transform="translate(660,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$213">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$213" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$213"/>
+  </g>
+  <g s:type="generic" transform="translate(822,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$214">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$214" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$214"/>
+  </g>
+  <g s:type="generic" transform="translate(984,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$215">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$215" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$215"/>
+  </g>
+  <g s:type="generic" transform="translate(1146,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$216">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$216" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$216"/>
+  </g>
+  <g s:type="generic" transform="translate(1308,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$217">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$217" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$217"/>
+  </g>
+  <g s:type="generic" transform="translate(12,110)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$218">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$218" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$218"/>
+  </g>
+  <g s:type="generic" transform="translate(174,110)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$219">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$219" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$219"/>
+  </g>
+  <g s:type="generic" transform="translate(336,110)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$220">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$220" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$220"/>
+  </g>
+  <g s:type="generic" transform="translate(498,110)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$221">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$221" s:attribute="ref">sky130_fd_sc_hd__dfstp_2</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$221"/>
+  </g>
+  <g s:type="inputExt" transform="translate(12,22)" s:width="30" s:height="20" id="cell_clk">
+    <text x="15" y="-4" class="nodelabel cell_clk" s:attribute="ref">clk</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_clk"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="inputExt" transform="translate(54,22)" s:width="30" s:height="20" id="cell_rst_n">
+    <text x="15" y="-4" class="nodelabel cell_rst_n" s:attribute="ref">rst_n</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_rst_n"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="inputExt" transform="translate(96,22)" s:width="30" s:height="20" id="cell_ce">
+    <text x="15" y="-4" class="nodelabel cell_ce" s:attribute="ref">ce</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_ce"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="inputExt" transform="translate(12,1411)" s:width="30" s:height="20" id="cell_adc_in">
+    <text x="15" y="-4" class="nodelabel cell_adc_in" s:attribute="ref">adc_in</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_adc_in"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="outputExt" transform="translate(138,22)" s:width="30" s:height="20" id="cell_dac_out">
+    <text x="15" y="-4" class="nodelabel cell_dac_out" s:attribute="ref">dac_out</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_dac_out"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+  <g s:type="outputExt" transform="translate(178,1398.5)" s:width="30" s:height="20" id="cell_error_out">
+    <text x="15" y="-4" class="nodelabel cell_error_out" s:attribute="ref">error_out</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_error_out"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+  <g s:type="join" transform="translate(137,1388)" s:width="4" s:height="40" id="cell_$join$,5,23,24,25,26,27,28,29,30,">
+    <rect width="5" height="40" class="splitjoinBody" s:generic="body"/>
+    <s:alias val="$_join_"/>
+    <g s:x="5" s:y="20" s:pid="out"/>
+    <g transform="translate(0,10)" s:x="0" s:y="10" s:pid="in0">
+      <text x="-3" y="-4" class="inputPortLabel">0</text>
+    </g>
+  </g>
+  <g s:type="split" transform="translate(83,1388)" s:width="5" s:height="40" id="cell_$split$,5,6,7,8,9,10,11,12,">
+    <rect width="5" height="20" class="splitjoinBody" s:generic="body"/>
+    <s:alias val="$_split_"/>
+    <g s:x="0" s:y="20" s:pid="in"/>
+    <g transform="translate(4,10)" s:x="4" s:y="10" s:pid="out0">
+      <text x="5" y="-4">0</text>
+    </g>
+  </g>
+  <line x1="143" x2="178" y1="1408.5" y2="1408.5" class="net_5,23,24,25,26,27,28,29,30"/>
+  <line x1="88" x2="137" y1="1398.5" y2="1398.5" class="net_5"/>
+  <line x1="40" x2="83.5" y1="1421" y2="1421" class="net_5,6,7,8,9,10,11,12"/>
+  <line x1="83.5" x2="83.5" y1="1421" y2="1409" class="net_5,6,7,8,9,10,11,12"/>
+</svg>

@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:s="https://github.com/nturley/netlistsvg" width="348" height="537">
+  <style>svg {
+    stroke:#000;
+    fill:none;
+  }
+  text {
+    fill:#000;
+    stroke:none;
+    font-size:10px;
+    font-weight: bold;
+    font-family: "Courier New", monospace;
+  }
+  .nodelabel {
+    text-anchor: middle;
+  }
+  .inputPortLabel {
+    text-anchor: end;
+  }
+  .splitjoinBody {
+    fill:#000;
+  }</style>
+  <g s:type="generic" transform="translate(12,179)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3466">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3466" s:attribute="ref">sky130_fd_sc_hd__clkinv_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3466"/>
+  </g>
+  <g s:type="generic" transform="translate(12,202)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3467">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3467" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3467"/>
+  </g>
+  <g s:type="generic" transform="translate(12,225)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3468">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3468" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3468"/>
+  </g>
+  <g s:type="generic" transform="translate(12,248)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3469">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3469" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3469"/>
+  </g>
+  <g s:type="generic" transform="translate(12,271)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3470">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3470" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3470"/>
+  </g>
+  <g s:type="generic" transform="translate(12,294)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3471">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3471" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3471"/>
+  </g>
+  <g s:type="generic" transform="translate(12,317)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3472">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3472" s:attribute="ref">sky130_fd_sc_hd__and4_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3472"/>
+  </g>
+  <g s:type="generic" transform="translate(12,340)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3473">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3473" s:attribute="ref">sky130_fd_sc_hd__a31oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3473"/>
+  </g>
+  <g s:type="generic" transform="translate(12,363)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3474">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3474" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3474"/>
+  </g>
+  <g s:type="generic" transform="translate(12,386)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3475">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3475" s:attribute="ref">sky130_fd_sc_hd__nand2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3475"/>
+  </g>
+  <g s:type="generic" transform="translate(12,409)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3476">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3476" s:attribute="ref">sky130_fd_sc_hd__xor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3476"/>
+  </g>
+  <g s:type="generic" transform="translate(12,432)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3477">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3477" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3477"/>
+  </g>
+  <g s:type="generic" transform="translate(12,455)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3478">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3478" s:attribute="ref">sky130_fd_sc_hd__nand4_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3478"/>
+  </g>
+  <g s:type="generic" transform="translate(12,478)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3479">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3479" s:attribute="ref">sky130_fd_sc_hd__a31oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3479"/>
+  </g>
+  <g s:type="generic" transform="translate(12,501)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3480">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3480" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3480"/>
+  </g>
+  <g s:type="generic" transform="translate(12,524)" s:width="30" s:height="40" id="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3481">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3481" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3465$auto$blifparse.cc:386:parse_blif$3481"/>
+  </g>
+  <g s:type="generic" transform="translate(12,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3337">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3337" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3337"/>
+  </g>
+  <g s:type="generic" transform="translate(180,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3338">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3338" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3338"/>
+  </g>
+  <g s:type="generic" transform="translate(12,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3339">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3339" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3339"/>
+  </g>
+  <g s:type="generic" transform="translate(180,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3340">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3340" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3340"/>
+  </g>
+  <g s:type="generic" transform="translate(12,110)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3341">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3341" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3341"/>
+  </g>
+  <g s:type="generic" transform="translate(180,110)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3342">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3342" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3342"/>
+  </g>
+  <g s:type="generic" transform="translate(12,133)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3343">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3343" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3343"/>
+  </g>
+  <g s:type="generic" transform="translate(180,133)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3344">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3344" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3344"/>
+  </g>
+  <g s:type="generic" transform="translate(12,156)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3345">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3345" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3345"/>
+  </g>
+  <g s:type="generic" transform="translate(180,156)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3349">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3349" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3349"/>
+  </g>
+  <g s:type="inputExt" transform="translate(12,22)" s:width="30" s:height="20" id="cell_clk">
+    <text x="15" y="-4" class="nodelabel cell_clk" s:attribute="ref">clk</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_clk"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="inputExt" transform="translate(54,22)" s:width="30" s:height="20" id="cell_rst_n">
+    <text x="15" y="-4" class="nodelabel cell_rst_n" s:attribute="ref">rst_n</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_rst_n"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="outputExt" transform="translate(96,22)" s:width="30" s:height="20" id="cell_count">
+    <text x="15" y="-4" class="nodelabel cell_count" s:attribute="ref">count</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_count"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+  <g s:type="outputExt" transform="translate(186,22)" s:width="30" s:height="20" id="cell_ce_servo">
+    <text x="15" y="-4" class="nodelabel cell_ce_servo" s:attribute="ref">ce_servo</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_ce_servo"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+  <g s:type="outputExt" transform="translate(138,22)" s:width="30" s:height="20" id="cell_ce_1hz">
+    <text x="15" y="-4" class="nodelabel cell_ce_1hz" s:attribute="ref">ce_1hz</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_ce_1hz"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+  <g s:type="outputExt" transform="translate(246,22)" s:width="30" s:height="20" id="cell_heartbeat">
+    <text x="15" y="-4" class="nodelabel cell_heartbeat" s:attribute="ref">heartbeat</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_heartbeat"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+All 6 phases complete. Here's a summary:
+
+**Phase 1 — SPI Slave Bug Fix:**
+- `spi_slave.v`: Changed `rx_data` to combinationally include current `mosi` bit (`{rx_shift[6:0], mosi}`) so the complete byte is available when `rx_valid` fires
+- `spi_regmap.v`: Added combinational address bypass (`read_addr`) so `tx_data` is correct in the same cycle for tx_shift reload
+- `cdc_bus_sync.v`: Changed to always-sample `hold_reg` (fixes toggle-parity issue with non-free-running spi_clk)
+- `csac_digital_top.v`: Used `reset_n` directly for SPI domain (sync deassert stalled on stopped spi_clk)
+- Lint: zero warnings
+
+**Phase 2 — RTL Tests:** 11/11 PASS
+
+**Phase 3 — Multi-Corner Synthesis:**
+| Corner | Cells | Area |
+|--------|-------|------|
+| TT (25°C/1.80V) | 957 | 12,220 μm² |
+| SS (100°C/1.60V) | 957 | 12,220 μm² |
+| FF (-40°C/1.95V) | 957 | 12,220 μm² |
+
+Zero unmapped cells across all corners.
+
+**Phase 4 — Gate-Level Sim:** 11/11 PASS (TT netlist + SKY130 cell models)
+
+**Phase 5 — Chip Architecture PNG:** Generated at `reports/csac_chip_professional.png`
+
+**Phase 6 — Git Push:** Committed and pushed to GitHub successfully.

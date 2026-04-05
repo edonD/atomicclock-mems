@@ -1,0 +1,79 @@
+# Synthesize individual modules for netlistsvg visualization
+# Generates separate JSON files per module
+
+# ── PID Controller ─────────────────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/pid_controller.v
+hierarchy -check -top pid_controller
+proc; opt; fsm; opt; memory; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+write_json ../reports/pid_controller.json
+stat
+
+design -reset
+
+# ── Lock Detector ──────────────────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/lock_detector.v
+hierarchy -check -top lock_detector
+proc; opt; fsm; opt; memory; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+write_json ../reports/lock_detector.json
+stat
+
+design -reset
+
+# ── Thermal Controller ─────────────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/thermal_controller.v
+hierarchy -check -top thermal_controller
+proc; opt; fsm; opt; memory; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+write_json ../reports/thermal_controller.json
+stat
+
+design -reset
+
+# ── SPI Slave ──────────────────────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/spi_slave.v
+hierarchy -check -top spi_slave
+proc; opt; fsm; opt; memory; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+write_json ../reports/spi_slave.json
+stat
+
+design -reset
+
+# ── Freq Divider (small instance for visibility) ───────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/freq_divider.v
+hierarchy -check -top freq_divider -chparam DIV_WIDTH 8 -chparam SERVO_BIT 4 -chparam ONEHZ_BIT 6
+proc; opt; fsm; opt; memory; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+write_json ../reports/freq_divider.json
+stat
+
+design -reset
+
+# ── CDC Bus Sync ───────────────────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/cdc_sync2.v
+read_verilog ../rtl/cdc_bus_sync.v
+hierarchy -check -top cdc_bus_sync -chparam WIDTH 8
+proc; opt; fsm; opt; memory; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+write_json ../reports/cdc_bus_sync.json
+stat

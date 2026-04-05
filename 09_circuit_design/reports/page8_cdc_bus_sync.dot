@@ -1,0 +1,75 @@
+digraph "$paramod&#9586;cdc_sync2&#9586;STAGES=s32'00000000000000000000000000000010" {
+label="$paramod&#9586;cdc_sync2&#9586;STAGES=s32'00000000000000000000000000000010";
+rankdir="LR";
+remincross=true;
+n1 [ shape=octagon, label="clk_dst", color="black", fontcolor="black" ];
+n2 [ shape=octagon, label="din", color="black", fontcolor="black" ];
+n3 [ shape=octagon, label="dout", color="black", fontcolor="black" ];
+n4 [ shape=octagon, label="rst_n", color="black", fontcolor="black" ];
+n5 [ shape=diamond, label="sync_chain", color="black", fontcolor="black" ];
+{ rank="source"; n1; n2; n4;}
+{ rank="sink"; n3;}
+c10 [ shape=record, label="{{<p6> ARST|<p7> CLK|<p8> D}|$392\n$adff|{<p9> Q}}",  ];
+x0 [ shape=record, style=rounded, label="<s1> 0:0 - 1:1 |<s0> 0:0 - 0:0 ", colorscheme="dark28", color="8", fontcolor="8" ];
+x0:e -> c10:p8:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, colorscheme="dark28", color="8", fontcolor="8", style="setlinewidth(3)", label="<2>"];
+x1 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 ", colorscheme="dark28", color="8", fontcolor="8" ];
+n1:e -> c10:p7:w [colorscheme="dark28", color="4", fontcolor="4", label=""];
+n2:e -> x0:s0:w [colorscheme="dark28", color="6", fontcolor="6", label=""];
+x1:e -> n3:w [colorscheme="dark28", color="5", fontcolor="5", label=""];
+n4:e -> c10:p6:w [colorscheme="dark28", color="2", fontcolor="2", label=""];
+c10:p9:e -> n5:w [colorscheme="dark28", color="8", fontcolor="8", style="setlinewidth(3)", label="<2>"];
+n5:e -> x0:s1:w [colorscheme="dark28", color="8", fontcolor="8", label=""];
+n5:e -> x1:s0:w [colorscheme="dark28", color="8", fontcolor="8", label=""];
+}
+digraph "cdc_bus_sync" {
+label="cdc_bus_sync";
+rankdir="LR";
+remincross=true;
+n2 [ shape=octagon, label="capture", color="black", fontcolor="black" ];
+n3 [ shape=octagon, label="clk_dst", color="black", fontcolor="black" ];
+n4 [ shape=octagon, label="clk_src", color="black", fontcolor="black" ];
+n5 [ shape=octagon, label="data_dst", color="black", fontcolor="black" ];
+n6 [ shape=octagon, label="data_src", color="black", fontcolor="black" ];
+n7 [ shape=diamond, label="hold_reg", color="black", fontcolor="black" ];
+n8 [ shape=octagon, label="rst_dst_n", color="black", fontcolor="black" ];
+n9 [ shape=octagon, label="rst_src_n", color="black", fontcolor="black" ];
+n10 [ shape=diamond, label="toggle_dst", color="black", fontcolor="black" ];
+n11 [ shape=diamond, label="toggle_dst_d", color="black", fontcolor="black" ];
+n12 [ shape=diamond, label="toggle_src", color="black", fontcolor="black" ];
+n13 [ shape=octagon, label="valid_dst", color="black", fontcolor="black" ];
+{ rank="source"; n2; n3; n4; n6; n8; n9;}
+{ rank="sink"; n13; n5;}
+c19 [ shape=record, label="{{<p14> ARST|<p15> CLK|<p16> D|<p17> EN}|$397\n$adffe|{<p18> Q}}",  ];
+c20 [ shape=record, label="{{<p14> ARST|<p15> CLK|<p16> D|<p17> EN}|$398\n$adffe|{<p18> Q}}",  ];
+c23 [ shape=record, label="{{<p21> A}|$380\n$not|{<p22> Y}}",  ];
+c24 [ shape=record, label="{{<p14> ARST|<p15> CLK|<p16> D}|$395\n$adff|{<p18> Q}}",  ];
+c25 [ shape=record, label="{{<p14> ARST|<p15> CLK|<p16> D}|$396\n$adff|{<p18> Q}}",  ];
+c27 [ shape=record, label="{{<p21> A|<p26> B}|$383\n$xor|{<p22> Y}}",  ];
+c31 [ shape=record, label="{{<p3> clk_dst|<p28> din|<p29> rst_n}|u_sync_toggle\n$paramod&#9586;cdc_sync2&#9586;STAGES=s32'00000000000000000000000000000010|{<p30> dout}}",  ];
+c23:p22:e -> c20:p16:w [colorscheme="dark28", color="1", fontcolor="1", label=""];
+c31:p30:e -> n10:w [colorscheme="dark28", color="8", fontcolor="8", label=""];
+n10:e -> c24:p16:w [colorscheme="dark28", color="8", fontcolor="8", label=""];
+n10:e -> c27:p21:w [colorscheme="dark28", color="8", fontcolor="8", label=""];
+c24:p18:e -> n11:w [colorscheme="dark28", color="2", fontcolor="2", label=""];
+n11:e -> c27:p26:w [colorscheme="dark28", color="2", fontcolor="2", label=""];
+c20:p18:e -> n12:w [colorscheme="dark28", color="6", fontcolor="6", label=""];
+n12:e -> c23:p21:w [colorscheme="dark28", color="6", fontcolor="6", label=""];
+n12:e -> c31:p28:w [colorscheme="dark28", color="6", fontcolor="6", label=""];
+c27:p22:e -> n13:w [colorscheme="dark28", color="1", fontcolor="1", label=""];
+n2:e -> c19:p17:w [colorscheme="dark28", color="6", fontcolor="6", label=""];
+n2:e -> c20:p17:w [colorscheme="dark28", color="6", fontcolor="6", label=""];
+n3:e -> c24:p15:w [colorscheme="dark28", color="8", fontcolor="8", label=""];
+n3:e -> c25:p15:w [colorscheme="dark28", color="8", fontcolor="8", label=""];
+n3:e -> c31:p3:w [colorscheme="dark28", color="8", fontcolor="8", label=""];
+n4:e -> c19:p15:w [colorscheme="dark28", color="5", fontcolor="5", label=""];
+n4:e -> c20:p15:w [colorscheme="dark28", color="5", fontcolor="5", label=""];
+c25:p18:e -> n5:w [colorscheme="dark28", color="3", fontcolor="3", style="setlinewidth(3)", label="<8>"];
+n6:e -> c19:p16:w [colorscheme="dark28", color="2", fontcolor="2", style="setlinewidth(3)", label="<8>"];
+c19:p18:e -> n7:w [colorscheme="dark28", color="2", fontcolor="2", style="setlinewidth(3)", label="<8>"];
+n7:e -> c25:p16:w [colorscheme="dark28", color="2", fontcolor="2", style="setlinewidth(3)", label="<8>"];
+n8:e -> c24:p14:w [colorscheme="dark28", color="3", fontcolor="3", label=""];
+n8:e -> c25:p14:w [colorscheme="dark28", color="3", fontcolor="3", label=""];
+n8:e -> c31:p29:w [colorscheme="dark28", color="3", fontcolor="3", label=""];
+n9:e -> c19:p14:w [colorscheme="dark28", color="4", fontcolor="4", label=""];
+n9:e -> c20:p14:w [colorscheme="dark28", color="4", fontcolor="4", label=""];
+}

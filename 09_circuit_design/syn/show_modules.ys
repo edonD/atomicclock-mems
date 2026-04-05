@@ -1,0 +1,61 @@
+# Generate proper gate-level schematics using Yosys show + Graphviz
+# Outputs .dot → .png for each module
+
+# ── Lock Detector (34 cells — readable) ────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/lock_detector.v
+hierarchy -check -top lock_detector
+proc; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+show -format dot -prefix ../reports/lock_detector_gates -width -colors 1
+
+design -reset
+
+# ── Thermal Controller (42 cells) ──────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/thermal_controller.v
+hierarchy -check -top thermal_controller
+proc; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+show -format dot -prefix ../reports/thermal_ctrl_gates -width -colors 1
+
+design -reset
+
+# ── SPI Slave (41 cells) ───────────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/spi_slave.v
+hierarchy -check -top spi_slave
+proc; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+show -format dot -prefix ../reports/spi_slave_gates -width -colors 1
+
+design -reset
+
+# ── CDC Bus Sync (small, 8-bit) ────────────────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/cdc_sync2.v
+read_verilog ../rtl/cdc_bus_sync.v
+hierarchy -check -top cdc_bus_sync -chparam WIDTH 8
+proc; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+show -format dot -prefix ../reports/cdc_sync_gates -width -colors 1
+
+design -reset
+
+# ── Freq Divider (8-bit for readability) ───────────────────
+read_verilog ../rtl/csac_pkg.v
+read_verilog ../rtl/freq_divider.v
+hierarchy -check -top freq_divider -chparam DIV_WIDTH 8 -chparam SERVO_BIT 4 -chparam ONEHZ_BIT 6
+proc; opt; techmap; opt
+dfflibmap -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty /home/ubuntu/.volare/volare/sky130/versions/6d4d11780c40b20ee63cc98e645307a9bf2b2ab8/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean -purge
+show -format dot -prefix ../reports/freq_divider_gates -width -colors 1

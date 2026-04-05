@@ -1,0 +1,253 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:s="https://github.com/nturley/netlistsvg" width="574" height="782">
+  <style>svg {
+    stroke:#000;
+    fill:none;
+  }
+  text {
+    fill:#000;
+    stroke:none;
+    font-size:10px;
+    font-weight: bold;
+    font-family: "Courier New", monospace;
+  }
+  .nodelabel {
+    text-anchor: middle;
+  }
+  .inputPortLabel {
+    text-anchor: end;
+  }
+  .splitjoinBody {
+    fill:#000;
+  }</style>
+  <g s:type="generic" transform="translate(180,179)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3215">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3215" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3215"/>
+  </g>
+  <g s:type="generic" transform="translate(12,202)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3216">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3216" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3216"/>
+  </g>
+  <g s:type="generic" transform="translate(12,225)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3217">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3217" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3217"/>
+  </g>
+  <g s:type="generic" transform="translate(12,248)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3218">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3218" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3218"/>
+  </g>
+  <g s:type="generic" transform="translate(12,271)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3219">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3219" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3219"/>
+  </g>
+  <g s:type="generic" transform="translate(12,294)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3220">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3220" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3220"/>
+  </g>
+  <g s:type="generic" transform="translate(12,317)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3221">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3221" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3221"/>
+  </g>
+  <g s:type="generic" transform="translate(12,340)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3222">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3222" s:attribute="ref">sky130_fd_sc_hd__nand3_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3222"/>
+  </g>
+  <g s:type="generic" transform="translate(12,363)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3223">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3223" s:attribute="ref">sky130_fd_sc_hd__a31oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3223"/>
+  </g>
+  <g s:type="generic" transform="translate(12,386)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3224">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3224" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3224"/>
+  </g>
+  <g s:type="generic" transform="translate(12,409)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3225">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3225" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3225"/>
+  </g>
+  <g s:type="generic" transform="translate(12,432)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3226">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3226" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3226"/>
+  </g>
+  <g s:type="generic" transform="translate(12,455)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3227">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3227" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3227"/>
+  </g>
+  <g s:type="generic" transform="translate(12,478)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3228">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3228" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3228"/>
+  </g>
+  <g s:type="generic" transform="translate(12,501)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3229">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3229" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3229"/>
+  </g>
+  <g s:type="generic" transform="translate(12,524)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3230">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3230" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3230"/>
+  </g>
+  <g s:type="generic" transform="translate(12,547)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3231">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3231" s:attribute="ref">sky130_fd_sc_hd__mux2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3231"/>
+  </g>
+  <g s:type="generic" transform="translate(12,570)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3232">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3232" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3232"/>
+  </g>
+  <g s:type="generic" transform="translate(12,593)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3233">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3233" s:attribute="ref">sky130_fd_sc_hd__xnor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3233"/>
+  </g>
+  <g s:type="generic" transform="translate(12,616)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3234">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3234" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3234"/>
+  </g>
+  <g s:type="generic" transform="translate(12,639)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3235">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3235" s:attribute="ref">sky130_fd_sc_hd__a21oi_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3235"/>
+  </g>
+  <g s:type="generic" transform="translate(12,662)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3236">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3236" s:attribute="ref">sky130_fd_sc_hd__lpflow_isobufsrc_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3236"/>
+  </g>
+  <g s:type="generic" transform="translate(12,685)" s:width="30" s:height="40" id="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3237">
+    <text x="15" y="-4" class="nodelabel cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3237" s:attribute="ref">sky130_fd_sc_hd__nor2_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$abc$3214$auto$blifparse.cc:386:parse_blif$3237"/>
+  </g>
+  <g s:type="generic" transform="translate(234,22)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3130">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3130" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3130"/>
+  </g>
+  <g s:type="generic" transform="translate(402,22)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3131">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3131" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3131"/>
+  </g>
+  <g s:type="generic" transform="translate(12,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3132">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3132" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3132"/>
+  </g>
+  <g s:type="generic" transform="translate(180,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3133">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3133" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3133"/>
+  </g>
+  <g s:type="generic" transform="translate(348,64)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3134">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3134" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3134"/>
+  </g>
+  <g s:type="generic" transform="translate(12,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3135">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3135" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3135"/>
+  </g>
+  <g s:type="generic" transform="translate(180,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3136">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3136" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3136"/>
+  </g>
+  <g s:type="generic" transform="translate(348,87)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3137">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3137" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3137"/>
+  </g>
+  <g s:type="generic" transform="translate(12,110)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3138">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3138" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3138"/>
+  </g>
+  <g s:type="generic" transform="translate(180,110)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3139">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3139" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3139"/>
+  </g>
+  <g s:type="generic" transform="translate(348,110)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3162">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3162" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3162"/>
+  </g>
+  <g s:type="generic" transform="translate(12,133)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3163">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3163" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3163"/>
+  </g>
+  <g s:type="generic" transform="translate(180,133)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3164">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3164" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3164"/>
+  </g>
+  <g s:type="generic" transform="translate(348,133)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3165">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3165" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3165"/>
+  </g>
+  <g s:type="generic" transform="translate(12,156)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3166">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3166" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3166"/>
+  </g>
+  <g s:type="generic" transform="translate(180,156)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3167">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3167" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3167"/>
+  </g>
+  <g s:type="generic" transform="translate(348,156)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3168">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3168" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3168"/>
+  </g>
+  <g s:type="generic" transform="translate(12,179)" s:width="30" s:height="40" id="cell_$auto$ff.cc:266:slice$3169">
+    <text x="15" y="-4" class="nodelabel cell_$auto$ff.cc:266:slice$3169" s:attribute="ref">sky130_fd_sc_hd__dfrtp_1</text>
+    <rect width="30" height="0" s:generic="body" class="cell_$auto$ff.cc:266:slice$3169"/>
+  </g>
+  <g s:type="inputExt" transform="translate(12,22)" s:width="30" s:height="20" id="cell_sclk">
+    <text x="15" y="-4" class="nodelabel cell_sclk" s:attribute="ref">sclk</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_sclk"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="inputExt" transform="translate(54,22)" s:width="30" s:height="20" id="cell_rst_n">
+    <text x="15" y="-4" class="nodelabel cell_rst_n" s:attribute="ref">rst_n</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_rst_n"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="inputExt" transform="translate(306,685)" s:width="30" s:height="20" id="cell_mosi">
+    <text x="15" y="-4" class="nodelabel cell_mosi" s:attribute="ref">mosi</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_mosi"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="outputExt" transform="translate(96,22)" s:width="30" s:height="20" id="cell_miso">
+    <text x="15" y="-4" class="nodelabel cell_miso" s:attribute="ref">miso</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_miso"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+  <g s:type="inputExt" transform="translate(138,22)" s:width="30" s:height="20" id="cell_cs_n">
+    <text x="15" y="-4" class="nodelabel cell_cs_n" s:attribute="ref">cs_n</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_cs_n"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="inputExt" transform="translate(180,22)" s:width="30" s:height="20" id="cell_tx_data">
+    <text x="15" y="-4" class="nodelabel cell_tx_data" s:attribute="ref">tx_data</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_tx_data"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="outputExt" transform="translate(419,695)" s:width="30" s:height="20" id="cell_rx_data">
+    <text x="15" y="-4" class="nodelabel cell_rx_data" s:attribute="ref">rx_data</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_rx_data"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+  <g s:type="outputExt" transform="translate(508,685)" s:width="30" s:height="20" id="cell_rx_valid">
+    <text x="15" y="-4" class="nodelabel cell_rx_valid" s:attribute="ref">rx_valid</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_rx_valid"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+  <g s:type="outputExt" transform="translate(508,750)" s:width="30" s:height="20" id="cell_byte_done">
+    <text x="15" y="-4" class="nodelabel cell_byte_done" s:attribute="ref">byte_done</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_byte_done"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+  <g s:type="join" transform="translate(378,684.5)" s:width="4" s:height="40" id="cell_$join$,4,15,16,17,18,19,20,21,">
+    <rect width="5" height="40" class="splitjoinBody" s:generic="body"/>
+    <s:alias val="$_join_"/>
+    <g s:x="5" s:y="20" s:pid="out"/>
+    <g transform="translate(0,10)" s:x="0" s:y="10" s:pid="in0">
+      <text x="-3" y="-4" class="inputPortLabel">0</text>
+    </g>
+  </g>
+  <line x1="384" x2="419" y1="705" y2="705" class="net_4,15,16,17,18,19,20,21"/>
+  <line x1="483" x2="508" y1="695" y2="695" class="net_22"/>
+  <line x1="483" x2="483" y1="695" y2="760" class="net_22"/>
+  <line x1="483" x2="508" y1="760" y2="760" class="net_22"/>
+  <line x1="334" x2="378" y1="695" y2="695" class="net_4"/>
+</svg>
